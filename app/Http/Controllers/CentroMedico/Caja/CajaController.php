@@ -12,6 +12,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
 use Barryvdh\DomPDF\Facade\Pdf;
+use App\Models\PersonalMedico;
 use Illuminate\Pagination\LengthAwarePaginator;
 
 class CajaController extends Controller
@@ -235,7 +236,6 @@ class CajaController extends Controller
             }
 
             return view('admin.centro.caja.index', compact('facturas', 'paciente', 'dni'));
-
         } catch (\Exception $e) {
             Log::error('Error en CajaController@index: ' . $e->getMessage());
             return redirect()->back()->withErrors(['error' => 'Ocurrió un error al cargar las facturas.']);
@@ -260,14 +260,10 @@ class CajaController extends Controller
                 ->where('estado', 'activo')
                 ->get();
 
-            $medicos = HorarioMedico::whereHas('personalMedico', function ($query) {
-                $query->where('id_centro', Auth::user()->id_centro);
-            })
-                ->where('dia_semana', now()->locale('es')->isoFormat('dddd'))
-                ->where('hora_inicio', '<=', now()->format('H:i'))
-                ->where('hora_fin', '>=', now()->format('H:i'))
-                ->with('personalMedico.usuario')
+            $medicos = PersonalMedico::where('id_centro', Auth::user()->id_centro)
+                ->with(['usuario', 'especialidad'])
                 ->get();
+
 
             return view('admin.centro.caja.create-factura', compact('paciente', 'servicios', 'medicos'));
         } catch (\Exception $e) {
@@ -318,6 +314,7 @@ class CajaController extends Controller
                 'cantidad' => 1,
                 'subtotal' => $servicio->precio,
             ]);
+
 
             Log::info('Factura creada exitosamente:', $factura->toArray());
 

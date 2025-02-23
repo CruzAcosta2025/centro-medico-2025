@@ -9,8 +9,8 @@
     <!-- Botón para crear un nuevo servicio -->
     <div style="text-align: right; margin-bottom: 20px;">
         <a href="{{ route('servicios.create') }}"
-           style="background: #004643; color: #fff; padding: 10px 15px; text-decoration: none; border-radius: 5px;">
-           Crear Servicio
+            style="background: #004643; color: #fff; padding: 10px 15px; text-decoration: none; border-radius: 5px;">
+            Crear Servicio
         </a>
     </div>
 
@@ -34,15 +34,15 @@
                 <td style="padding: 10px; border-bottom: 1px solid #ccc;">{{ ucfirst($servicio->estado) }}</td>
                 <td style="padding: 10px; border-bottom: 1px solid #ccc;">
                     <a href="{{ route('servicios.edit', $servicio->id_servicio) }}"
-                       style="color: #004643; text-decoration: none; margin-right: 10px;">
-                       Editar
+                        style="color: #004643; text-decoration: none; margin-right: 10px;">
+                        Editar
                     </a>
                     <form action="{{ route('servicios.destroy', $servicio->id_servicio) }}" method="POST" style="display: inline;">
                         @csrf
                         @method('DELETE')
                         <button type="submit"
-                                style="background: transparent; color: red; border: none; cursor: pointer;"
-                                onclick="return confirm('¿Está seguro de eliminar este servicio?')">Eliminar</button>
+                            style="background: transparent; color: red; border: none; cursor: pointer;"
+                            onclick="return confirm('¿Está seguro de eliminar este servicio?')">Eliminar</button>
                     </form>
                 </td>
             </tr>

@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
 use App\Services\ReniecService;
+
 class DonadoresController extends Controller
 {
 
@@ -31,8 +32,6 @@ class DonadoresController extends Controller
         return response()->json($datos);
     }
 
-
-
     public function index(Request $request)
     {
         Log::info('Iniciando DonadoresController@index');
@@ -44,9 +43,11 @@ class DonadoresController extends Controller
         $donadores = DonadorSangre::where('id_centro', Auth::user()->id_centro);
 
         if ($dni) {
+            // Primero buscamos si el donador existe con ese DNI en la tabla donadores_sangre
             $donadores = $donadores->where('dni', $dni)->get();
 
             if ($donadores->isEmpty()) {
+                // Si no se encuentra en donadores, buscamos en la tabla de pacientes
                 $paciente = Paciente::where('id_centro', Auth::user()->id_centro)
                     ->where('dni', $dni)
                     ->first();
@@ -56,11 +57,13 @@ class DonadoresController extends Controller
                 }
             }
         } else {
+            // Si no se está buscando por DNI, paginamos los donadores
             $donadores = $donadores->paginate(10);
         }
 
         return view('admin.centro.sangre.donadores.index', compact('donadores', 'paciente', 'mensaje', 'dni'));
     }
+
 
     public function create()
     {

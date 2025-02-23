@@ -31,17 +31,17 @@
                 <li><a href="{{ route('especialidad.index') }}" class="px-4 py-2 bg-blue-800 text-white rounded-md hover:bg-blue-900 transition">Gestión de Especialidades</a></li>
                 <li><a href="{{ route('horarios.index') }}" class="px-4 py-2 bg-blue-800 text-white rounded-md hover:bg-blue-900 transition">Gestión de Horarios</a></li>
                 <li><a href="{{ route('turnos.disponibles') }}" class="px-4 py-2 bg-blue-800 text-white rounded-md hover:bg-blue-900 transition">Turnos Disponibles</a></li>
-                <!-- <li><a href="{{ route('caja.index') }}" class="px-4 py-2 bg-blue-800 text-white rounded-md hover:bg-blue-900 transition">Facturación</a></li> -->
+                <li><a href="{{ route('caja.index') }}" class="px-4 py-2 bg-blue-800 text-white rounded-md hover:bg-blue-900 transition">Facturación</a></li> 
                 <li><a href="{{ route('servicios.index') }}" class="px-4 py-2 bg-blue-800 text-white rounded-md hover:bg-blue-900 transition">Gestión de Servicios</a></li>
-                <!-- <li><a href="{{ route('sangre.donadores.index') }}" class="px-4 py-2 bg-blue-800 text-white rounded-md hover:bg-blue-900 transition">Donadores de Sangre</a></li> -->
-                <!-- <li><a href="{{ route('sangre.solicitudes.index') }}" class="px-4 py-2 bg-blue-800 text-white rounded-md hover:bg-blue-900 transition">Solicitudes de Sangre</a></li> -->
+                <li><a href="{{ route('sangre.donadores.index') }}" class="px-4 py-2 bg-blue-800 text-white rounded-md hover:bg-blue-900 transition">Donadores de Sangre</a></li>
+                <li><a href="{{ route('sangre.solicitudes.index') }}" class="px-4 py-2 bg-blue-800 text-white rounded-md hover:bg-blue-900 transition">Solicitudes de Sangre</a></li>
                 <li><a href="{{ route('pacientes.index') }}" class="px-4 py-2 bg-blue-800 text-white rounded-md hover:bg-blue-900 transition">Gestión de Pacientes</a></li>
                 <li><a href="{{ route('historial.index') }}" class="px-4 py-2 bg-blue-800 text-white rounded-md hover:bg-blue-900 transition">Historial Clínico</a></li>
                 <li><a href="{{ route('alergias.index') }}" class="px-4 py-2 bg-blue-800 text-white rounded-md hover:bg-blue-900 transition">Gestión de Alergias</a></li>
                 <li><a href="{{ route('diagnosticos.index') }}" class="px-4 py-2 bg-blue-800 text-white rounded-md hover:bg-blue-900 transition">Diagnósticos</a></li>
-                <!-- <li><a href="{{ route('vacunas.index') }}" class="px-4 py-2 bg-blue-800 text-white rounded-md hover:bg-blue-900 transition">Gestión de Vacunas</a></li> -->
+                <li><a href="{{ route('vacunas.index') }}" class="px-4 py-2 bg-blue-800 text-white rounded-md hover:bg-blue-900 transition">Gestión de Vacunas</a></li>
                 <li><a href="{{ route('cirugias.index') }}" class="px-4 py-2 bg-blue-800 text-white rounded-md hover:bg-blue-900 transition">Cirugías</a></li>
-                <!-- <li><a href="{{ route('recetas.index') }}" class="px-4 py-2 bg-blue-800 text-white rounded-md hover:bg-blue-900 transition">Recetas y Medicamentos</a></li> -->
+                <li><a href="{{ route('recetas.index') }}" class="px-4 py-2 bg-blue-800 text-white rounded-md hover:bg-blue-900 transition">Recetas y Medicamentos</a></li>
                 <!-- <li><a href="{{ route('triajes.index') }}" class="px-4 py-2 bg-blue-800 text-white rounded-md hover:bg-blue-900 transition">Triajes</a></li> -->
                 <li><a href="{{ route('tratamientos.index') }}" class="px-4 py-2 bg-blue-800 text-white rounded-md hover:bg-blue-900 transition">Tratamientos</a></li>
                 <!-- <li><a href="{{ route('archivos.index') }}" class="px-4 py-2 bg-blue-800 text-white rounded-md hover:bg-blue-900 transition">Archivos Adjuntos</a></li> -->

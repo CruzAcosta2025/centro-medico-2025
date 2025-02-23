@@ -31,7 +31,7 @@ class SolicitudesController extends Controller
         if ($nombrePaciente) {
             $solicitudes->whereHas('paciente', function ($query) use ($nombrePaciente) {
                 $query->where('primer_nombre', 'LIKE', "%$nombrePaciente%")
-                      ->orWhere('primer_apellido', 'LIKE', "%$nombrePaciente%");
+                    ->orWhere('primer_apellido', 'LIKE', "%$nombrePaciente%");
             });
         }
 
@@ -66,6 +66,8 @@ class SolicitudesController extends Controller
             'id_paciente' => 'required|exists:pacientes,id_paciente',
             'cantidad' => 'required|integer|min:1|max:10',
             'urgencia' => 'required|in:BAJA,MEDIA,ALTA',
+            'fecha_solicitud' => 'required|date',
+
         ]);
 
         $paciente = Paciente::findOrFail($request->id_paciente);
@@ -76,6 +78,7 @@ class SolicitudesController extends Controller
             'tipo_sangre' => $paciente->grupo_sanguineo,
             'cantidad' => $request->cantidad,
             'urgencia' => $request->urgencia,
+            'fecha_solicitud' => $request->fecha_solicitud,
             'estado' => 'PENDIENTE',
             'fecha_completada' => null, // Queda pendiente por defecto
         ]);

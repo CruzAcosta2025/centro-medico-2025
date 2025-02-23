@@ -9,7 +9,7 @@
     <!-- Buscador -->
     <form action="{{ route('sangre.donadores.index') }}" method="GET" style="margin-bottom: 20px;">
         <input type="text" name="dni" value="{{ request('dni') }}" placeholder="Buscar por DNI"
-               style="padding: 10px; border: 1px solid #ccc; border-radius: 4px; width: 200px;">
+            style="padding: 10px; border: 1px solid #ccc; border-radius: 4px; width: 200px;">
         <select name="tipo_sangre" style="padding: 10px; border: 1px solid #ccc; border-radius: 4px;">
             <option value="">Todos</option>
             <option value="A+" {{ request('tipo_sangre') == 'A+' ? 'selected' : '' }}>A+</option>
@@ -26,20 +26,20 @@
     </form>
 
     @if ($mensaje)
-        <div style="text-align: center; margin-bottom: 20px;">
-            <p style="color: red;">{{ $mensaje }}</p>
-            <a href="{{ route('sangre.donadores.create') }}"
-               style="padding: 10px; background: #1d72b8; color: #fff; border-radius: 4px; text-decoration: none;">Registrar Manualmente</a>
-        </div>
+    <div style="text-align: center; margin-bottom: 20px;">
+        <p style="color: red;">{{ $mensaje }}</p>
+        <a href="{{ route('sangre.donadores.create') }}"
+            style="padding: 10px; background: #1d72b8; color: #fff; border-radius: 4px; text-decoration: none;">Registrar Manualmente</a>
+    </div>
     @elseif ($paciente)
-        <div style="background: #f9f9f9; padding: 20px; border: 1px solid #ccc; border-radius: 4px; margin-bottom: 20px;">
-            <h3 style="color: #004643;">Paciente Encontrado</h3>
-            <p><strong>Nombre:</strong> {{ $paciente->primer_nombre }} {{ $paciente->primer_apellido }}</p>
-            <p><strong>DNI:</strong> {{ $paciente->dni }}</p>
-            <p><strong>Grupo Sanguíneo:</strong> {{ $paciente->grupo_sanguineo }}</p>
-            <a href="{{ route('sangre.donadores.registrarPaciente', $paciente->id_paciente) }}"
-               style="padding: 10px; background: #1d72b8; color: #fff; border-radius: 4px; text-decoration: none;">Registrar como Donador</a>
-        </div>
+    <div style="background: #f9f9f9; padding: 20px; border: 1px solid #ccc; border-radius: 4px; margin-bottom: 20px;">
+        <h3 style="color: #004643;">Paciente Encontrado</h3>
+        <p><strong>Nombre:</strong> {{ $paciente->primer_nombre }} {{ $paciente->primer_apellido }}</p>
+        <p><strong>DNI:</strong> {{ $paciente->dni }}</p>
+        <p><strong>Grupo Sanguíneo:</strong> {{ $paciente->grupo_sanguineo }}</p>
+        <a href="{{ route('sangre.donadores.registrarPaciente', $paciente->id_paciente) }}"
+            style="padding: 10px; background: #1d72b8; color: #fff; border-radius: 4px; text-decoration: none;">Registrar como Donador</a>
+    </div>
     @endif
 
     <table style="width: 100%; border-collapse: collapse; margin-bottom: 20px;">
@@ -55,32 +55,32 @@
         </thead>
         <tbody>
             @forelse ($donadores as $donador)
-                <tr style="border-bottom: 1px solid #ddd;">
-                    <td style="padding: 10px;">{{ $donador->nombre }} {{ $donador->apellido }}</td>
-                    <td style="padding: 10px;">{{ $donador->dni }}</td>
-                    <td style="padding: 10px;">{{ $donador->tipo_sangre }}</td>
-                    <td style="padding: 10px;">{{ $donador->telefono }}</td>
-                    <td style="padding: 10px;">{{ ucfirst(strtolower(str_replace('_', ' ', $donador->estado))) }}</td>
-                    <td style="padding: 10px;">
-                        <a href="{{ route('sangre.donadores.edit', $donador->id_donador) }}"
-                           style="background: #1d72b8; color: #fff; padding: 5px 10px; border-radius: 4px; text-decoration: none;">Editar</a>
-                        <form action="{{ route('sangre.donadores.destroy', $donador->id_donador) }}" method="POST" style="display: inline;">
-                            @csrf
-                            @method('DELETE')
-                            <button type="submit" style="background: #e63946; color: #fff; padding: 5px 10px; border: none; border-radius: 4px;">Eliminar</button>
-                        </form>
-                    </td>
-                </tr>
+            <tr style="border-bottom: 1px solid #ddd;">
+                <td style="padding: 10px;">{{ $donador->nombre }} {{ $donador->apellido }}</td>
+                <td style="padding: 10px;">{{ $donador->dni }}</td>
+                <td style="padding: 10px;">{{ $donador->tipo_sangre }}</td>
+                <td style="padding: 10px;">{{ $donador->telefono }}</td>
+                <td style="padding: 10px;">{{ ucfirst(strtolower(str_replace('_', ' ', $donador->estado))) }}</td>
+                <td style="padding: 10px;">
+                    <a href="{{ route('sangre.donadores.edit', $donador->id_donador) }}"
+                        style="background: #1d72b8; color: #fff; padding: 5px 10px; border-radius: 4px; text-decoration: none;">Editar</a>
+                    <form action="{{ route('sangre.donadores.destroy', $donador->id_donador) }}" method="POST" style="display: inline;">
+                        @csrf
+                        @method('DELETE')
+                        <button type="submit" style="background: #e63946; color: #fff; padding: 5px 10px; border: none; border-radius: 4px;">Eliminar</button>
+                    </form>
+                </td>
+            </tr>
             @empty
-                <tr>
-                    <td colspan="6" style="text-align: center; padding: 20px;">No se encontraron donadores registrados.</td>
-                </tr>
+            <tr>
+                <td colspan="6" style="text-align: center; padding: 20px;">No se encontraron donadores registrados.</td>
+            </tr>
             @endforelse
         </tbody>
     </table>
     <div style="text-align: center;">
         @if ($donadores instanceof \Illuminate\Pagination\LengthAwarePaginator)
-            {{ $donadores->links() }}
+        {{ $donadores->links() }}
         @endif
     </div>
 
