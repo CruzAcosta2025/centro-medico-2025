@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -30,9 +31,9 @@ class PersonalMedico extends Model
     ];
 
     public function usuario()
-{
-    return $this->belongsTo(Usuario::class, 'id_usuario', 'id_usuario');
-}
+    {
+        return $this->belongsTo(Usuario::class, 'id_usuario', 'id_usuario');
+    }
 
 
     public function especialidad()
@@ -45,11 +46,19 @@ class PersonalMedico extends Model
         return $this->belongsTo(CentroMedico::class, 'id_centro'); // Define la relación con centros_medicos
     }
 
+    public function consultas()
+    {
+        return $this->hasMany(Consulta::class, 'id_medico', 'id_personal_medico');
+    }
+
+
     // Relación con los horarios médicos
     public function horariosMedicos()
     {
-        return $this->hasMany(HorarioMedico::class, 'id_personal_medico');
+        return $this->hasMany(HorarioMedico::class, 'id_personal_medico', 'id_personal_medico');
     }
+
+
 
     // Método para verificar si el médico tiene horarios activos
     public function getHorariosActivosAttribute()

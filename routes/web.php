@@ -40,6 +40,7 @@ use App\Http\Controllers\CentroMedico\Reportes\ReporteController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\DniController;
 
+
 Route::get('/buscar-dni', [DniController::class, 'buscarDni'])->name('buscar.dni');
 Route::post('/buscar-dni', [DniController::class, 'buscarDni'])->name('buscar.dni.post');
 Route::post('/pacientes/buscar-dni', [PacienteController::class, 'buscarPorDni'])->name('pacientes.buscar.dni');
@@ -90,12 +91,15 @@ Route::middleware('guest')->group(function () {
     })->name('password.email');
 });
 
+use App\Http\Controllers\AdminGlobalController;
+
+
+
 // Rutas protegidas por autenticación
 Route::middleware(['auth'])->group(function () {
     // Panel de Administrador Global
-    Route::get('/admin/global/dashboard', function () {
-        return view('admin.global.dashboard');
-    })->name('admin.global.dashboard');
+    Route::get('/admin/global/dashboard', [AdminGlobalController::class, 'dashboard'])
+        ->name('admin.global.dashboard');
 
     // Panel de Administrador de Centro Médico
     Route::get('/admin/centro/dashboard', function () {

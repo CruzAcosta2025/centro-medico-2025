@@ -16,23 +16,23 @@
     <p class="text-gray-600">No hay centros médicos registrados.</p>
     @else
     <div class="overflow-x-auto">
-        <table class="w-full border-collapse border border-gray-300">
+        <table class="w-full border-collapse border border-gray-400">
             <thead>
-                <tr class="bg-gray-100">
-                    <th class="border border-gray-300 px-4 py-2">Nombre</th>
-                    <th class="border border-gray-300 px-4 py-2">Dirección</th>
-                    <th class="border border-gray-300 px-4 py-2">RUC</th>
-                    <th class="border border-gray-300 px-4 py-2">Estado</th>
-                    <th class="border border-gray-300 px-4 py-2">Acciones</th>
+                <tr class="bg-blue-900 text-white">
+                    <th class="border border-gray-500 px-4 py-2">Nombre</th>
+                    <th class="border border-gray-500 px-4 py-2">Dirección</th>
+                    <th class="border border-gray-500 px-4 py-2">RUC</th>
+                    <th class="border border-gray-500 px-4 py-2">Estado</th>
+                    <th class="border border-gray-500 px-4 py-2">Acciones</th>
                 </tr>
             </thead>
             <tbody>
                 @foreach ($centros as $centro)
-                <tr class="hover:bg-gray-50">
-                    <td class="border border-gray-300 px-4 py-2">{{ $centro->nombre }}</td>
-                    <td class="border border-gray-300 px-4 py-2">{{ $centro->direccion }}</td>
-                    <td class="border border-gray-300 px-4 py-2">{{ $centro->ruc }}</td>
-                    <td class="border border-gray-300 px-4 py-2 text-center">
+                <tr class="{{ $loop->even ? 'bg-gray-100' : 'bg-white' }} hover:bg-gray-200">
+                    <td class="border border-gray-400 px-4 py-2">{{ $centro->nombre }}</td>
+                    <td class="border border-gray-400 px-4 py-2">{{ $centro->direccion }}</td>
+                    <td class="border border-gray-400 px-4 py-2">{{ $centro->ruc }}</td>
+                    <td class="border border-gray-400 px-4 py-2 text-center">
                         @if ($centro->estado === 'ACTIVO')
                         <span class="text-green-600 font-semibold">Activo</span>
                         @else

@@ -136,7 +136,18 @@ class UsuarioController extends Controller
             abort(403, 'No tienes permiso para eliminar este usuario.');
         }
 
+        // Eliminar primero los horarios de cada personal médico asociado a este usuario
+        foreach ($usuario->personalMedico as $personal) {
+            $personal->horarios()->delete(); // ⬅️ Primero eliminamos los horarios
+            $personal->consultas()->delete(); // ⬅️ Luego eliminamos las consultas
+        }
+
+        // Ahora podemos eliminar los registros de personal médico sin restricciones
+        $usuario->personalMedico()->delete();
+
+        // Finalmente, eliminamos el usuario
         $usuario->delete();
+
 
         return redirect()->route('usuarios.index')->with('success', 'Usuario eliminado exitosamente.');
     }
@@ -171,4 +182,3 @@ class UsuarioController extends Controller
         return false;
     }
 }
-
