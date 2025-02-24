@@ -3,93 +3,90 @@
 @section('title', 'Nuevo Horario Médico')
 
 @section('content')
-<div style="max-width: 600px; margin: 0 auto; padding: 20px;">
-    <form action="{{ route('horarios.store') }}" method="POST"
-        style="background-color: #ffffff; padding: 20px; border-radius: 8px; box-shadow: 0 0 10px rgba(0,0,0,0.1);">
-        @csrf
-        <div>
-            <label for="id_personal_medico">Personal Médico</label>
-            <select name="id_personal_medico" id="id_personal_medico"
-                style="width: 100%; padding: 10px; margin-bottom: 20px;">
-                <option value="">Seleccione</option>
-                @foreach ($personalMedico as $medico)
+<div class="container mx-auto px-4 py-8">
+    <div class="max-w-lg mx-auto bg-white p-6 rounded-xl shadow-lg border-2 border-black">
+        <div class="px-6 py-4 bg-blue-900">
+            <h2 class="text-3xl font-semibold text-white text-center">Nuevo Horario Médico</h2>
+        </div>
+
+        <form action="{{ route('horarios.store') }}" method="POST" class="space-y-4">
+            @csrf
+
+            <div>
+                <label for="id_personal_medico" class="block text-lg font-semibold text-gray-700">Personal Médico:</label>
+                <select name="id_personal_medico" id="id_personal_medico" class="w-full p-3 border-2 border-black rounded-lg bg-blue-100 focus:outline-none focus:ring-2 focus:ring-blue-500" required>
+                    <option value="">Seleccione</option>
+                    @foreach ($personalMedico as $medico)
                     <option value="{{ $medico->id_personal_medico }}">{{ $medico->usuario->nombre }}</option>
-                @endforeach
-            </select>
-            @error('id_personal_medico')
-                <p style="color: red;">{{ $message }}</p>
-            @enderror
-        </div>
-        <div>
-            <label for="dia_semana">Día de la Semana</label>
-            <select name="dia_semana" id="dia_semana" style="width: 100%; padding: 10px; margin-bottom: 20px;">
-                <option value="">Seleccione</option>
-                @foreach (['Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado', 'Domingo'] as $dia)
+                    @endforeach
+                </select>
+                @error('id_personal_medico') <p class="text-red-600">{{ $message }}</p> @enderror
+            </div>
+
+            <div>
+                <label for="dia_semana" class="block text-lg font-semibold text-gray-700">Día de la Semana:</label>
+                <select name="dia_semana" id="dia_semana" class="w-full p-3 border-2 border-black rounded-lg bg-blue-100 focus:outline-none focus:ring-2 focus:ring-blue-500" required>
+                    <option value="">Seleccione</option>
+                    @foreach (['Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado', 'Domingo'] as $dia)
                     <option value="{{ $dia }}">{{ $dia }}</option>
-                @endforeach
-            </select>
-            @error('dia_semana')
-                <p style="color: red;">{{ $message }}</p>
-            @enderror
-        </div>
-        <div>
-            <label>Hora Inicio</label>
-            <div style="display: flex; gap: 10px; margin-bottom: 20px;">
-                <select name="hora_inicio_hora" style="flex: 1; padding: 10px;">
-                    <option value="">Hora</option>
-                    @for ($i = 1; $i <= 12; $i++)
-                        <option value="{{ $i }}">{{ $i }}</option>
-                    @endfor
+                    @endforeach
                 </select>
-                <select name="hora_inicio_minuto" style="flex: 1; padding: 10px;">
-                    <option value="">Minutos</option>
-                    @for ($i = 0; $i < 60; $i++)
-                        <option value="{{ $i }}">{{ str_pad($i, 2, '0', STR_PAD_LEFT) }}</option>
-                    @endfor
-                </select>
-                <select name="hora_inicio_periodo" style="flex: 1; padding: 10px;">
-                    <option value="AM">AM</option>
-                    <option value="PM">PM</option>
-                </select>
+                @error('dia_semana') <p class="text-red-600">{{ $message }}</p> @enderror
             </div>
-            @error('hora_inicio_hora') <p style="color: red;">{{ $message }}</p> @enderror
-            @error('hora_inicio_minuto') <p style="color: red;">{{ $message }}</p> @enderror
-            @error('hora_inicio_periodo') <p style="color: red;">{{ $message }}</p> @enderror
-        </div>
-        <div>
-            <label>Hora Fin</label>
-            <div style="display: flex; gap: 10px; margin-bottom: 20px;">
-                <select name="hora_fin_hora" style="flex: 1; padding: 10px;">
-                    <option value="">Hora</option>
-                    @for ($i = 1; $i <= 12; $i++)
-                        <option value="{{ $i }}">{{ $i }}</option>
-                    @endfor
-                </select>
-                <select name="hora_fin_minuto" style="flex: 1; padding: 10px;">
-                    <option value="">Minutos</option>
-                    @for ($i = 0; $i < 60; $i++)
-                        <option value="{{ $i }}">{{ str_pad($i, 2, '0', STR_PAD_LEFT) }}</option>
-                    @endfor
-                </select>
-                <select name="hora_fin_periodo" style="flex: 1; padding: 10px;">
-                    <option value="AM">AM</option>
-                    <option value="PM">PM</option>
-                </select>
+
+            <div>
+                <label class="block text-lg font-semibold text-gray-700">Hora Inicio:</label>
+                <div class="flex gap-4">
+                    <select name="hora_inicio_hora" class="flex-1 p-3 border-2 border-black rounded-lg bg-blue-100 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                        <option value="">Hora</option>
+                        @for ($i = 1; $i <= 12; $i++)
+                            <option value="{{ $i }}">{{ $i }}</option>
+                            @endfor
+                    </select>
+                    <select name="hora_inicio_minuto" class="flex-1 p-3 border-2 border-black rounded-lg bg-blue-100 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                        <option value="">Minutos</option>
+                        @for ($i = 0; $i < 60; $i++)
+                            <option value="{{ $i }}">{{ str_pad($i, 2, '0', STR_PAD_LEFT) }}</option>
+                            @endfor
+                    </select>
+                    <select name="hora_inicio_periodo" class="flex-1 p-3 border-2 border-black rounded-lg bg-blue-100 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                        <option value="AM">AM</option>
+                        <option value="PM">PM</option>
+                    </select>
+                </div>
             </div>
-            @error('hora_fin_hora') <p style="color: red;">{{ $message }}</p> @enderror
-            @error('hora_fin_minuto') <p style="color: red;">{{ $message }}</p> @enderror
-            @error('hora_fin_periodo') <p style="color: red;">{{ $message }}</p> @enderror
-        </div>
-        <div style="display: flex; justify-content: flex-end; gap: 10px;">
-            <button type="submit"
-                style="padding: 10px 20px; background-color: #4f46e5; color: #ffffff; border: none; border-radius: 6px;">
-                Guardar
-            </button>
-            <a href="{{ route('horarios.index') }}"
-                style="padding: 10px 20px; background-color: #6b7280; color: #ffffff; text-decoration: none; border-radius: 4px;">
-                Cancelar
-            </a>
-        </div>
-    </form>
+
+            <div>
+                <label class="block text-lg font-semibold text-gray-700">Hora Fin:</label>
+                <div class="flex gap-4">
+                    <select name="hora_fin_hora" class="flex-1 p-3 border-2 border-black rounded-lg bg-blue-100 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                        <option value="">Hora</option>
+                        @for ($i = 1; $i <= 12; $i++)
+                            <option value="{{ $i }}">{{ $i }}</option>
+                            @endfor
+                    </select>
+                    <select name="hora_fin_minuto" class="flex-1 p-3 border-2 border-black rounded-lg bg-blue-100 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                        <option value="">Minutos</option>
+                        @for ($i = 0; $i < 60; $i++)
+                            <option value="{{ $i }}">{{ str_pad($i, 2, '0', STR_PAD_LEFT) }}</option>
+                            @endfor
+                    </select>
+                    <select name="hora_fin_periodo" class="flex-1 p-3 border-2 border-black rounded-lg bg-blue-100 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                        <option value="AM">AM</option>
+                        <option value="PM">PM</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="flex justify-between items-center mt-4">
+                <button type="submit" class="px-20 py-3 bg-gray-300 text-gray-700 rounded-lg border-2 border-gray-500 hover:bg-gray-400">
+                    Guardar
+                </button>
+                <a href="{{ route('horarios.index') }}" class="px-20 py-3 bg-gray-300 text-gray-700 rounded-lg border-2 border-gray-500 hover:bg-gray-400">
+                    Cancelar
+                </a>
+            </div>
+        </form>
+    </div>
 </div>
 @endsection

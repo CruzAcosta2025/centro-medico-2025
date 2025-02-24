@@ -3,88 +3,58 @@
 @section('title', 'Editar Permiso')
 
 @section('content')
-<style>
-    .form-container {
-        background: #ffffff;
-        border-radius: 8px;
-        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-        padding: 2rem;
-        max-width: 600px;
-        margin: auto;
-    }
-    .form-group {
-        margin-bottom: 1rem;
-    }
-    .form-label {
-        display: block;
-        margin-bottom: 0.5rem;
-        font-weight: bold;
-    }
-    .form-select {
-        width: 100%;
-        padding: 0.5rem;
-        border: 1px solid #ddd;
-        border-radius: 4px;
-    }
-    .btn {
-        background: #0d9488;
-        color: #ffffff;
-        border: none;
-        padding: 0.5rem 1rem;
-        border-radius: 4px;
-        cursor: pointer;
-        text-decoration: none;
-    }
-    .btn:hover {
-        background: #0f766e;
-    }
-    .btn-link {
-        margin-left: 1rem;
-        text-decoration: none;
-        color: #0d9488;
-    }
-    .btn-link:hover {
-        text-decoration: underline;
-    }
-</style>
+<div class="container mx-auto px-4 py-8">
+    <div class="max-w-lg mx-auto bg-white p-6 rounded-xl shadow-lg border-2 border-black">
+        <div class="px-6 py-4 bg-blue-900">
+            <h2 class="text-3xl font-semibold text-white text-center">Editar Permiso</h2>
+        </div>
 
-<div class="form-container">
-    <h2>Editar Permiso</h2>
-    @if ($errors->any())
-        <div style="color: red; margin-bottom: 1rem;">
-            <ul>
-                @foreach ($errors->all() as $error)
-                    <li>{{ $error }}</li>
-                @endforeach
-            </ul>
-        </div>
-    @endif
-    <form action="{{ route('permisos.update', $permiso->id_permiso) }}" method="POST">
-        @csrf
-        @method('PUT')
-        <div class="form-group">
-            <label for="nombre_modulo" class="form-label">Nombre del Módulo:</label>
-            <select name="nombre_modulo" id="nombre_modulo" class="form-select" required>
-                @foreach($modulosPermitidos as $modulo)
-                    <option value="{{ $modulo }}" {{ $permiso->nombre_modulo == $modulo ? 'selected' : '' }}>
-                        {{ $modulo }}
-                    </option>
-                @endforeach
-            </select>
-        </div>
-        <div class="form-group">
-            <label for="tipo_permiso" class="form-label">Tipo de Permiso:</label>
-            <select name="tipo_permiso" id="tipo_permiso" class="form-select" required>
-                @foreach($tiposPermisos as $tipo)
-                    <option value="{{ $tipo }}" {{ $permiso->tipo_permiso == $tipo ? 'selected' : '' }}>
-                        {{ ucfirst($tipo) }}
-                    </option>
-                @endforeach
-            </select>
-        </div>
-        <button type="submit" class="btn">Actualizar</button>
-        <a href="{{ route('permisos.index') }}" class="btn-link">Cancelar</a>
-    </form>
+        @if ($errors->any())
+            <div class="bg-red-100 border-l-4 border-red-500 text-red-700 p-4 my-4">
+                <ul>
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+        @endif
+
+        <form action="{{ route('permisos.update', $permiso->id_permiso) }}" method="POST" class="space-y-4">
+            @csrf
+            @method('PUT')
+
+            <div>
+                <label for="nombre_modulo" class="block text-lg font-semibold text-gray-700">Nombre del Módulo:</label>
+                <select name="nombre_modulo" id="nombre_modulo" class="w-full p-3 border-2 border-black rounded-lg bg-blue-100 focus:outline-none focus:ring-2 focus:ring-blue-500" required>
+                    @foreach($modulosPermitidos as $modulo)
+                        <option value="{{ $modulo }}" {{ $permiso->nombre_modulo == $modulo ? 'selected' : '' }}>
+                            {{ $modulo }}
+                        </option>
+                    @endforeach
+                </select>
+            </div>
+
+            <div>
+                <label for="tipo_permiso" class="block text-lg font-semibold text-gray-700">Tipo de Permiso:</label>
+                <select name="tipo_permiso" id="tipo_permiso" class="w-full p-3 border-2 border-black rounded-lg bg-blue-100 focus:outline-none focus:ring-2 focus:ring-blue-500" required>
+                    @foreach($tiposPermisos as $tipo)
+                        <option value="{{ $tipo }}" {{ $permiso->tipo_permiso == $tipo ? 'selected' : '' }}>
+                            {{ ucfirst($tipo) }}
+                        </option>
+                    @endforeach
+                </select>
+            </div>
+
+            <div class="flex justify-between items-center mt-4">
+                <button type="submit" class="px-20 py-3 bg-gray-300 text-gray-700 rounded-lg border-2 border-gray-500 hover:bg-gray-400">
+                    Actualizar
+                </button>
+                <a href="{{ route('permisos.index') }}" class="px-20 py-3 bg-gray-300 text-gray-700 rounded-lg border-2 border-gray-500 hover:bg-gray-400">
+                    Cancelar
+                </a>
+            </div>
+        </form>
+    </div>
 </div>
 
 <script>
@@ -101,6 +71,9 @@
                 data.forEach(tipo => {
                     tipoPermisoSelect.innerHTML += `<option value="${tipo}">${tipo.charAt(0).toUpperCase() + tipo.slice(1)}</option>`;
                 });
+            })
+            .catch(() => {
+                tipoPermisoSelect.innerHTML = '<option value="">Error al cargar los tipos</option>';
             });
     });
 </script>

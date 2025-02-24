@@ -3,123 +3,62 @@
 @section('title', 'Gestión de Personal Médico')
 
 @section('content')
-<style>
-    .personal-table {
-        width: 100%;
-        border-collapse: collapse;
-        margin-top: 1rem;
-        background: white;
-        border-radius: 4px;
-        overflow: hidden;
-        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-    }
-    .personal-table th,
-    .personal-table td {
-        padding: 0.75rem;
-        border: 1px solid #ddd;
-        text-align: left;
-    }
-    .personal-table th {
-        background: #f3f4f6;
-        font-weight: bold;
-    }
-    .personal-table tr:hover {
-        background: #f9fafb;
-    }
-    .action-buttons {
-        display: flex;
-        gap: 0.5rem;
-        justify-content: center;
-    }
-    .header-section {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        margin-bottom: 1.5rem;
-    }
-    .btn {
-        background: #0d9488;
-        color: #ffffff;
-        border: none;
-        padding: 0.5rem 1rem;
-        border-radius: 4px;
-        text-decoration: none;
-        text-align: center;
-        display: inline-block;
-    }
-    .btn:hover {
-        background: #0f766e;
-    }
-    .btn-delete {
-        background: #ef4444;
-    }
-    .btn-delete:hover {
-        background: #dc2626;
-    }
-    @media (max-width: 640px) {
-        .personal-table th, .personal-table td {
-            padding: 0.5rem;
-        }
-        .header-section {
-            flex-direction: column;
-            align-items: stretch;
-            gap: 1rem;
-        }
-        .btn {
-            width: 100%;
-            text-align: center;
-        }
-    }
-</style>
-
-<div class="header-section">
-    <h2 class="text-xl font-bold">Gestión de Personal Médico</h2>
-    <a href="{{ route('usuarios-centro.create') }}" class="btn">Crear Nuevo Usuario</a>
-</div>
-
-@if(session('success'))
-    <div class="bg-green-100 border-l-4 border-green-500 text-green-700 p-4 mb-4" role="alert">
-        <p>{{ session('success') }}</p>
+<div class="max-w-6xl mx-auto p-6 bg-white shadow-lg rounded-xl">
+    <!-- Encabezado -->
+    <div class="flex flex-col sm:flex-row justify-between items-center mb-6 border-b pb-4">
+        <h2 class="text-2xl font-semibold text-gray-800">Gestión de Personal Médico</h2>
+        <a href="{{ route('usuarios-centro.create') }}" class="bg-blue-600 text-white px-4 py-2 rounded-lg shadow-md hover:bg-blue-700 transition">
+            + Crear Nuevo Usuario
+        </a>
     </div>
-@endif
 
-<div class="table-container">
-    <table class="personal-table">
-        <thead>
-            <tr>
-                <th>Nombre</th>
-                <th>Especialidad</th>
-                <th>Correo</th>
-                <th>DNI</th>
-                <th>Teléfono</th>
-                <th style="text-align: center;">Acciones</th>
-            </tr>
-        </thead>
-        <tbody>
-            @forelse($personalMedico as $personal)
+    @if(session('success'))
+        <div class="bg-green-100 border-l-4 border-green-500 text-green-700 p-4 mb-4 rounded-lg" role="alert">
+            <p>{{ session('success') }}</p>
+        </div>
+    @endif
+
+    <!-- Tabla de Personal Médico -->
+    <div class="overflow-x-auto">
+        <table class="min-w-full bg-blue-100 border border-blue-600 rounded-lg shadow-md">
+            <thead class="bg-blue-600 text-white">
                 <tr>
-                    <td>{{ $personal->usuario->nombre ?? 'Sin asignar' }}</td>
-                    <td>{{ $personal->especialidad->nombre_especialidad ?? 'N/A' }}</td>
-                    <td>{{ $personal->correo_contacto }}</td>
-                    <td>{{ $personal->dni }}</td>
-                    <td>{{ $personal->telefono }}</td>
-                    <td>
-                        <div class="action-buttons">
-                            <a href="{{ route('personal-medico.edit', $personal->id_personal_medico) }}" class="btn">Editar</a>
+                    <th class="px-6 py-3 text-left border border-blue-700">Nombre</th>
+                    <th class="px-6 py-3 text-left border border-blue-700">Especialidad</th>
+                    <th class="px-6 py-3 text-left border border-blue-700">Correo</th>
+                    <th class="px-6 py-3 text-left border border-blue-700">DNI</th>
+                    <th class="px-6 py-3 text-left border border-blue-700">Teléfono</th>
+                    <th class="px-6 py-3 text-center border border-blue-700">Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                @forelse($personalMedico as $personal)
+                    <tr class="border border-blue-500 hover:bg-blue-200 transition">
+                        <td class="px-6 py-4 border border-blue-500">{{ $personal->usuario->nombre ?? 'Sin asignar' }}</td>
+                        <td class="px-6 py-4 border border-blue-500">{{ $personal->especialidad->nombre_especialidad ?? 'N/A' }}</td>
+                        <td class="px-6 py-4 border border-blue-500">{{ $personal->correo_contacto }}</td>
+                        <td class="px-6 py-4 border border-blue-500">{{ $personal->dni }}</td>
+                        <td class="px-6 py-4 border border-blue-500">{{ $personal->telefono }}</td>
+                        <td class="px-6 py-4 flex flex-wrap justify-center gap-2">
+                            <a href="{{ route('personal-medico.edit', $personal->id_personal_medico) }}" class="bg-blue-700 text-white px-3 py-2 rounded-md hover:bg-blue-800 transition">
+                                Editar
+                            </a>
                             <form action="{{ route('personal-medico.destroy', $personal->id_personal_medico) }}" method="POST" onsubmit="return confirm('¿Estás seguro de eliminar este personal médico?')">
                                 @csrf
                                 @method('DELETE')
-                                <button type="submit" class="btn btn-delete"disabled>Eliminar</button>
+                                <button type="submit" class="bg-red-600 text-white px-3 py-2 rounded-md hover:bg-red-700 transition" disabled>
+                                    Eliminar
+                                </button>
                             </form>
-                        </div>
-                    </td>
-                </tr>
-            @empty
-                <tr>
-                    <td colspan="6" class="text-center py-4">No hay personal médico registrado.</td>
-                </tr>
-            @endforelse
-        </tbody>
-    </table>
+                        </td>
+                    </tr>
+                @empty
+                    <tr>
+                        <td colspan="6" class="text-center py-4 text-gray-600">No hay personal médico registrado.</td>
+                    </tr>
+                @endforelse
+            </tbody>
+        </table>
+    </div>
 </div>
 @endsection

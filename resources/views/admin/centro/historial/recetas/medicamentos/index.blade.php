@@ -3,75 +3,61 @@
 @section('title', 'Medicamentos de la Receta')
 
 @section('content')
-<div style="max-width: 1200px; margin: 0 auto; padding: 20px; width: 95%;">
-    <div style="background-color: #ffffff; border-radius: 8px; overflow: hidden; box-shadow: 0 0 10px rgba(0,0,0,0.1);">
-        <!-- Encabezado -->
-        <div style="background: linear-gradient(to right, #10b981, #059669); padding: 20px;">
-            <h2 style="color: #ffffff; font-size: clamp(20px, 4vw, 28px); margin: 0;">Medicamentos</h2>
+<div class="max-w-5xl mx-auto p-6 bg-white shadow-lg rounded-xl">
+    <!-- Encabezado -->
+    <div class="bg-gradient-to-r from-green-500 to-green-700 p-5 rounded-t-xl">
+        <h2 class="text-white text-2xl font-semibold">Medicamentos</h2>
+    </div>
+
+    <!-- Contenido -->
+    <div class="p-6">
+        <h3 class="mb-4 text-lg font-semibold">Paciente: {{ $receta->historialClinico->paciente->primer_nombre }} {{ $receta->historialClinico->paciente->primer_apellido }}</h3>
+
+        <a href="{{ route('medicamentos.create', $receta->id_receta) }}" class="bg-green-600 text-white px-4 py-2 rounded-lg shadow-md hover:bg-green-700 transition">
+            Añadir Medicamento
+        </a>
+
+        @if ($medicamentos->isEmpty())
+        <p class="text-gray-500 mt-4">No hay medicamentos registrados para esta receta.</p>
+        @else
+        <div class="overflow-x-auto mt-6">
+            <table class="w-full border border-gray-300 rounded-lg shadow-md">
+                <thead class="bg-gray-100">
+                    <tr>
+                        <th class="px-6 py-3 text-left border-b">Medicamento</th>
+                        <th class="px-6 py-3 text-left border-b">Dosis</th>
+                        <th class="px-6 py-3 text-left border-b">Frecuencia</th>
+                        <th class="px-6 py-3 text-left border-b">Duración</th>
+                        <th class="px-6 py-3 text-left border-b">Instrucciones</th>
+                        <th class="px-6 py-3 text-center border-b">Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach ($medicamentos as $medicamento)
+                    <tr class="border-b hover:bg-gray-100 transition">
+                        <td class="px-6 py-4">{{ $medicamento->medicamento }}</td>
+                        <td class="px-6 py-4">{{ $medicamento->dosis }}</td>
+                        <td class="px-6 py-4">{{ $medicamento->frecuencia }}</td>
+                        <td class="px-6 py-4">{{ $medicamento->duracion }}</td>
+                        <td class="px-6 py-4 max-w-xs break-words">{!! nl2br(e($medicamento->instrucciones ?? 'Sin instrucciones')) !!}</td>
+                        <td class="px-6 py-4 flex flex-wrap justify-center gap-2">
+                            <a href="{{ route('medicamentos.edit', [$receta->id_receta, $medicamento->id_medicamento_receta]) }}" class="bg-yellow-600 text-white px-3 py-2 rounded-md hover:bg-yellow-700 transition">
+                                Editar
+                            </a>
+                            <button class="bg-red-600 text-white px-3 py-2 rounded-md hover:bg-red-700 transition btn-delete" data-url="{{ route('medicamentos.destroy', [$receta->id_receta, $medicamento->id_medicamento_receta]) }}">
+                                Eliminar
+                            </button>
+                        </td>
+                    </tr>
+                    @endforeach
+                </tbody>
+            </table>
         </div>
+        @endif
 
-        <!-- Contenido -->
-        <div style="padding: 20px;">
-            <h3 style="margin-bottom: 20px; font-size: clamp(16px, 3vw, 22px);">
-                Paciente: {{ $receta->historialClinico->paciente->primer_nombre }} {{ $receta->historialClinico->paciente->primer_apellido }}
-            </h3>
-
-            <a href="{{ route('medicamentos.create', $receta->id_receta) }}"
-               style="display: inline-block; padding: 10px 20px; background-color: #059669; color: #ffffff; text-decoration: none; border-radius: 4px; margin-bottom: 20px; font-size: clamp(14px, 2vw, 16px);">
-                Añadir Medicamento
-            </a>
-
-            @if ($medicamentos->isEmpty())
-                <p style="color: #6b7280; margin-bottom: 20px; font-size: clamp(14px, 2vw, 16px);">No hay medicamentos registrados para esta receta.</p>
-            @else
-                <div style="overflow-x: auto;">
-                    <table style="width: 100%; border-collapse: collapse; min-width: 600px;">
-                        <thead>
-                            <tr style="background-color: #f3f4f6;">
-                                <th style="padding: 12px; text-align: left; border-bottom: 2px solid #e5e7eb; font-size: clamp(14px, 2vw, 16px);">Medicamento</th>
-                                <th style="padding: 12px; text-align: left; border-bottom: 2px solid #e5e7eb; font-size: clamp(14px, 2vw, 16px);">Dosis</th>
-                                <th style="padding: 12px; text-align: left; border-bottom: 2px solid #e5e7eb; font-size: clamp(14px, 2vw, 16px);">Frecuencia</th>
-                                <th style="padding: 12px; text-align: left; border-bottom: 2px solid #e5e7eb; font-size: clamp(14px, 2vw, 16px);">Duración</th>
-                                <th style="padding: 12px; text-align: left; border-bottom: 2px solid #e5e7eb; font-size: clamp(14px, 2vw, 16px);">Instrucciones</th>
-                                <th style="padding: 12px; text-align: left; border-bottom: 2px solid #e5e7eb; width: 200px; font-size: clamp(14px, 2vw, 16px);">Acciones</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach ($medicamentos as $medicamento)
-                                <tr>
-                                    <td style="padding: 12px; border-bottom: 1px solid #e5e7eb; font-size: clamp(14px, 2vw, 16px);">{{ $medicamento->medicamento }}</td>
-                                    <td style="padding: 12px; border-bottom: 1px solid #e5e7eb; font-size: clamp(14px, 2vw, 16px);">{{ $medicamento->dosis }}</td>
-                                    <td style="padding: 12px; border-bottom: 1px solid #e5e7eb; font-size: clamp(14px, 2vw, 16px);">{{ $medicamento->frecuencia }}</td>
-                                    <td style="padding: 12px; border-bottom: 1px solid #e5e7eb; font-size: clamp(14px, 2vw, 16px);">{{ $medicamento->duracion }}</td>
-                                    <td style="padding: 12px; border-bottom: 1px solid #e5e7eb; max-width: 300px; word-wrap: break-word; font-size: clamp(14px, 2vw, 16px);">
-                                        {!! nl2br(e($medicamento->instrucciones ?? 'Sin instrucciones')) !!}
-                                    </td>
-                                    <td style="padding: 12px; border-bottom: 1px solid #e5e7eb;">
-                                        <div style="display: flex; gap: 10px; flex-wrap: wrap; justify-content: flex-start;">
-                                            <a href="{{ route('medicamentos.edit', [$receta->id_receta, $medicamento->id_medicamento_receta]) }}"
-                                               style="padding: 6px 12px; background-color: #f59e0b; color: #ffffff; text-decoration: none; border-radius: 4px; text-align: center; font-size: clamp(12px, 2vw, 14px);">
-                                                Editar
-                                            </a>
-                                            <button
-                                                class="btn-delete"
-                                                data-url="{{ route('medicamentos.destroy', [$receta->id_receta, $medicamento->id_medicamento_receta]) }}"
-                                                style="padding: 6px 12px; background-color: #ef4444; color: #ffffff; border: none; border-radius: 4px; cursor: pointer; text-align: center; font-size: clamp(12px, 2vw, 14px);">
-                                                Eliminar
-                                            </button>
-                                        </div>
-                                    </td>
-                                </tr>
-                            @endforeach
-                        </tbody>
-                    </table>
-                </div>
-            @endif
-
-            <a href="{{ route('recetas.index', ['dni' => $receta->historialClinico->paciente->dni]) }}"
-               style="display: inline-block; padding: 10px 20px; background-color: #6b7280; color: #ffffff; text-decoration: none; border-radius: 4px; margin-top: 20px; font-size: clamp(14px, 2vw, 16px);">
-                Regresar a Recetas
-            </a>
-        </div>
+        <a href="{{ route('recetas.index', ['dni' => $receta->historialClinico->paciente->dni]) }}" class="inline-block mt-6 bg-gray-600 text-white px-4 py-2 rounded-lg shadow-md hover:bg-gray-700 transition">
+            Regresar a Recetas
+        </a>
     </div>
 </div>
 
@@ -82,24 +68,24 @@
 
             const url = this.getAttribute('data-url');
             fetch(url, {
-                method: 'DELETE',
-                headers: {
-                    'X-CSRF-TOKEN': '{{ csrf_token() }}',
-                    'Accept': 'application/json'
-                }
-            })
-            .then(response => response.json())
-            .then(data => {
-                if (data.success) {
-                    alert('Medicamento eliminado exitosamente.');
-                    location.reload();
-                } else {
+                    method: 'DELETE',
+                    headers: {
+                        'X-CSRF-TOKEN': '{{ csrf_token() }}',
+                        'Accept': 'application/json'
+                    }
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        alert('Medicamento eliminado exitosamente.');
+                        location.reload();
+                    } else {
+                        alert('Error al eliminar el medicamento.');
+                    }
+                })
+                .catch(() => {
                     alert('Error al eliminar el medicamento.');
-                }
-            })
-            .catch(() => {
-                alert('Error al eliminar el medicamento.');
-            });
+                });
         });
     });
 </script>

@@ -3,88 +3,95 @@
 @section('title', 'Crear Factura')
 
 @section('content')
-<div style="max-width: 900px; margin: auto; padding: 20px; background: #fff; border-radius: 8px; box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);">
-    <h2 style="text-align: center; color: #004643;">Crear Factura</h2>
+<div class="max-w-2xl mx-auto px-6 py-8">
+    <div class="bg-white rounded-xl shadow-lg border-2 border-black p-6">
+        <div class="bg-blue-900 text-white py-4 px-6 rounded-t-lg">
+            <h2 class="text-3xl font-semibold text-center">Crear Factura</h2>
+        </div>
 
-    @if ($errors->any())
-    <div style="color: red; margin-bottom: 20px;">
-        <ul>
-            @foreach ($errors->all() as $error)
-            <li>{{ $error }}</li>
-            @endforeach
-        </ul>
+        @if ($errors->any())
+        <div class="mt-4 p-4 bg-red-100 text-red-700 border-2 border-red-500 rounded-lg">
+            <ul class="list-disc list-inside">
+                @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+        @endif
+
+        <form action="{{ route('caja.storeFactura') }}" method="POST" class="mt-6 space-y-6">
+            @csrf
+
+            <!-- Datos del Paciente -->
+            <div class="border-b-2 border-black pb-4">
+                <h3 class="text-xl font-semibold text-gray-900">Datos del Paciente</h3>
+                <p><strong>Nombre:</strong> {{ $paciente->primer_nombre }} {{ $paciente->primer_apellido }}</p>
+                <p><strong>DNI:</strong> {{ $paciente->dni }}</p>
+                <input type="hidden" name="id_paciente" value="{{ $paciente->id_paciente }}">
+            </div>
+
+            <!-- Selección de Médico -->
+            <div>
+                <label for="id_personal_medico" class="block font-semibold text-gray-900">Médico:</label>
+                <select name="id_personal_medico" id="id_personal_medico" required
+                    class="w-full p-3 border-2 border-black rounded-lg bg-blue-100 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                    <option value="" selected disabled>Seleccione un médico</option>
+                    @foreach ($medicos->groupBy('especialidad.nombre_especialidad') as $especialidad => $medicosGrupo)
+                    <optgroup label="{{ $especialidad ?? 'Sin especialidad' }}">
+                        @foreach ($medicosGrupo as $medico)
+                        <option value="{{ $medico->id_personal_medico }}">
+                            {{ $medico->usuario->nombre ?? 'Nombre no disponible' }}
+                        </option>
+                        @endforeach
+                    </optgroup>
+                    @endforeach
+                </select>
+            </div>
+
+            <!-- Selección de Servicio -->
+            <div>
+                <label for="id_servicio" class="block font-semibold text-gray-900">Servicio:</label>
+                <select name="id_servicio" id="id_servicio" required
+                    class="w-full p-3 border-2 border-black rounded-lg bg-blue-100 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                    <option value="" selected disabled>Seleccione un servicio</option>
+                    @foreach ($servicios as $servicio)
+                    <option value="{{ $servicio->id_servicio }}">
+                        {{ $servicio->nombre_servicio }} - S/ {{ number_format($servicio->precio, 2) }}
+                    </option>
+                    @endforeach
+                </select>
+            </div>
+
+            <!-- Método de Pago -->
+            <div>
+                <label for="metodo_pago" class="block font-semibold text-gray-900">Método de Pago:</label>
+                <select name="metodo_pago" id="metodo_pago" required
+                    class="w-full p-3 border-2 border-black rounded-lg bg-blue-100 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                    <option value="" selected disabled>Seleccione el método de pago</option>
+                    <option value="efectivo">Efectivo</option>
+                    <option value="tarjeta">Tarjeta</option>
+                    <option value="transferencia">Transferencia</option>
+                </select>
+            </div>
+
+            <!-- Resumen -->
+            <div class="border-b-2 border-black pb-4">
+                <h3 class="text-xl font-semibold text-gray-900">Resumen</h3>
+                <p class="text-gray-700">Nota: El subtotal, impuesto y total se calcularán automáticamente al guardar la factura.</p>
+            </div>
+
+            <!-- Botones -->
+            <div class="flex justify-between mt-6">
+                <button type="submit"
+                    class="px-6 py-3 bg-gray-300 text-gray-700 rounded-lg border-2 border-gray-500 hover:bg-gray-400">
+                    Guardar Factura
+                </button>
+                <a href="{{ route('caja.index') }}"
+                    class="px-6 py-3 bg-gray-300 text-gray-700 rounded-lg border-2 border-gray-500 hover:bg-gray-400">
+                    Cancelar
+                </a>
+            </div>
+        </form>
     </div>
-    @endif
-
-    <form action="{{ route('caja.storeFactura') }}" method="POST">
-        @csrf
-
-        <!-- Datos del Paciente -->
-        <div style="margin-bottom: 30px;">
-            <h3 style="color: #004643; border-bottom: 2px solid #004643; padding-bottom: 5px;">Datos del Paciente</h3>
-            <p><strong>Nombre:</strong> {{ $paciente->primer_nombre }} {{ $paciente->primer_apellido }}</p>
-            <p><strong>DNI:</strong> {{ $paciente->dni }}</p>
-            <input type="hidden" name="id_paciente" value="{{ $paciente->id_paciente }}">
-        </div>
-
-        <!-- Selección de Médico -->
-        <select name="id_personal_medico"
-            style="width: 100%; padding: 12px; border: 1px solid #ccc; border-radius: 5px; font-size: 16px;" required>
-            <option value="" selected disabled>Seleccione un médico</option>
-
-            @foreach ($medicos->groupBy('especialidad.nombre_especialidad') as $especialidad => $medicosGrupo)
-            <optgroup label="{{ $especialidad ?? 'Sin especialidad' }}">
-                @foreach ($medicosGrupo as $medico)
-                <option value="{{ $medico->id_personal_medico }}">
-                    {{ $medico->usuario->nombre ?? 'Nombre no disponible' }}
-                </option>
-                @endforeach
-            </optgroup>
-            @endforeach
-        </select>
-
-
-        <!-- Selección de Servicio -->
-        <div style="margin-bottom: 30px;">
-            <h3 style="color: #004643; border-bottom: 2px solid #004643; padding-bottom: 5px;">Servicio</h3>
-            <select name="id_servicio" style="width: 100%; padding: 12px; border: 1px solid #ccc; border-radius: 5px; font-size: 16px;" required>
-                <option value="" selected disabled>Seleccione un servicio</option>
-                @foreach ($servicios as $servicio)
-                <option value="{{ $servicio->id_servicio }}">
-                    {{ $servicio->nombre_servicio }} - S/ {{ number_format($servicio->precio, 2) }}
-                </option>
-                @endforeach
-            </select>
-        </div>
-
-        <!-- Método de Pago -->
-        <div style="margin-bottom: 30px;">
-            <h3 style="color: #004643; border-bottom: 2px solid #004643; padding-bottom: 5px;">Método de Pago</h3>
-            <select name="metodo_pago" style="width: 100%; padding: 12px; border: 1px solid #ccc; border-radius: 5px; font-size: 16px;" required>
-                <option value="" selected disabled>Seleccione el método de pago</option>
-                <option value="efectivo">Efectivo</option>
-                <option value="tarjeta">Tarjeta</option>
-                <option value="transferencia">Transferencia</option>
-            </select>
-        </div>
-
-        <!-- Resumen -->
-        <div style="margin-bottom: 30px;">
-            <h3 style="color: #004643; border-bottom: 2px solid #004643; padding-bottom: 5px;">Resumen</h3>
-            <p><strong>Nota:</strong> El subtotal, impuesto y total se calcularán automáticamente al guardar la factura.</p>
-        </div>
-
-        <!-- Botones -->
-        <div style="text-align: center;">
-            <button type="submit"
-                style="background: #004643; color: #fff; padding: 12px 20px; border: none; border-radius: 5px; font-size: 16px; cursor: pointer;">
-                Guardar Factura
-            </button>
-            <a href="{{ route('caja.index') }}"
-                style="background: #ccc; color: #000; padding: 12px 20px; border-radius: 5px; font-size: 16px; text-decoration: none; margin-left: 10px;">
-                Cancelar
-            </a>
-        </div>
-    </form>
 </div>
 @endsection

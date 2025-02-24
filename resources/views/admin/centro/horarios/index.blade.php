@@ -3,71 +3,65 @@
 @section('title', 'Gestión de Horarios')
 
 @section('content')
-<div style="max-width: 1200px; margin: 0 auto; padding: 20px;">
-    <div style="background: white; border-radius: 8px; padding: 20px; box-shadow: 0 0 10px rgba(0,0,0,0.1);">
-        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
-            <h2 style="font-size: 24px;">Gestión de Horarios</h2>
-            <a href="{{ route('horarios.create') }}"
-                style="padding: 10px 20px; background-color: #10b981; color: white; text-decoration: none; border-radius: 6px;">
-                Nuevo Horario
-            </a>
-        </div>
-
-        <form method="GET" action="{{ route('horarios.index') }}" style="margin-bottom: 20px;">
-            <div style="display: flex; gap: 10px;">
-                <input
-                    type="text"
-                    name="dni"
-                    value="{{ $dni }}"
-                    placeholder="Buscar por DNI"
-                    style="flex: 1; padding: 10px; border: 1px solid #ddd; border-radius: 6px;">
-                <button type="submit"
-                    style="padding: 10px 20px; background-color: #2563eb; color: white; border: none; border-radius: 6px;">
-                    Buscar
-                </button>
-            </div>
-        </form>
-
-        @if ($horarios->isEmpty())
-            <p style="color: #666;">No se encontraron horarios registrados.</p>
-        @else
-            <table style="width: 100%; border-collapse: collapse; margin-top: 20px;">
-                <thead>
-                    <tr style="background-color: #f3f4f6;">
-                        <th style="padding: 12px; border-bottom: 2px solid #ddd;">Día</th>
-                        <th style="padding: 12px; border-bottom: 2px solid #ddd;">Hora Inicio</th>
-                        <th style="padding: 12px; border-bottom: 2px solid #ddd;">Hora Fin</th>
-                        <th style="padding: 12px; border-bottom: 2px solid #ddd;">Personal Médico</th>
-                        <th style="padding: 12px; border-bottom: 2px solid #ddd;">Acciones</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach ($horarios as $horario)
-                        <tr>
-                            <td style="padding: 12px;">{{ $horario->dia_semana }}</td>
-                            <td style="padding: 12px;">{{ date('h:i A', strtotime($horario->hora_inicio)) }}</td>
-                            <td style="padding: 12px;">{{ date('h:i A', strtotime($horario->hora_fin)) }}</td>
-                            <td style="padding: 12px;">{{ $horario->personalMedico->usuario->nombre }}</td>
-                            <td style="padding: 12px;">
-                                <a href="{{ route('horarios.edit', $horario->id_horario) }}"
-                                   style="padding: 6px 12px; background-color: #f59e0b; color: white; text-decoration: none; border-radius: 6px;">
-                                   Editar
-                                </a>
-                                <form action="{{ route('horarios.destroy', $horario->id_horario) }}" method="POST" style="display: inline;">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button type="submit"
-                                            style="padding: 6px 12px; background-color: #ef4444; color: white; border: none; border-radius: 6px;">
-                                        Eliminar
-                                    </button>
-                                </form>
-                            </td>
-                        </tr>
-                    @endforeach
-                </tbody>
-            </table>
-        @endif
+<div class="max-w-6xl mx-auto p-6 bg-white shadow-lg rounded-xl">
+    <!-- Encabezado -->
+    <div class="flex flex-col sm:flex-row justify-between items-center mb-6 border-b pb-4">
+        <h2 class="text-2xl font-semibold text-gray-800">Gestión de Horarios</h2>
+        <a href="{{ route('horarios.create') }}" class="bg-blue-600 text-white px-4 py-2 rounded-lg shadow-md hover:bg-blue-700 transition">
+            + Nuevo Horario
+        </a>
     </div>
+
+    <!-- Buscador -->
+    <form method="GET" action="{{ route('horarios.index') }}" class="mb-6">
+        <div class="flex gap-3">
+            <input type="text" name="dni" value="{{ $dni }}" placeholder="Buscar por DNI"
+                class="w-full p-3 border rounded-lg focus:ring-2 focus:ring-blue-500 outline-none">
+            <button type="submit" class="bg-blue-600 text-white px-4 py-2 rounded-lg shadow-md hover:bg-blue-700 transition">
+                Buscar
+            </button>
+        </div>
+    </form>
+
+    @if ($horarios->isEmpty())
+    <p class="text-gray-600 text-center py-4">No se encontraron horarios registrados.</p>
+    @else
+    <!-- Tabla de Horarios -->
+    <div class="overflow-x-auto">
+        <table class="min-w-full bg-blue-100 border border-blue-600 rounded-lg shadow-md">
+            <thead class="bg-blue-600 text-white">
+                <tr>
+                    <th class="px-6 py-3 text-left border border-blue-700">Día</th>
+                    <th class="px-6 py-3 text-left border border-blue-700">Hora Inicio</th>
+                    <th class="px-6 py-3 text-left border border-blue-700">Hora Fin</th>
+                    <th class="px-6 py-3 text-left border border-blue-700">Personal Médico</th>
+                    <th class="px-6 py-3 text-center border border-blue-700">Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach ($horarios as $horario)
+                <tr class="border border-blue-500 hover:bg-blue-200 transition">
+                    <td class="px-6 py-4 border border-blue-500">{{ $horario->dia_semana }}</td>
+                    <td class="px-6 py-4 border border-blue-500">{{ date('h:i A', strtotime($horario->hora_inicio)) }}</td>
+                    <td class="px-6 py-4 border border-blue-500">{{ date('h:i A', strtotime($horario->hora_fin)) }}</td>
+                    <td class="px-6 py-4 border border-blue-500">{{ $horario->personalMedico->usuario->nombre }}</td>
+                    <td class="px-6 py-4 flex flex-wrap justify-center gap-2">
+                        <a href="{{ route('horarios.edit', $horario->id_horario) }}" class="bg-yellow-500 text-white px-3 py-2 rounded-md hover:bg-yellow-600 transition">
+                            Editar
+                        </a>
+                        <form action="{{ route('horarios.destroy', $horario->id_horario) }}" method="POST" onsubmit="return confirm('¿Estás seguro de eliminar este horario?')">
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit" class="bg-red-600 text-white px-3 py-2 rounded-md hover:bg-red-700 transition">
+                                Eliminar
+                            </button>
+                        </form>
+                    </td>
+                </tr>
+                @endforeach
+            </tbody>
+        </table>
+    </div>
+    @endif
 </div>
 @endsection
-

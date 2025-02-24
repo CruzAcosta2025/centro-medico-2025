@@ -3,64 +3,65 @@
 @section('title', 'Listado de Vacunas')
 
 @section('content')
-<div style="max-width: 800px; margin: 0 auto; padding: 20px;">
-    <div style="background-color: #ffffff; border-radius: 8px; overflow: hidden; box-shadow: 0 0 10px rgba(0,0,0,0.1);">
-        <div style="background: linear-gradient(to right, #22c55e, #16a34a); padding: 20px;">
-            <h2 style="color: #ffffff; font-size: 24px; margin: 0;">Listado de Vacunas</h2>
-        </div>
-        <div style="padding: 20px;">
-            <!-- Buscador DNI -->
-            <form method="GET" action="{{ route('vacunas.index') }}" style="margin-bottom: 20px;">
-                <div style="display: flex;">
-                    <input type="text" name="dni" value="{{ $dni }}" placeholder="Buscar por DNI" style="flex-grow: 1; padding: 8px; border: 1px solid #d1d5db; border-radius: 4px 0 0 4px;">
-                    <button type="submit" style="padding: 8px 16px; background-color: #22c55e; color: #ffffff; border: none; border-radius: 0 4px 4px 0; cursor: pointer;">Buscar</button>
+<div class="max-w-4xl mx-auto p-6 bg-white shadow-lg rounded-xl">
+    <div class="bg-gradient-to-r from-green-500 to-green-700 p-4 rounded-t-xl">
+        <h2 class="text-white text-xl font-semibold">Listado de Vacunas</h2>
+    </div>
+    
+    <div class="p-4">
+        <!-- Buscador DNI -->
+        <form method="GET" action="{{ route('vacunas.index') }}" class="mb-4 flex">
+            <input type="text" name="dni" value="{{ $dni }}" placeholder="Buscar por DNI" class="w-full px-4 py-2 border rounded-l-lg shadow-sm focus:ring focus:ring-green-300">
+            <button type="submit" class="bg-green-600 text-white px-4 py-2 rounded-r-lg shadow-md hover:bg-green-700 transition">Buscar</button>
+        </form>
+
+        @if ($paciente)
+            <h3 class="mb-4 font-semibold">Paciente: {{ $paciente->primer_nombre }} {{ $paciente->primer_apellido }}</h3>
+            @if ($paciente->historialClinico->isNotEmpty())
+                <div class="flex gap-2 mb-4">
+                    <a href="{{ route('vacunas.create', $paciente->historialClinico->first()->id_historial) }}" class="bg-green-700 text-white px-4 py-2 rounded-lg shadow-md hover:bg-green-800 transition">+ Nueva Vacuna</a>
+                    <a href="{{ route('historial.show', $paciente->historialClinico->first()->id_historial) }}" class="bg-gray-600 text-white px-4 py-2 rounded-lg shadow-md hover:bg-gray-700 transition">Volver al Historial</a>
                 </div>
-            </form>
+            @else
+                <p class="text-red-600 mb-4">El paciente no tiene un historial clínico.</p>
+            @endif
 
-            @if ($paciente)
-                <h3 style="margin-bottom: 20px;">Paciente: {{ $paciente->primer_nombre }} {{ $paciente->primer_apellido }}</h3>
-                @if ($paciente->historialClinico->isNotEmpty())
-                    <a href="{{ route('vacunas.create', $paciente->historialClinico->first()->id_historial) }}" style="display: inline-block; padding: 10px 20px; background-color: #16a34a; color: #ffffff; text-decoration: none; border-radius: 4px; margin-bottom: 20px;">Nueva Vacuna</a>
-                    <a href="{{ route('historial.show', $paciente->historialClinico->first()->id_historial) }}" style="display: inline-block; padding: 10px 20px; background-color: #4a5568; color: #ffffff; text-decoration: none; border-radius: 4px; margin-bottom: 20px;">Volver al Historial</a>
-                @else
-                    <p style="color: #ef4444; margin-bottom: 20px;">El paciente no tiene un historial clínico.</p>
-                @endif
-
-                @if ($vacunas->isEmpty())
-                    <p style="color: #6b7280; margin-bottom: 20px;">No hay vacunas registradas para este paciente.</p>
-                @else
-                    <table style="width: 100%; border-collapse: collapse;">
-                        <thead>
-                            <tr style="background-color: #f3f4f6;">
-                                <th style="padding: 12px; text-align: left; border-bottom: 2px solid #e5e7eb;">Nombre</th>
-                                <th style="padding: 12px; text-align: left; border-bottom: 2px solid #e5e7eb;">Fecha Aplicación</th>
-                                <th style="padding: 12px; text-align: left; border-bottom: 2px solid #e5e7eb;">Dosis</th>
-                                <th style="padding: 12px; text-align: left; border-bottom: 2px solid #e5e7eb;">Próxima Dosis</th>
-                                <th style="padding: 12px; text-align: left; border-bottom: 2px solid #e5e7eb;">Acciones</th>
+            @if ($vacunas->isEmpty())
+                <p class="text-gray-500 mb-4">No hay vacunas registradas para este paciente.</p>
+            @else
+                <div class="overflow-x-auto">
+                    <table class="w-full bg-green-100 border border-green-600 rounded-lg shadow-md">
+                        <thead class="bg-green-600 text-white">
+                            <tr>
+                                <th class="px-4 py-2 text-left">Nombre</th>
+                                <th class="px-4 py-2 text-left">Fecha Aplicación</th>
+                                <th class="px-4 py-2 text-left">Dosis</th>
+                                <th class="px-4 py-2 text-left">Próxima Dosis</th>
+                                <th class="px-4 py-2 text-center">Acciones</th>
                             </tr>
                         </thead>
                         <tbody>
                             @foreach ($vacunas as $vacuna)
-                                <tr>
-                                    <td style="padding: 12px; border-bottom: 1px solid #e5e7eb;">{{ $vacuna->nombre_vacuna }}</td>
-                                    <td style="padding: 12px; border-bottom: 1px solid #e5e7eb;">{{ $vacuna->fecha_aplicacion }}</td>
-                                    <td style="padding: 12px; border-bottom: 1px solid #e5e7eb;">{{ $vacuna->dosis }}</td>
-                                    <td style="padding: 12px; border-bottom: 1px solid #e5e7eb;">{{ $vacuna->proxima_dosis ?? 'No programada' }}</td>
-                                    <td style="padding: 12px; border-bottom: 1px solid #e5e7eb;">
-                                        <a href="{{ route('vacunas.edit', [$vacuna->id_historial, $vacuna->id_vacuna]) }}" style="display: inline-block; padding: 6px 12px; background-color: #f59e0b; color: #ffffff; text-decoration: none; border-radius: 4px; margin-right: 5px;">Editar</a>
-                                        <button class="btn-delete" data-url="{{ route('vacunas.destroy', [$vacuna->id_historial, $vacuna->id_vacuna]) }}" style="padding: 6px 12px; background-color: #ef4444; color: #ffffff; border: none; border-radius: 4px; cursor: pointer;">Eliminar</button>
+                                <tr class="border-b border-green-500 hover:bg-green-200 transition">
+                                    <td class="px-4 py-2">{{ $vacuna->nombre_vacuna }}</td>
+                                    <td class="px-4 py-2">{{ $vacuna->fecha_aplicacion }}</td>
+                                    <td class="px-4 py-2">{{ $vacuna->dosis }}</td>
+                                    <td class="px-4 py-2">{{ $vacuna->proxima_dosis ?? 'No programada' }}</td>
+                                    <td class="px-4 py-2 flex justify-center gap-2">
+                                        <a href="{{ route('vacunas.edit', [$vacuna->id_historial, $vacuna->id_vacuna]) }}" class="bg-yellow-600 text-white px-3 py-2 rounded-md hover:bg-yellow-700 transition">Editar</a>
+                                        <button class="bg-red-600 text-white px-3 py-2 rounded-md hover:bg-red-700 transition btn-delete" data-url="{{ route('vacunas.destroy', [$vacuna->id_historial, $vacuna->id_vacuna]) }}">Eliminar</button>
                                     </td>
                                 </tr>
                             @endforeach
                         </tbody>
                     </table>
-                @endif
-            @elseif ($dni)
-                <p style="color: #ef4444; margin-bottom: 20px;">No se encontró ningún paciente con el DNI ingresado.</p>
-            @else
-                <p style="color: #6b7280; margin-bottom: 20px;">Ingrese un DNI para buscar un paciente.</p>
+                </div>
             @endif
-        </div>
+        @elseif ($dni)
+            <p class="text-red-600">No se encontró ningún paciente con el DNI ingresado.</p>
+        @else
+            <p class="text-gray-500">Ingrese un DNI para buscar un paciente.</p>
+        @endif
     </div>
 </div>
 

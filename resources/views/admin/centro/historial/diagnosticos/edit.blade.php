@@ -3,58 +3,42 @@
 @section('title', 'Editar Diagnóstico')
 
 @section('content')
-<div style="max-width: 900px; margin: 0 auto; padding: 20px; width: 95%;">
-    <div style="background-color: #ffffff; border-radius: 8px; overflow: hidden; box-shadow: 0 0 10px rgba(0,0,0,0.1);">
+<div class="max-w-3xl mx-auto p-6 w-11/12">
+    <div class="bg-white border-2 border-black rounded-lg shadow-lg overflow-hidden">
         <!-- Encabezado -->
-        <div style="background: linear-gradient(to right, #2563eb, #1e40af); padding: 20px;">
-            <h2 style="color: #ffffff; font-size: clamp(20px, 4vw, 24px); margin: 0;">Editar Diagnóstico</h2>
+        <div class="bg-gradient-to-r from-blue-600 to-blue-800 p-4">
+            <h2 class="text-white text-2xl font-bold">Editar Diagnóstico</h2>
         </div>
 
         <!-- Contenido del Formulario -->
-        <div style="padding: 20px;">
+        <div class="p-6">
             <form action="{{ route('diagnosticos.update', [$diagnostico->id_historial, $diagnostico->id_diagnostico]) }}" method="POST">
                 @csrf
                 @method('PUT')
 
-                <!-- Fecha de creación -->
-                <div style="margin-bottom: 20px;">
-                    <label for="fecha_creacion" style="display: block; font-weight: bold; margin-bottom: 8px; color: #374151;">
-                        Fecha de Creación
-                    </label>
-                    <input
-                        type="date"
-                        name="fecha_creacion"
-                        id="fecha_creacion"
+                <!-- Fecha de Creación -->
+                <div class="mb-4">
+                    <label for="fecha_creacion" class="block font-bold mb-1">Fecha de Creación</label>
+                    <input type="date" name="fecha_creacion" id="fecha_creacion"
                         value="{{ old('fecha_creacion', $diagnostico->fecha_creacion) }}"
-                        style="width: 100%; padding: 10px; font-size: 16px; border: 1px solid #d1d5db; border-radius: 6px; outline: none;"
-                    >
+                        class="w-full p-3 border border-black rounded-md focus:outline-none focus:ring-2 focus:ring-blue-600 bg-gray-100">
                 </div>
 
                 <!-- Descripción -->
-                <div style="margin-bottom: 20px;">
-                    <label for="descripcion" style="display: block; font-weight: bold; margin-bottom: 8px; color: #374151;">
-                        Descripción
-                    </label>
-                    <textarea
-                        name="descripcion"
-                        id="descripcion"
-                        rows="9"
-                        style="width: 100%; padding: 10px; font-size: 16px; border: 1px solid #d1d5db; border-radius: 6px; resize: vertical; min-height: 120px; outline: none;"
-                    >{{ old('descripcion', $diagnostico->descripcion) }}</textarea>
+                <div class="mb-4">
+                    <label for="descripcion" class="block font-bold mb-1">Descripción</label>
+                    <textarea name="descripcion" id="descripcion" rows="4"
+                        class="w-full p-3 border border-black rounded-md focus:outline-none focus:ring-2 focus:ring-blue-600 bg-gray-100 resize-y">{{ old('descripcion', $diagnostico->descripcion) }}</textarea>
                 </div>
 
                 <!-- Botones de acción -->
-                <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 30px; flex-wrap: wrap; gap: 10px;">
-                    <a
-                        href="{{ route('diagnosticos.index', ['dni' => $diagnostico->historialClinico->paciente->dni]) }}"
-                        style="display: inline-block; padding: 10px 20px; background-color: #6b7280; color: #ffffff; text-decoration: none; border-radius: 4px; text-align: center; min-width: 120px;"
-                    >
+                <div class="flex justify-end items-center mt-6 space-x-4">
+                    <a href="{{ route('diagnosticos.index', ['dni' => $diagnostico->historialClinico->paciente->dni]) }}"
+                        class="px-5 py-2 bg-gray-600 hover:bg-gray-700 text-white font-bold rounded-lg border border-black">
                         Cancelar
                     </a>
-                    <button
-                        type="submit"
-                        style="padding: 10px 20px; background-color: #1e40af; color: #ffffff; border: none; border-radius: 4px; cursor: pointer; font-size: 16px; min-width: 120px;"
-                    >
+                    <button type="submit"
+                        class="px-5 py-2 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-lg border border-black">
                         Guardar Cambios
                     </button>
                 </div>

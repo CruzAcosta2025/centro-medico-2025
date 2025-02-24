@@ -3,59 +3,47 @@
 @section('title', 'Registrar Tratamiento')
 
 @section('content')
-<div style="max-width: 900px; margin: 0 auto; padding: 20px; width: 95%;">
-    <div style="background-color: #ffffff; border-radius: 8px; overflow: hidden; box-shadow: 0 0 10px rgba(0,0,0,0.1);">
+<div class="max-w-3xl mx-auto p-6 w-11/12">
+    <div class="bg-white border-2 border-black rounded-lg shadow-lg">
         <!-- Encabezado -->
-        <div style="background: linear-gradient(to right, #3b82f6, #1e40af); padding: 20px;">
-            <h2 style="color: #ffffff; font-size: clamp(20px, 4vw, 24px); margin: 0;">Registrar Tratamiento</h2>
+        <div class="bg-gradient-to-r from-blue-500 to-blue-900 p-5 rounded-t-lg">
+            <h2 class="text-white text-xl md:text-2xl font-bold">Registrar Tratamiento</h2>
         </div>
 
         <!-- Contenido del Formulario -->
-        <div style="padding: 20px;">
+        <div class="p-6">
             <form action="{{ route('tratamientos.store', $historial->id_historial) }}" method="POST">
                 @csrf
 
                 <!-- Descripción -->
-                <div style="margin-bottom: 20px;">
-                    <label for="descripcion" style="display: block; font-weight: bold; margin-bottom: 8px; color: #374151;">
-                        Descripción
-                    </label>
-                    <textarea
-                        name="descripcion"
-                        id="descripcion"
-                        rows="8"
-                        style="width: 100%; padding: 10px; font-size: 16px; border: 1px solid #d1d5db; border-radius: 6px; resize: vertical;"
-                    >{{ old('descripcion') }}</textarea>
+                <div class="mb-4">
+                    <label for="descripcion" class="block font-bold text-gray-800 mb-1">Descripción</label>
+                    <textarea name="descripcion" id="descripcion" rows="6"
+                        class="w-full p-3 border border-black rounded-md bg-gray-100 focus:ring-2 focus:ring-blue-500 resize-y">{{ old('descripcion') }}</textarea>
                     @error('descripcion')
-                        <span style="color: red; font-size: 14px;">{{ $message }}</span>
+                        <span class="text-red-600 text-sm">{{ $message }}</span>
                     @enderror
                 </div>
 
                 <!-- Fecha de Creación -->
-                <div style="margin-bottom: 20px;">
-                    <label for="fecha_creacion" style="display: block; font-weight: bold; margin-bottom: 8px; color: #374151;">
-                        Fecha de Creación
-                    </label>
-                    <input
-                        type="date"
-                        name="fecha_creacion"
-                        id="fecha_creacion"
+                <div class="mb-4">
+                    <label for="fecha_creacion" class="block font-bold text-gray-800 mb-1">Fecha de Creación</label>
+                    <input type="date" name="fecha_creacion" id="fecha_creacion"
                         value="{{ old('fecha_creacion', now()->format('Y-m-d')) }}"
-                        style="width: 100%; padding: 10px; font-size: 16px; border: 1px solid #d1d5db; border-radius: 6px;"
-                    >
+                        class="w-full p-3 border border-black rounded-md bg-gray-100 focus:ring-2 focus:ring-blue-500">
                     @error('fecha_creacion')
-                        <span style="color: red; font-size: 14px;">{{ $message }}</span>
+                        <span class="text-red-600 text-sm">{{ $message }}</span>
                     @enderror
                 </div>
 
                 <!-- Botones de Acción -->
-                <div style="display: flex; justify-content: flex-end; gap: 10px;">
+                <div class="flex justify-end space-x-4 mt-6">
                     <a href="{{ route('historial.show', $historial->id_historial) }}"
-                        style="padding: 10px 20px; background-color: #6b7280; color: #ffffff; text-decoration: none; border-radius: 4px;">
+                        class="px-5 py-2 bg-gray-600 hover:bg-gray-700 text-white font-bold rounded-lg border border-black">
                         Cancelar
                     </a>
                     <button type="submit"
-                        style="padding: 10px 20px; background-color: #1e40af; color: #ffffff; border: none; border-radius: 4px; cursor: pointer;">
+                        class="px-5 py-2 bg-blue-700 hover:bg-blue-800 text-white font-bold rounded-lg border border-black">
                         Guardar
                     </button>
                 </div>

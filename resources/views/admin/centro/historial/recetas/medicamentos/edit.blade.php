@@ -3,104 +3,66 @@
 @section('title', 'Editar Medicamento')
 
 @section('content')
-<div style="max-width: 900px; margin: 0 auto; padding: 20px; width: 95%;">
-    <div style="background-color: #ffffff; border-radius: 8px; overflow: hidden; box-shadow: 0 0 10px rgba(0,0,0,0.1);">
+<div class="max-w-3xl mx-auto p-6 w-11/12">
+    <div class="bg-white border-2 border-black rounded-lg shadow-lg">
         <!-- Encabezado -->
-        <div style="background: linear-gradient(to right, #10b981, #059669); padding: 20px;">
-            <h2 style="color: #ffffff; font-size: clamp(20px, 4vw, 24px); margin: 0;">Editar Medicamento</h2>
+        <div class="bg-gradient-to-r from-green-500 to-emerald-600 p-5 rounded-t-lg">
+            <h2 class="text-white text-xl md:text-2xl font-bold">Editar Medicamento</h2>
         </div>
 
         <!-- Contenido del Formulario -->
-        <div style="padding: 20px;">
+        <div class="p-6">
             <form action="{{ route('medicamentos.update', [$receta->id_receta, $medicamento->id_medicamento_receta]) }}" method="POST">
                 @csrf
                 @method('PUT')
 
                 <!-- Medicamento -->
-                <div style="margin-bottom: 20px;">
-                    <label for="medicamento" style="display: block; font-weight: bold; margin-bottom: 8px; color: #374151;">
-                        Nombre del Medicamento
-                    </label>
-                    <input
-                        type="text"
-                        name="medicamento"
-                        id="medicamento"
-                        value="{{ old('medicamento', $medicamento->medicamento) }}"
-                        style="width: 100%; padding: 10px; font-size: 16px; border: 1px solid #d1d5db; border-radius: 6px; outline: none;"
-                        required
-                    >
+                <div class="mb-4">
+                    <label for="medicamento" class="block font-bold text-gray-800 mb-1">Nombre del Medicamento</label>
+                    <input type="text" name="medicamento" id="medicamento"
+                        value="{{ old('medicamento', $medicamento->medicamento) }}" required
+                        class="w-full p-3 border border-black rounded-md bg-gray-100 focus:ring-2 focus:ring-green-500">
                 </div>
 
                 <!-- Dosis -->
-                <div style="margin-bottom: 20px;">
-                    <label for="dosis" style="display: block; font-weight: bold; margin-bottom: 8px; color: #374151;">
-                        Dosis
-                    </label>
-                    <input
-                        type="text"
-                        name="dosis"
-                        id="dosis"
-                        value="{{ old('dosis', $medicamento->dosis) }}"
-                        style="width: 100%; padding: 10px; font-size: 16px; border: 1px solid #d1d5db; border-radius: 6px; outline: none;"
-                        required
-                    >
+                <div class="mb-4">
+                    <label for="dosis" class="block font-bold text-gray-800 mb-1">Dosis</label>
+                    <input type="text" name="dosis" id="dosis"
+                        value="{{ old('dosis', $medicamento->dosis) }}" required
+                        class="w-full p-3 border border-black rounded-md bg-gray-100 focus:ring-2 focus:ring-green-500">
                 </div>
 
                 <!-- Frecuencia -->
-                <div style="margin-bottom: 20px;">
-                    <label for="frecuencia" style="display: block; font-weight: bold; margin-bottom: 8px; color: #374151;">
-                        Frecuencia
-                    </label>
-                    <input
-                        type="text"
-                        name="frecuencia"
-                        id="frecuencia"
-                        value="{{ old('frecuencia', $medicamento->frecuencia) }}"
-                        style="width: 100%; padding: 10px; font-size: 16px; border: 1px solid #d1d5db; border-radius: 6px; outline: none;"
-                        required
-                    >
+                <div class="mb-4">
+                    <label for="frecuencia" class="block font-bold text-gray-800 mb-1">Frecuencia</label>
+                    <input type="text" name="frecuencia" id="frecuencia"
+                        value="{{ old('frecuencia', $medicamento->frecuencia) }}" required
+                        class="w-full p-3 border border-black rounded-md bg-gray-100 focus:ring-2 focus:ring-green-500">
                 </div>
 
                 <!-- Duración -->
-                <div style="margin-bottom: 20px;">
-                    <label for="duracion" style="display: block; font-weight: bold; margin-bottom: 8px; color: #374151;">
-                        Duración
-                    </label>
-                    <input
-                        type="text"
-                        name="duracion"
-                        id="duracion"
-                        value="{{ old('duracion', $medicamento->duracion) }}"
-                        style="width: 100%; padding: 10px; font-size: 16px; border: 1px solid #d1d5db; border-radius: 6px; outline: none;"
-                        required
-                    >
+                <div class="mb-4">
+                    <label for="duracion" class="block font-bold text-gray-800 mb-1">Duración</label>
+                    <input type="text" name="duracion" id="duracion"
+                        value="{{ old('duracion', $medicamento->duracion) }}" required
+                        class="w-full p-3 border border-black rounded-md bg-gray-100 focus:ring-2 focus:ring-green-500">
                 </div>
 
                 <!-- Instrucciones -->
-                <div style="margin-bottom: 20px;">
-                    <label for="instrucciones" style="display: block; font-weight: bold; margin-bottom: 8px; color: #374151;">
-                        Instrucciones (Opcional)
-                    </label>
-                    <textarea
-                        name="instrucciones"
-                        id="instrucciones"
-                        rows="5"
-                        style="width: 100%; padding: 10px; font-size: 16px; border: 1px solid #d1d5db; border-radius: 6px; resize: vertical; outline: none;"
-                    >{{ old('instrucciones', $medicamento->instrucciones) }}</textarea>
+                <div class="mb-4">
+                    <label for="instrucciones" class="block font-bold text-gray-800 mb-1">Instrucciones (Opcional)</label>
+                    <textarea name="instrucciones" id="instrucciones" rows="4"
+                        class="w-full p-3 border border-black rounded-md bg-gray-100 focus:ring-2 focus:ring-green-500 resize-y">{{ old('instrucciones', $medicamento->instrucciones) }}</textarea>
                 </div>
 
                 <!-- Botones de acción -->
-                <div style="display: flex; justify-content: flex-end; align-items: center; margin-top: 30px; gap: 10px;">
-                    <a
-                        href="{{ route('medicamentos.index', $receta->id_receta) }}"
-                        style="display: inline-block; padding: 10px 20px; background-color: #6b7280; color: #ffffff; text-decoration: none; border-radius: 4px; text-align: center; min-width: 120px;"
-                    >
+                <div class="flex justify-end space-x-4 mt-6">
+                    <a href="{{ route('medicamentos.index', $receta->id_receta) }}"
+                        class="px-5 py-2 bg-gray-600 hover:bg-gray-700 text-white font-bold rounded-lg border border-black">
                         Cancelar
                     </a>
-                    <button
-                        type="submit"
-                        style="padding: 10px 20px; background-color: #059669; color: #ffffff; border: none; border-radius: 4px; cursor: pointer; font-size: 16px; min-width: 120px;"
-                    >
+                    <button type="submit"
+                        class="px-5 py-2 bg-emerald-600 hover:bg-emerald-700 text-white font-bold rounded-lg border border-black">
                         Guardar Cambios
                     </button>
                 </div>

@@ -3,57 +3,70 @@
 @section('title', 'Crear Servicio')
 
 @section('content')
-<div style="max-width: 600px; margin: 20px auto; padding: 20px; background: #fff; border-radius: 8px;">
-    <h2 style="text-align: center; color: #004643;">Crear Servicio</h2>
-
-    <form action="{{ route('servicios.store') }}" method="POST">
-        @csrf
-        <div style="margin-bottom: 15px;">
-            <label for="nombre_servicio" style="font-weight: bold;">Nombre del Servicio:</label>
-            <input type="text" id="nombre_servicio" name="nombre_servicio" value="{{ old('nombre_servicio') }}"
-                style="width: 100%; padding: 10px; border-radius: 4px;" required>
+<div class="max-w-xl mx-auto px-6 py-8">
+    <div class="bg-white rounded-xl shadow-lg border-2 border-black p-6">
+        <div class="bg-blue-900 text-white py-4 px-6 rounded-t-lg">
+            <h2 class="text-2xl font-semibold text-center">Crear Servicio</h2>
         </div>
 
-        <div style="margin-bottom: 15px;">
-            <label for="categoria_servicio" style="font-weight: bold;">Categoría:</label>
-            <select id="categoria_servicio" name="categoria_servicio" style="width: 100%; padding: 10px; border-radius: 4px;" required>
-                <option value="">Seleccione una categoría</option>
-                <option value="DIAGNOSTICO" {{ old('categoria_servicio') == 'DIAGNOSTICO' ? 'selected' : '' }}>DIAGNÓSTICO</option>
-                <option value="CONSULTA" {{ old('categoria_servicio') == 'CONSULTA' ? 'selected' : '' }}>CONSULTA</option>
-                <option value="EXAMEN" {{ old('categoria_servicio') == 'EXAMEN' ? 'selected' : '' }}>EXAMEN</option>
-            </select>
-        </div>
+        <form action="{{ route('servicios.store') }}" method="POST" class="mt-6 space-y-6">
+            @csrf
 
-        <div style="margin-bottom: 15px;">
-            <label for="descripcion" style="font-weight: bold;">Descripción:</label>
-            <textarea id="descripcion" name="descripcion" rows="4" style="width: 100%; padding: 10px; border-radius: 4px;">{{ old('descripcion') }}</textarea>
-        </div>
+            <!-- Nombre del Servicio -->
+            <div>
+                <label for="nombre_servicio" class="block font-semibold text-gray-900">Nombre del Servicio:</label>
+                <input type="text" id="nombre_servicio" name="nombre_servicio" value="{{ old('nombre_servicio') }}" required
+                    class="w-full p-3 border-2 border-black rounded-lg bg-blue-100 focus:outline-none focus:ring-2 focus:ring-blue-500">
+            </div>
 
-        <div style="margin-bottom: 15px;">
-            <label for="precio" style="font-weight: bold;">Precio:</label>
-            <input type="number" id="precio" name="precio" value="{{ old('precio') }}" step="0.01"
-                style="width: 100%; padding: 10px; border-radius: 4px;" required>
-        </div>
+            <!-- Categoría -->
+            <div>
+                <label for="categoria_servicio" class="block font-semibold text-gray-900">Categoría:</label>
+                <select id="categoria_servicio" name="categoria_servicio" required
+                    class="w-full p-3 border-2 border-black rounded-lg bg-blue-100 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                    <option value="">Seleccione una categoría</option>
+                    <option value="DIAGNOSTICO" {{ old('categoria_servicio') == 'DIAGNOSTICO' ? 'selected' : '' }}>DIAGNÓSTICO</option>
+                    <option value="CONSULTA" {{ old('categoria_servicio') == 'CONSULTA' ? 'selected' : '' }}>CONSULTA</option>
+                    <option value="EXAMEN" {{ old('categoria_servicio') == 'EXAMEN' ? 'selected' : '' }}>EXAMEN</option>
+                </select>
+            </div>
 
-        <div style="margin-bottom: 15px;">
-            <label for="estado" style="font-weight: bold;">Estado:</label>
-            <select id="estado" name="estado" style="width: 100%; padding: 10px; border-radius: 4px;">
-                <option value="activo" {{ old('estado') == 'activo' ? 'selected' : '' }}>Activo</option>
-                <option value="inactivo" {{ old('estado') == 'inactivo' ? 'selected' : '' }}>Inactivo</option>
-            </select>
-        </div>
+            <!-- Descripción -->
+            <div>
+                <label for="descripcion" class="block font-semibold text-gray-900">Descripción:</label>
+                <textarea id="descripcion" name="descripcion" rows="4"
+                    class="w-full p-3 border-2 border-black rounded-lg bg-blue-100 focus:outline-none focus:ring-2 focus:ring-blue-500">{{ old('descripcion') }}</textarea>
+            </div>
 
-        <div style="text-align: center; margin-top: 20px;">
-            <a href="{{ route('servicios.index') }}"
-                style="background: #ccc; color: #000; padding: 10px 15px; text-decoration: none; border-radius: 5px; margin-right: 10px;">
-                Cancelar
-            </a>
-            <button type="submit"
-                style="background: #004643; color: #fff; padding: 10px 15px; border: none; border-radius: 5px;">
-                Guardar
-            </button>
-        </div>
+            <!-- Precio -->
+            <div>
+                <label for="precio" class="block font-semibold text-gray-900">Precio:</label>
+                <input type="number" id="precio" name="precio" value="{{ old('precio') }}" step="0.01" required
+                    class="w-full p-3 border-2 border-black rounded-lg bg-blue-100 focus:outline-none focus:ring-2 focus:ring-blue-500">
+            </div>
 
-    </form>
+            <!-- Estado -->
+            <div>
+                <label for="estado" class="block font-semibold text-gray-900">Estado:</label>
+                <select id="estado" name="estado"
+                    class="w-full p-3 border-2 border-black rounded-lg bg-blue-100 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                    <option value="activo" {{ old('estado') == 'activo' ? 'selected' : '' }}>Activo</option>
+                    <option value="inactivo" {{ old('estado') == 'inactivo' ? 'selected' : '' }}>Inactivo</option>
+                </select>
+            </div>
+
+            <!-- Botones -->
+            <div class="flex justify-between mt-6">
+                <a href="{{ route('servicios.index') }}"
+                    class="px-6 py-3 bg-gray-300 text-gray-700 rounded-lg border-2 border-black hover:bg-gray-400">
+                    Cancelar
+                </a>
+                <button type="submit"
+                    class="px-6 py-3 bg-blue-900 text-white rounded-lg border-2 border-black hover:bg-blue-700">
+                    Guardar
+                </button>
+            </div>
+        </form>
+    </div>
 </div>
 @endsection

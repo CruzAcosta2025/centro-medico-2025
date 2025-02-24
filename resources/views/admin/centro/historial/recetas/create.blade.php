@@ -3,61 +3,47 @@
 @section('title', 'Registrar Receta')
 
 @section('content')
-<div style="max-width: 900px; margin: 0 auto; padding: 20px; width: 95%;">
-    <div style="background-color: #ffffff; border-radius: 8px; overflow: hidden; box-shadow: 0 0 10px rgba(0,0,0,0.1);">
+<div class="max-w-3xl mx-auto p-6 w-11/12">
+    <div class="bg-white border-2 border-black rounded-lg shadow-lg">
         <!-- Encabezado -->
-        <div style="background: linear-gradient(to right, #f43f5e, #e11d48); padding: 20px;">
-            <h2 style="color: #ffffff; font-size: clamp(20px, 4vw, 24px); margin: 0;">Registrar Receta</h2>
+        <div class="bg-gradient-to-r from-rose-500 to-red-600 p-5 rounded-t-lg">
+            <h2 class="text-white text-xl md:text-2xl font-bold">Registrar Receta</h2>
         </div>
 
         <!-- Contenido del Formulario -->
-        <div style="padding: 20px;">
+        <div class="p-6">
             <form action="{{ route('recetas.store', $historial->id_historial) }}" method="POST">
                 @csrf
 
                 <!-- Selección del Médico -->
-                <div style="margin-bottom: 20px;">
-                    <label for="id_medico" style="display: block; font-weight: bold; margin-bottom: 8px; color: #374151;">
-                        Médico
-                    </label>
+                <div class="mb-4">
+                    <label for="id_medico" class="block font-bold text-gray-800 mb-1">Médico</label>
                     <select name="id_medico" id="id_medico"
-                        style="width: 100%; padding: 10px; font-size: 16px; border: 1px solid #d1d5db; border-radius: 6px; outline: none;">
+                        class="w-full p-3 border border-black rounded-md bg-gray-100 focus:ring-2 focus:ring-red-500">
                         <option value="">Seleccione un médico</option>
                         @foreach ($personalMedico as $medico)
-                            <option value="{{ $medico->id_personal_medico }}">
-                                {{ $medico->usuario->nombre }} - {{ $medico->especialidad->nombre_especialidad ?? 'Sin Especialidad' }}
-                            </option>
+                        <option value="{{ $medico->id_personal_medico }}">
+                            {{ $medico->usuario->nombre }} - {{ $medico->especialidad->nombre_especialidad ?? 'Sin Especialidad' }}
+                        </option>
                         @endforeach
                     </select>
                 </div>
 
                 <!-- Fecha de la Receta -->
-                <div style="margin-bottom: 20px;">
-                    <label for="fecha_receta" style="display: block; font-weight: bold; margin-bottom: 8px; color: #374151;">
-                        Fecha de la Receta
-                    </label>
-                    <input
-                        type="date"
-                        name="fecha_receta"
-                        id="fecha_receta"
-                        value="{{ old('fecha_receta') }}"
-                        required
-                        style="width: 100%; padding: 10px; font-size: 16px; border: 1px solid #d1d5db; border-radius: 6px; outline: none;"
-                    >
+                <div class="mb-4">
+                    <label for="fecha_receta" class="block font-bold text-gray-800 mb-1">Fecha de la Receta</label>
+                    <input type="date" name="fecha_receta" id="fecha_receta" value="{{ old('fecha_receta') }}" required
+                        class="w-full p-3 border border-black rounded-md bg-gray-100 focus:ring-2 focus:ring-red-500">
                 </div>
 
                 <!-- Botones de acción -->
-                <div style="display: flex; justify-content: flex-end; align-items: center; margin-top: 30px; flex-wrap: wrap; gap: 10px;">
-                    <a
-                        href="{{ route('recetas.index', ['dni' => $paciente->dni]) }}"
-                        style="display: inline-block; padding: 10px 20px; background-color: #6b7280; color: #ffffff; text-decoration: none; border-radius: 4px; text-align: center; min-width: 120px; font-weight: 600;"
-                    >
+                <div class="flex justify-end space-x-4 mt-6">
+                    <a href="{{ route('recetas.index', ['dni' => $paciente->dni]) }}"
+                        class="px-5 py-2 bg-gray-600 hover:bg-gray-700 text-white font-bold rounded-lg border border-black">
                         Cancelar
                     </a>
-                    <button
-                        type="submit"
-                        style="padding: 10px 20px; background-color: #e11d48; color: #ffffff; border: none; border-radius: 4px; cursor: pointer; font-size: 16px; min-width: 120px; font-weight: 600;"
-                    >
+                    <button type="submit"
+                        class="px-5 py-2 bg-red-600 hover:bg-red-700 text-white font-bold rounded-lg border border-black">
                         Guardar
                     </button>
                 </div>

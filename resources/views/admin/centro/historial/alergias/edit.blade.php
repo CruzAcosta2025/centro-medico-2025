@@ -3,39 +3,39 @@
 @section('title', 'Editar Alergia')
 
 @section('content')
-<div style="max-width: 600px; margin: 0 auto; padding: 20px;">
-    <div style="background-color: #ffffff; border-radius: 8px; overflow: hidden; box-shadow: 0 0 10px rgba(0,0,0,0.1);">
-        <div style="background: linear-gradient(to right, #ed8936, #ed64a6); padding: 20px;">
-            <h2 style="color: #ffffff; font-size: 24px; margin: 0;">Editar Alergia</h2>
+<div class="max-w-lg mx-auto p-6">
+    <div class="bg-white border-2 border-black rounded-lg shadow-lg overflow-hidden">
+        <div class="bg-gradient-to-r from-blue-600 to-blue-800 p-4">
+            <h2 class="text-white text-2xl font-bold">Editar Alergia</h2>
         </div>
-        <form action="{{ route('alergias.update', [$paciente->id_paciente, $alergia->id_alergia]) }}" method="POST" style="padding: 20px;">
+        <form action="{{ route('alergias.update', [$paciente->id_paciente, $alergia->id_alergia]) }}" method="POST" class="p-6">
             @csrf
             @method('PUT')
-            <div style="margin-bottom: 20px;">
-                <label for="tipo" style="display: block; margin-bottom: 5px; font-weight: bold; color: #4a5568;">Tipo</label>
+            <div class="mb-4">
+                <label for="tipo" class="block font-bold mb-1">Tipo</label>
                 <input type="text" name="tipo" id="tipo" value="{{ $alergia->tipo }}" required
-                       style="width: 100%; padding: 8px; border: 1px solid #e2e8f0; border-radius: 4px; background-color: #edf2f7;">
+                    class="w-full p-2 border border-black rounded-md focus:outline-none focus:ring-2 focus:ring-blue-600 bg-gray-100">
             </div>
-            <div style="margin-bottom: 20px;">
-                <label for="descripcion" style="display: block; margin-bottom: 5px; font-weight: bold; color: #4a5568;">Descripción</label>
-                <textarea name="descripcion" id="descripcion"
-                          style="width: 100%; padding: 8px; border: 1px solid #e2e8f0; border-radius: 4px; background-color: #edf2f7; resize: none; min-height: 100px;">{{ $alergia->descripcion }}</textarea>
+            <div class="mb-4">
+                <label for="descripcion" class="block font-bold mb-1">Descripción</label>
+                <textarea name="descripcion" id="descripcion" required
+                    class="w-full p-2 border border-black rounded-md focus:outline-none focus:ring-2 focus:ring-blue-600 bg-gray-100 h-24">{{ $alergia->descripcion }}</textarea>
             </div>
-            <div style="margin-bottom: 20px;">
-                <label for="severidad" style="display: block; margin-bottom: 5px; font-weight: bold; color: #4a5568;">Severidad</label>
+            <div class="mb-4">
+                <label for="severidad" class="block font-bold mb-1">Severidad</label>
                 <select name="severidad" id="severidad" required
-                        style="width: 100%; padding: 8px; border: 1px solid #e2e8f0; border-radius: 4px; background-color: #edf2f7;">
+                    class="w-full p-2 border border-black rounded-md focus:outline-none focus:ring-2 focus:ring-blue-600 bg-gray-100">
                     <option value="leve" {{ $alergia->severidad == 'leve' ? 'selected' : '' }}>Leve</option>
                     <option value="moderada" {{ $alergia->severidad == 'moderada' ? 'selected' : '' }}>Moderada</option>
                     <option value="severa" {{ $alergia->severidad == 'severa' ? 'selected' : '' }}>Severa</option>
                 </select>
             </div>
-            <div style="display: flex; justify-content: space-between; margin-top: 20px;">
-                <button type="submit" style="padding: 10px 20px; background-color: #48bb78; color: #ffffff; border: none; border-radius: 4px; cursor: pointer; transition: background-color 0.3s;">
+            <div class="flex justify-between mt-4">
+                <button type="submit" class="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-lg border border-black">
                     Actualizar
                 </button>
                 <a href="{{ route('historial.show', $paciente->historialClinico->first()->id_historial) }}"
-                   style="padding: 10px 20px; background-color: #718096; color: #ffffff; text-decoration: none; border-radius: 4px; transition: background-color 0.3s;">
+                    class="px-4 py-2 bg-gray-600 hover:bg-gray-700 text-white font-bold rounded-lg border border-black">
                     Cancelar
                 </a>
             </div>
@@ -43,4 +43,3 @@
     </div>
 </div>
 @endsection
-

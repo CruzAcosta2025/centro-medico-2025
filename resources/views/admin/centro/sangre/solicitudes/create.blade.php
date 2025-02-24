@@ -3,74 +3,66 @@
 @section('title', 'Registrar Solicitud de Sangre')
 
 @section('content')
-<div style="max-width: 600px; margin: auto; padding: 20px;">
-    <h2 style="text-align: center; margin-bottom: 20px; color: #004643;">Registrar Solicitud de Sangre</h2>
+<div class="container mx-auto px-4 py-8">
+    <div class="max-w-lg mx-auto bg-white p-6 rounded-xl shadow-lg border-2 border-black">
+        <div class="px-6 py-4 bg-blue-900">
+            <h2 class="text-3xl font-semibold text-white text-center">Registrar Solicitud de Sangre</h2>
+        </div>
 
-    <form action="{{ route('sangre.solicitudes.store') }}" method="POST" id="solicitud-form">
-        @csrf
+        <form action="{{ route('sangre.solicitudes.store') }}" method="POST" class="space-y-4" id="solicitud-form">
+            @csrf
 
-        <!-- Buscador de DNI -->
-        <div style="margin-bottom: 15px;">
-            <label for="dni" style="font-weight: bold;">Buscar Paciente por DNI:</label>
-            <div style="display: flex; gap: 10px;">
-                <input type="text" id="dni" name="dni" placeholder="Ingrese DNI"
-                    style="flex: 1; padding: 10px; border: 1px solid #ccc; border-radius: 4px;">
-                <button type="button" id="buscar-dni" style="padding: 10px; background: #004643; color: #fff; border: none; border-radius: 4px;">Buscar</button>
+            <div>
+                <label for="dni" class="block text-lg font-semibold text-gray-700">Buscar Paciente por DNI:</label>
+                <div class="flex gap-2">
+                    <input type="text" id="dni" name="dni" placeholder="Ingrese DNI" class="w-full p-3 border-2 border-black rounded-lg bg-blue-100 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                    <button type="button" id="buscar-dni" class="px-4 py-3 bg-blue-900 text-white rounded-lg border-2 border-black hover:bg-blue-700">Buscar</button>
+                </div>
+                <span id="paciente-info" class="text-sm text-blue-900"></span>
+                <span id="error-info" class="text-sm text-red-600"></span>
             </div>
-            <span id="paciente-info" style="font-size: 14px; color: #004643;"></span>
-            <span id="error-info" style="font-size: 14px; color: red;"></span>
-        </div>
 
-        <!-- Paciente ID -->
-        <input type="hidden" id="id_paciente" name="id_paciente">
+            <input type="hidden" id="id_paciente" name="id_paciente">
 
-        <!-- Tipo de Sangre -->
-        <div style="margin-bottom: 15px;">
-            <label for="tipo_sangre" style="font-weight: bold;">Tipo de Sangre:</label>
-            <input type="text" id="tipo_sangre" name="tipo_sangre" readonly
-                style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 4px;">
-        </div>
+            <div>
+                <label for="tipo_sangre" class="block text-lg font-semibold text-gray-700">Tipo de Sangre:</label>
+                <input type="text" id="tipo_sangre" name="tipo_sangre" readonly class="w-full p-3 border-2 border-black rounded-lg bg-blue-100 focus:outline-none">
+            </div>
 
-        <!-- Cantidad -->
-        <div style="margin-bottom: 15px;">
-            <label for="cantidad" style="font-weight: bold;">Cantidad:</label>
-            <input type="number" id="cantidad" name="cantidad" min="1" max="10" required
-                style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 4px;">
-        </div>
+            <div>
+                <label for="cantidad" class="block text-lg font-semibold text-gray-700">Cantidad:</label>
+                <input type="number" id="cantidad" name="cantidad" min="1" max="10" required class="w-full p-3 border-2 border-black rounded-lg bg-blue-100 focus:outline-none focus:ring-2 focus:ring-blue-500">
+            </div>
 
-        <div style="margin-bottom: 15px;">
-            <label for="fecha_solicitud" style="font-weight: bold;">Fecha de Solicitud:</label>
-            <input type="date" id="fecha_solicitud" name="fecha_solicitud" required
-                style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 4px;">
-        </div>
+            <div>
+                <label for="fecha_solicitud" class="block text-lg font-semibold text-gray-700">Fecha de Solicitud:</label>
+                <input type="date" id="fecha_solicitud" name="fecha_solicitud" required class="w-full p-3 border-2 border-black rounded-lg bg-blue-100 focus:outline-none focus:ring-2 focus:ring-blue-500">
+            </div>
 
+            <div>
+                <label for="urgencia" class="block text-lg font-semibold text-gray-700">Nivel de Urgencia:</label>
+                <select id="urgencia" name="urgencia" required class="w-full p-3 border-2 border-black rounded-lg bg-blue-100 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                    <option value="BAJA">Baja</option>
+                    <option value="MEDIA">Media</option>
+                    <option value="ALTA">Alta</option>
+                </select>
+            </div>
 
-        <!-- Urgencia -->
-        <div style="margin-bottom: 15px;">
-            <label for="urgencia" style="font-weight: bold;">Nivel de Urgencia:</label>
-            <select id="urgencia" name="urgencia" required
-                style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 4px;">
-                <option value="BAJA">Baja</option>
-                <option value="MEDIA">Media</option>
-                <option value="ALTA">Alta</option>
-            </select>
-        </div>
-
-
-
-
-        <div style="text-align: center;">
-            <button type="submit" style="padding: 10px 20px; background: #004643; color: #fff; border: none; border-radius: 4px;">Guardar</button>
-            <a href="{{ route('sangre.solicitudes.index') }}" style="padding: 10px 20px; background: #e63946; color: #fff; border: none; border-radius: 4px;">Cancelar</a>
-        </div>
-    </form>
+            <div class="flex justify-between items-center mt-4">
+                <button type="submit" class="px-20 py-3 bg-gray-300 text-gray-700 rounded-lg border-2 border-gray-500 hover:bg-gray-400">
+                    Guardar
+                </button>
+                <a href="{{ route('sangre.solicitudes.index') }}" class="px-20 py-3 bg-gray-300 text-gray-700 rounded-lg border-2 border-gray-500 hover:bg-gray-400">
+                    Cancelar
+                </a>
+            </div>
+        </form>
+    </div>
 </div>
 
 <script>
     document.getElementById('buscar-dni').addEventListener('click', function() {
         const dni = document.getElementById('dni').value;
-
-        // Limpiar mensajes previos
         document.getElementById('paciente-info').innerText = '';
         document.getElementById('error-info').innerText = '';
 

@@ -3,71 +3,61 @@
 @section('title', 'Editar Usuario')
 
 @section('content')
-<style>
-    .form-group {
-        margin-bottom: 1rem;
-    }
-    .form-label {
-        font-weight: bold;
-    }
-    .form-input, .form-select {
-        width: 100%;
-        padding: 0.5rem;
-        border: 1px solid #ddd;
-        border-radius: 4px;
-    }
-    .btn {
-        background: #0d9488;
-        color: #ffffff;
-        padding: 0.5rem 1rem;
-        border: none;
-        border-radius: 4px;
-        cursor: pointer;
-        text-decoration: none;
-        margin-top: 1rem;
-    }
-    .btn:hover {
-        background: #0f766e;
-    }
-    .btn-link {
-        color: #0d9488;
-        text-decoration: none;
-        margin-left: 1rem;
-    }
-    .btn-link:hover {
-        text-decoration: underline;
-    }
-</style>
+<div class="container mx-auto px-4 py-8">
+    <div class="max-w-lg mx-auto bg-white p-6 rounded-xl shadow-lg border-2 border-black">
+        <div class="px-6 py-4 bg-blue-900">
+            <h2 class="text-3xl font-semibold text-white text-center">Editar Usuario</h2>
+        </div>
 
-<div class="container">
-    <h2>Editar Usuario</h2>
-    <form action="{{ route('usuarios-centro.update', $usuario->id_usuario) }}" method="POST">
-        @csrf
-        @method('PUT')
-        <div class="form-group">
-            <label for="nombre" class="form-label">Nombre:</label>
-            <input type="text" name="nombre" id="nombre" class="form-input" value="{{ $usuario->nombre }}" required>
-        </div>
-        <div class="form-group">
-            <label for="email" class="form-label">Correo Electrónico:</label>
-            <input type="email" name="email" id="email" class="form-input" value="{{ $usuario->email }}" required>
-        </div>
-        <div class="form-group">
-            <label for="password" class="form-label">Contraseña (Dejar en blanco para no cambiar):</label>
-            <input type="password" name="password" id="password" class="form-input">
-        </div>
-        <div class="form-group">
-            <label for="id_rol" class="form-label">Rol:</label>
-            <select name="id_rol" id="id_rol" class="form-select" required>
-                @foreach ($roles as $rol)
-                    <option value="{{ $rol->id_rol }}" {{ $usuario->id_rol == $rol->id_rol ? 'selected' : '' }}>
-                        {{ $rol->nombre_rol }}
-                    </option>
-                @endforeach
-            </select>
-        </div>
-        <button type="submit" class="btn">Actualizar</button>
-        <a href="{{ route('usuarios-centro.index') }}" class="btn-link">Cancelar</a>
-    </form>
+        @if ($errors->any())
+            <div class="bg-red-100 border-l-4 border-red-500 text-red-700 p-4 my-4">
+                <ul>
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+        @endif
+
+        <form action="{{ route('usuarios-centro.update', $usuario->id_usuario) }}" method="POST" class="space-y-4">
+            @csrf
+            @method('PUT')
+
+            <div>
+                <label for="nombre" class="block text-lg font-semibold text-gray-700">Nombre:</label>
+                <input type="text" name="nombre" id="nombre" class="w-full p-3 border-2 border-black rounded-lg bg-blue-100 focus:outline-none focus:ring-2 focus:ring-blue-500" value="{{ $usuario->nombre }}" required>
+            </div>
+
+            <div>
+                <label for="email" class="block text-lg font-semibold text-gray-700">Correo Electrónico:</label>
+                <input type="email" name="email" id="email" class="w-full p-3 border-2 border-black rounded-lg bg-blue-100 focus:outline-none focus:ring-2 focus:ring-blue-500" value="{{ $usuario->email }}" required>
+            </div>
+
+            <div>
+                <label for="password" class="block text-lg font-semibold text-gray-700">Contraseña (Dejar en blanco para no cambiar):</label>
+                <input type="password" name="password" id="password" class="w-full p-3 border-2 border-black rounded-lg bg-blue-100 focus:outline-none focus:ring-2 focus:ring-blue-500">
+            </div>
+
+            <div>
+                <label for="id_rol" class="block text-lg font-semibold text-gray-700">Rol:</label>
+                <select name="id_rol" id="id_rol" class="w-full p-3 border-2 border-black rounded-lg bg-blue-100 focus:outline-none focus:ring-2 focus:ring-blue-500" required>
+                    @foreach ($roles as $rol)
+                        <option value="{{ $rol->id_rol }}" {{ $usuario->id_rol == $rol->id_rol ? 'selected' : '' }}>
+                            {{ $rol->nombre_rol }}
+                        </option>
+                    @endforeach
+                </select>
+            </div>
+
+            <div class="flex justify-between items-center mt-4">
+                <button type="submit" class="px-20 py-3 bg-gray-300 text-gray-700 rounded-lg border-2 border-gray-500 hover:bg-gray-400">
+                    Actualizar
+                </button>
+                <a href="{{ route('usuarios-centro.index') }}" class="px-20 py-3 bg-gray-300 text-gray-700 rounded-lg border-2 border-gray-500 hover:bg-gray-400">
+                    Cancelar
+                </a>
+            </div>
+        </form>
+    </div>
 </div>
 @endsection

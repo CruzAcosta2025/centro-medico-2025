@@ -3,75 +3,65 @@
 @section('title', 'Listado de Recetas')
 
 @section('content')
-<div style="max-width: 1000px; margin: 0 auto; padding: 20px; width: 95%;">
-    <div style="background-color: #ffffff; border-radius: 8px; overflow: hidden; box-shadow: 0 0 10px rgba(0,0,0,0.1);">
-        <div style="background: linear-gradient(to right, #f43f5e, #e11d48); padding: 20px;">
-            <h2 style="color: #ffffff; font-size: clamp(20px, 4vw, 24px); margin: 0;">Listado de Recetas</h2>
+<div class="max-w-4xl mx-auto p-5 w-11/12">
+    <div class="bg-white rounded-lg shadow-md overflow-hidden">
+        <div class="bg-gradient-to-r from-rose-500 to-red-600 p-5">
+            <h2 class="text-white text-lg sm:text-xl font-semibold m-0">Listado de Recetas</h2>
         </div>
 
-        <div style="padding: 20px;">
-            <form method="GET" action="{{ route('recetas.index') }}" style="margin-bottom: 20px;">
-                <div style="display: flex; flex-wrap: wrap; gap: 5px;">
-                    <input
-                        type="text"
-                        name="dni"
-                        value="{{ $dni }}"
-                        placeholder="Buscar por DNI"
-                        style="flex: 1; min-width: 200px; padding: 8px; border: 1px solid #d1d5db; border-radius: 4px;">
-                    <button
-                        type="submit"
-                        style="padding: 8px 16px; background-color: #f43f5e; color: #ffffff; border: none; border-radius: 4px; cursor: pointer;">
-                        Buscar
-                    </button>
-                </div>
+        <div class="p-5">
+            <form method="GET" action="{{ route('recetas.index') }}" class="mb-5 flex flex-wrap gap-2">
+                <input type="text" name="dni" value="{{ $dni }}" placeholder="Buscar por DNI"
+                    class="flex-1 min-w-[200px] p-2 border border-gray-300 rounded-md">
+                <button type="submit"
+                    class="px-4 py-2 bg-rose-500 text-white rounded-md hover:bg-rose-600 transition">Buscar</button>
             </form>
 
             @if ($paciente)
-            <h3 style="margin-bottom: 20px;">Paciente: {{ $paciente->primer_nombre }} {{ $paciente->primer_apellido }}</h3>
+            <h3 class="mb-5 font-semibold">Paciente: {{ $paciente->primer_nombre }} {{ $paciente->primer_apellido }}</h3>
 
             @if ($paciente->historialClinico->isNotEmpty())
             <a href="{{ route('recetas.create', $paciente->historialClinico->first()->id_historial) }}"
-                style="display: inline-block; padding: 10px 20px; background-color: #e11d48; color: #ffffff; text-decoration: none; border-radius: 4px; margin-bottom: 20px;">
+                class="inline-block px-4 py-2 bg-red-600 text-white rounded-md mb-5 hover:bg-red-700 transition">
                 Nueva Receta
             </a>
             @else
-            <p style="color: #ef4444;">El paciente no tiene un historial clínico.</p>
+            <p class="text-red-500">El paciente no tiene un historial clínico.</p>
             @endif
 
             @if ($recetas->isEmpty())
-            <p style="color: #6b7280;">No hay recetas registradas para este paciente.</p>
+            <p class="text-gray-500">No hay recetas registradas para este paciente.</p>
             @else
-            <div style="overflow-x: auto;">
-                <table style="width: 100%; border-collapse: collapse;">
+            <div class="overflow-x-auto">
+                <table class="w-full border-collapse">
                     <thead>
-                        <tr style="background-color: #f3f4f6;">
-                            <th style="padding: 12px; text-align: left; border-bottom: 2px solid #e5e7eb;">Fecha</th>
-                            <th style="padding: 12px; text-align: left; border-bottom: 2px solid #e5e7eb;">Médico</th>
-                            <th style="padding: 12px; text-align: left; border-bottom: 2px solid #e5e7eb; width: 300px;">Acciones</th>
+                        <tr class="bg-gray-100">
+                            <th class="p-3 text-left border-b-2 border-gray-200">Fecha</th>
+                            <th class="p-3 text-left border-b-2 border-gray-200">Médico</th>
+                            <th class="p-3 text-left border-b-2 border-gray-200 w-72">Acciones</th>
                         </tr>
                     </thead>
                     <tbody>
                         @foreach ($recetas as $receta)
-                        <tr>
-                            <td style="padding: 12px; border-bottom: 1px solid #e5e7eb;">{{ $receta->fecha_receta }}</td>
-                            <td style="padding: 12px; border-bottom: 1px solid #e5e7eb;">{{ $receta->personalMedico->usuario->nombre ?? 'No registrado' }}</td>
-                            <td style="padding: 12px; border-bottom: 1px solid #e5e7eb;">
-                                <div style="display: flex; gap: 5px; flex-wrap: wrap;">
+                        <tr class="border-b border-gray-200">
+                            <td class="p-3">{{ $receta->fecha_receta }}</td>
+                            <td class="p-3">{{ $receta->personalMedico->usuario->nombre ?? 'No registrado' }}</td>
+                            <td class="p-3">
+                                <div class="flex flex-wrap gap-2">
                                     <a href="{{ route('recetas.edit', [$receta->id_historial, $receta->id_receta]) }}"
-                                        style="padding: 6px 12px; background-color: #f59e0b; color: #ffffff; text-decoration: none; border-radius: 4px;">
+                                        class="px-3 py-1 bg-yellow-500 text-white rounded-md hover:bg-yellow-600 transition">
                                         Editar
                                     </a>
-                                    <button class="btn-delete"
-                                        data-url="{{ route('recetas.destroy', [$receta->id_historial, $receta->id_receta]) }}"
-                                        style="padding: 6px 12px; background-color: #ef4444; color: #ffffff; border: none; border-radius: 4px; cursor: pointer;">
+                                    <button class="btn-delete px-3 py-1 bg-red-500 text-white rounded-md hover:bg-red-600 transition"
+                                        data-url="{{ route('recetas.destroy', [$receta->id_historial, $receta->id_receta]) }}">
                                         Eliminar
                                     </button>
                                     <a href="{{ route('medicamentos.index', $receta->id_receta) }}"
-                                        style="padding: 6px 12px; background-color: #3b82f6; color: #ffffff; text-decoration: none; border-radius: 4px;">
+                                        class="px-3 py-1 bg-blue-500 text-white rounded-md hover:bg-blue-600 transition">
                                         Ver Medicamentos
                                     </a>
                                     <a href="{{ route('medicamentos.create', $receta->id_receta) }}"
-                                        style="padding: 6px 12px; background-color: #22c55e; color: #ffffff; text-decoration: none; border-radius: 4px;">
+                                        class="px-3 py-1 bg-green-500 text-white rounded-md hover:bg-green-600 transition">
                                         Añadir Medicamento
                                     </a>
                                 </div>
@@ -83,14 +73,14 @@
             </div>
             @endif
             @elseif ($dni)
-            <p style="color: #ef4444;">No se encontró ningún paciente con el DNI ingresado.</p>
+            <p class="text-red-500">No se encontró ningún paciente con el DNI ingresado.</p>
             @else
-            <p style="color: #6b7280;">Ingrese un DNI para buscar un paciente.</p>
+            <p class="text-gray-500">Ingrese un DNI para buscar un paciente.</p>
             @endif
 
             @if ($paciente && $paciente->historialClinico->isNotEmpty())
             <a href="{{ route('historial.show', $paciente->historialClinico->first()->id_historial) }}"
-                style="display: inline-block; padding: 10px 20px; background-color: #3b82f6; color: #ffffff; text-decoration: none; border-radius: 4px;">
+                class="inline-block px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 transition">
                 Regresar al Historial
             </a>
             @endif

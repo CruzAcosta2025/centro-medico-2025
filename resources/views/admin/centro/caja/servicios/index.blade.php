@@ -3,59 +3,64 @@
 @section('title', 'Servicios')
 
 @section('content')
-<div style="max-width: 800px; margin: 20px auto; padding: 20px; background: #fff; border-radius: 8px;">
-    <h2 style="text-align: center; color: #004643;">Listado de Servicios</h2>
-
-    <!-- Botón para crear un nuevo servicio -->
-    <div style="text-align: right; margin-bottom: 20px;">
-        <a href="{{ route('servicios.create') }}"
-            style="background: #004643; color: #fff; padding: 10px 15px; text-decoration: none; border-radius: 5px;">
-            Crear Servicio
+<div class="max-w-6xl mx-auto p-6 bg-white shadow-lg rounded-xl">
+    <!-- Encabezado -->
+    <div class="flex flex-col sm:flex-row justify-between items-center mb-6 border-b pb-4">
+        <h2 class="text-2xl font-semibold text-gray-800">Listado de Servicios</h2>
+        <a href="{{ route('servicios.create') }}" class="bg-blue-600 text-white px-4 py-2 rounded-lg shadow-md hover:bg-blue-700 transition">
+            + Crear Servicio
         </a>
     </div>
 
+    @if(session('success'))
+        <div class="bg-green-100 border-l-4 border-green-500 text-green-700 p-4 mb-4 rounded-lg" role="alert">
+            <p>{{ session('success') }}</p>
+        </div>
+    @endif
+
     <!-- Tabla de Servicios -->
-    <table style="width: 100%; border-collapse: collapse; margin-bottom: 20px;">
-        <thead>
-            <tr style="background: #f0f2f5;">
-                <th style="text-align: left;min-width: 150px; padding: 10px; border-bottom: 2px solid #ccc;">Nombre</th>
-                <th style="text-align: left;min-width: 150px; padding: 10px; border-bottom: 2px solid #ccc;">Categoría</th>
-                <th style="text-align: left;min-width: 150px; padding: 10px; border-bottom: 2px solid #ccc;">Precio</th>
-                <th style="text-align: left;min-width: 150px; padding: 10px; border-bottom: 2px solid #ccc;">Estado</th>
-                <th style="text-align: left;min-width: 150px; padding: 10px; border-bottom: 2px solid #ccc;">Acciones</th>
-            </tr>
-        </thead>
-        <tbody>
-            @forelse($servicios as $servicio)
-            <tr>
-                <td style="padding: 10px; border-bottom: 1px solid #ccc;">{{ $servicio->nombre_servicio }}</td>
-                <td style="padding: 10px; border-bottom: 1px solid #ccc;">{{ $servicio->categoria_servicio }}</td>
-                <td style="padding: 10px; border-bottom: 1px solid #ccc;">S/ {{ number_format($servicio->precio, 2) }}</td>
-                <td style="padding: 10px; border-bottom: 1px solid #ccc;">{{ ucfirst($servicio->estado) }}</td>
-                <td style="padding: 10px; border-bottom: 1px solid #ccc;">
-                    <a href="{{ route('servicios.edit', $servicio->id_servicio) }}"
-                        style="color: #004643; text-decoration: none; margin-right: 10px;">
-                        Editar
-                    </a>
-                    <form action="{{ route('servicios.destroy', $servicio->id_servicio) }}" method="POST" style="display: inline;">
-                        @csrf
-                        @method('DELETE')
-                        <button type="submit"
-                            style="background: transparent; color: red; border: none; cursor: pointer;"
-                            onclick="return confirm('¿Está seguro de eliminar este servicio?')">Eliminar</button>
-                    </form>
-                </td>
-            </tr>
-            @empty
-            <tr>
-                <td colspan="5" style="padding: 10px; text-align: center;">No hay servicios registrados.</td>
-            </tr>
-            @endforelse
-        </tbody>
-    </table>
+    <div class="overflow-x-auto">
+        <table class="min-w-full bg-blue-100 border border-blue-600 rounded-lg shadow-md">
+            <thead class="bg-blue-600 text-white">
+                <tr>
+                    <th class="px-6 py-3 text-left border border-blue-700">Nombre</th>
+                    <th class="px-6 py-3 text-left border border-blue-700">Categoría</th>
+                    <th class="px-6 py-3 text-left border border-blue-700">Precio</th>
+                    <th class="px-6 py-3 text-left border border-blue-700">Estado</th>
+                    <th class="px-6 py-3 text-center border border-blue-700">Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                @forelse($servicios as $servicio)
+                <tr class="border border-blue-500 hover:bg-blue-200 transition">
+                    <td class="px-6 py-4 border border-blue-500">{{ $servicio->nombre_servicio }}</td>
+                    <td class="px-6 py-4 border border-blue-500">{{ $servicio->categoria_servicio }}</td>
+                    <td class="px-6 py-4 border border-blue-500">S/ {{ number_format($servicio->precio, 2) }}</td>
+                    <td class="px-6 py-4 border border-blue-500">{{ ucfirst($servicio->estado) }}</td>
+                    <td class="px-6 py-4 flex flex-wrap justify-center gap-2">
+                        <a href="{{ route('servicios.edit', $servicio->id_servicio) }}" class="bg-blue-700 text-white px-3 py-2 rounded-md hover:bg-blue-800 transition">
+                            Editar
+                        </a>
+                        <form action="{{ route('servicios.destroy', $servicio->id_servicio) }}" method="POST" onsubmit="return confirm('¿Está seguro de eliminar este servicio?')">
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit" class="bg-red-600 text-white px-3 py-2 rounded-md hover:bg-red-700 transition" disabled>
+                                Eliminar
+                            </button>
+                        </form>
+                    </td>
+                </tr>
+                @empty
+                <tr>
+                    <td colspan="5" class="text-center py-4 text-gray-600">No hay servicios registrados.</td>
+                </tr>
+                @endforelse
+            </tbody>
+        </table>
+    </div>
 
     <!-- Paginación -->
-    <div style="text-align: center;">
+    <div class="mt-4 text-center">
         {{ $servicios->links() }}
     </div>
 </div>

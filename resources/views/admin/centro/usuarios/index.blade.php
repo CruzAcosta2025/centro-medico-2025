@@ -3,109 +3,50 @@
 @section('title', 'Gestión de Usuarios del Centro')
 
 @section('content')
-<style>
-    .users-table {
-        width: 100%;
-        border-collapse: collapse;
-        margin-top: 1rem;
-        background: white;
-        border-radius: 4px;
-        overflow: hidden;
-        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-    }
-    .users-table th,
-    .users-table td {
-        padding: 0.75rem;
-        border: 1px solid #ddd;
-        text-align: left;
-    }
-    .users-table th {
-        background: #f3f4f6;
-        font-weight: bold;
-    }
-    .users-table tr:hover {
-        background: #f9fafb;
-    }
-    .action-buttons {
-        display: flex;
-        gap: 0.5rem;
-        justify-content: center;
-    }
-    .header-section {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        margin-bottom: 1.5rem;
-    }
-    .btn {
-        background: #0d9488;
-        color: #ffffff;
-        border: none;
-        padding: 0.5rem 1rem;
-        border-radius: 4px;
-        text-decoration: none;
-        text-align: center;
-        display: inline-block;
-    }
-    .btn:hover {
-        background: #0f766e;
-    }
-    .btn-delete {
-        background: #ef4444;
-    }
-    .btn-delete:hover {
-        background: #dc2626;
-    }
-    @media (max-width: 640px) {
-        .users-table th, .users-table td {
-            padding: 0.5rem;
-        }
-        .header-section {
-            flex-direction: column;
-            align-items: stretch;
-            gap: 1rem;
-        }
-        .btn {
-            width: 100%;
-            text-align: center;
-        }
-    }
-</style>
+<div class="max-w-6xl mx-auto p-6 bg-white shadow-lg rounded-xl">
+    <!-- Encabezado -->
+    <div class="flex flex-col sm:flex-row justify-between items-center mb-6 border-b pb-4">
+        <h2 class="text-2xl font-semibold text-gray-800">Gestión de Usuarios del Centro</h2>
+        <a href="{{ route('usuarios-centro.create') }}" class="bg-blue-600 text-white px-4 py-2 rounded-lg shadow-md hover:bg-green-700 transition">
+            + Crear Nuevo Usuario
+        </a>
+    </div>
 
-<div class="header-section">
-    <h2 class="text-xl font-bold">Gestión de Usuarios del Centro</h2>
-    <a href="{{ route('usuarios-centro.create') }}" class="btn">Crear Nuevo Usuario</a>
-</div>
-
-<div class="table-container">
-    <table class="users-table">
-        <thead>
-            <tr>
-                <th>Nombre</th>
-                <th>Correo Electrónico</th>
-                <th>Rol</th>
-                <th style="text-align: center;">Acciones</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach ($usuarios as $usuario)
+    <!-- Tabla de Usuarios -->
+    <div class="overflow-x-auto">
+        <table class="min-w-full bg-blue-100 border border-blue-600 rounded-lg shadow-md">
+            <thead class="bg-blue-600 text-white">
                 <tr>
-                    <td>{{ $usuario->nombre }}</td>
-                    <td>{{ $usuario->email }}</td>
-                    <td>{{ $usuario->rol->nombre_rol }}</td>
-                    <td>
-                        <div class="action-buttons">
-                            <a href="{{ route('usuarios-centro.edit', $usuario->id_usuario) }}" class="btn">Editar</a>
-                            <form action="{{ route('usuarios-centro.destroy', $usuario->id_usuario) }}" method="POST" onsubmit="return confirm('¿Estás seguro de eliminar este usuario?')">
-                                @csrf
-                                @method('DELETE')
-                                <button type="submit" class="btn btn-delete"disabled>Eliminar</button>
-                            </form>
-                        </div>
+                    <th class="px-6 py-3 text-left border border-blue-700">Nombre</th>
+                    <th class="px-6 py-3 text-left border border-blue-700">Correo Electrónico</th>
+                    <th class="px-6 py-3 text-left border border-blue-700">Rol</th>
+                    <th class="px-6 py-3 text-center border border-blue-700">Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach ($usuarios as $usuario)
+                <tr class="border border-blue-500 hover:bg-blue-200 transition">
+                    <td class="px-6 py-4 border border-blue-500">{{ $usuario->nombre }}</td>
+                    <td class="px-6 py-4 border border-blue-500">{{ $usuario->email }}</td>
+                    <td class="px-6 py-4 border border-blue-500">{{ $usuario->rol->nombre_rol }}</td>
+                    <td class="px-6 py-4 flex flex-wrap justify-center gap-2">
+                        <a href="{{ route('usuarios-centro.edit', $usuario->id_usuario) }}"
+                            class="bg-blue-700 text-white px-3 py-2 rounded-md hover:bg-blue-800 transition">
+                            Editar
+                        </a>
+                        <form action="{{ route('usuarios-centro.destroy', $usuario->id_usuario) }}" method="POST"
+                            onsubmit="return confirm('¿Estás seguro de eliminar este usuario?')">
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit" class="bg-red-600 text-white px-3 py-2 rounded-md hover:bg-red-700 transition" disabled>
+                                Eliminar
+                            </button>
+                        </form>
                     </td>
                 </tr>
-            @endforeach
-        </tbody>
-    </table>
+                @endforeach
+            </tbody>
+        </table>
+    </div>
 </div>
 @endsection
