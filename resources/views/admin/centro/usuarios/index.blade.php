@@ -7,7 +7,7 @@
     <!-- Encabezado -->
     <div class="flex flex-col sm:flex-row justify-between items-center mb-6 border-b pb-4">
         <h2 class="text-2xl font-semibold text-gray-800">Gestión de Usuarios del Centro</h2>
-        <a href="{{ route('usuarios-centro.create') }}" class="bg-blue-600 text-white px-4 py-2 rounded-lg shadow-md hover:bg-green-700 transition">
+        <a href="{{ route('usuarios-centro.create') }}" class="bg-lime-900 text-white px-4 py-2 rounded-lg shadow-md hover:bg-green-700 transition">
             + Crear Nuevo Usuario
         </a>
     </div>

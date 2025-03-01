@@ -5,7 +5,7 @@
 @section('content')
 <div class="container mx-auto px-4 py-8">
     <div class="max-w-lg mx-auto bg-white p-6 rounded-xl shadow-lg border-2 border-black">
-        <div class="px-6 py-4 bg-blue-900">
+        <div class="px-6 py-4 bg-red-500">
             <h2 class="text-3xl font-semibold text-white text-center">Crear Nuevo Permiso</h2>
         </div>
 
@@ -40,10 +40,10 @@
             </div>
 
             <div class="flex justify-between items-center mt-4">
-                <button type="submit" class="px-20 py-3 bg-gray-300 text-gray-700 rounded-lg border-2 border-gray-500 hover:bg-gray-400">
+                <button type="submit" class="px-20 py-3 bg-red-500 hover:bg-blue-900 text-white font-bold rounded-lg shadow-md">
                     Guardar
                 </button>
-                <a href="{{ route('permisos.index') }}" class="px-20 py-3 bg-gray-300 text-gray-700 rounded-lg border-2 border-gray-500 hover:bg-gray-400">
+                <a href="{{ route('permisos.index') }}" class="px-20 py-3 bg-red-500 hover:bg-blue-900 text-white font-bold rounded-lg shadow-md">
                     Cancelar
                 </a>
             </div>

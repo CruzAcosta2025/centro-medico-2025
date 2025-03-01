@@ -7,7 +7,7 @@
     <!-- Encabezado -->
     <div class="flex flex-col sm:flex-row justify-between items-center mb-6 border-b pb-4">
         <h2 class="text-2xl font-semibold text-gray-800">Gestión de Personal Médico</h2>
-        <a href="{{ route('usuarios-centro.create') }}" class="bg-blue-600 text-white px-4 py-2 rounded-lg shadow-md hover:bg-blue-700 transition">
+        <a href="{{ route('usuarios-centro.create') }}" class="bg-amber-500 text-white px-4 py-2 rounded-lg shadow-md hover:bg-blue-700 transition">
             + Crear Nuevo Usuario
         </a>
     </div>
@@ -20,33 +20,33 @@
 
     <!-- Tabla de Personal Médico -->
     <div class="overflow-x-auto">
-        <table class="min-w-full bg-blue-100 border border-blue-600 rounded-lg shadow-md">
-            <thead class="bg-blue-600 text-white">
+        <table class="min-w-full bg-amber-100 border border-amber-100 rounded-lg shadow-md">
+            <thead class="bg-amber-500 text-white">
                 <tr>
-                    <th class="px-6 py-3 text-left border border-blue-700">Nombre</th>
-                    <th class="px-6 py-3 text-left border border-blue-700">Especialidad</th>
-                    <th class="px-6 py-3 text-left border border-blue-700">Correo</th>
-                    <th class="px-6 py-3 text-left border border-blue-700">DNI</th>
-                    <th class="px-6 py-3 text-left border border-blue-700">Teléfono</th>
-                    <th class="px-6 py-3 text-center border border-blue-700">Acciones</th>
+                    <th class="px-6 py-3 text-left border border-amber-100">Nombre</th>
+                    <th class="px-6 py-3 text-left border border-amber-100">Especialidad</th>
+                    <th class="px-6 py-3 text-left border border-amber-100">Correo</th>
+                    <th class="px-6 py-3 text-left border border-amber-100">DNI</th>
+                    <th class="px-6 py-3 text-left border border-amber-100">Teléfono</th>
+                    <th class="px-6 py-3 text-center border border-amber-100">Acciones</th>
                 </tr>
             </thead>
             <tbody>
                 @forelse($personalMedico as $personal)
-                    <tr class="border border-blue-500 hover:bg-blue-200 transition">
-                        <td class="px-6 py-4 border border-blue-500">{{ $personal->usuario->nombre ?? 'Sin asignar' }}</td>
-                        <td class="px-6 py-4 border border-blue-500">{{ $personal->especialidad->nombre_especialidad ?? 'N/A' }}</td>
-                        <td class="px-6 py-4 border border-blue-500">{{ $personal->correo_contacto }}</td>
-                        <td class="px-6 py-4 border border-blue-500">{{ $personal->dni }}</td>
-                        <td class="px-6 py-4 border border-blue-500">{{ $personal->telefono }}</td>
+                    <tr class="border border-amber-400 hover:bg-blue-200 transition">
+                        <td class="px-6 py-4 border border-amber-400">{{ $personal->usuario->nombre ?? 'Sin asignar' }}</td>
+                        <td class="px-6 py-4 border border-amber-400">{{ $personal->especialidad->nombre_especialidad ?? 'N/A' }}</td>
+                        <td class="px-6 py-4 border border-amber-400">{{ $personal->correo_contacto }}</td>
+                        <td class="px-6 py-4 border border-amber-400">{{ $personal->dni }}</td>
+                        <td class="px-6 py-4 border border-amber-400">{{ $personal->telefono }}</td>
                         <td class="px-6 py-4 flex flex-wrap justify-center gap-2">
-                            <a href="{{ route('personal-medico.edit', $personal->id_personal_medico) }}" class="bg-blue-700 text-white px-3 py-2 rounded-md hover:bg-blue-800 transition">
+                            <a href="{{ route('personal-medico.edit', $personal->id_personal_medico) }}" class="bg-blue-800 text-white px-3 py-2 rounded-md hover:bg-blue-800 transition">
                                 Editar
                             </a>
                             <form action="{{ route('personal-medico.destroy', $personal->id_personal_medico) }}" method="POST" onsubmit="return confirm('¿Estás seguro de eliminar este personal médico?')">
                                 @csrf
                                 @method('DELETE')
-                                <button type="submit" class="bg-red-600 text-white px-3 py-2 rounded-md hover:bg-red-700 transition" disabled>
+                                <button type="submit" class="bg-red-800 text-white px-3 py-2 rounded-md hover:bg-red-700 transition" disabled>
                                     Eliminar
                                 </button>
                             </form>

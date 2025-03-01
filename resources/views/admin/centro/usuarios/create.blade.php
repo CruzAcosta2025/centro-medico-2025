@@ -5,7 +5,7 @@
 @section('content')
 <div class="container mx-auto px-4 py-8">
     <div class="max-w-lg mx-auto bg-white p-6 rounded-xl shadow-lg border-2 border-black">
-        <div class="px-6 py-4 bg-blue-900">
+        <div class="px-6 py-4 bg-lime-900">
             <h2 class="text-3xl font-semibold text-white text-center">Crear Usuario</h2>
         </div>
 
