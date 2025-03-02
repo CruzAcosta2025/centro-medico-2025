@@ -92,6 +92,8 @@ class PersonalMedicoController extends Controller
         ]);
 
         $personal->update($validatedData);
+        session()->flash('success', '¡Usuario creado exitosamente!');
+
 
         return redirect()->route('personal-medico.index')->with('success', 'Personal médico actualizado exitosamente.');
     }

@@ -2,59 +2,50 @@
 @section('title', 'Editar Tratamiento')
 
 @section('content')
-<div style="max-width: 900px; margin: 0 auto; padding: 20px; width: 95%;">
-    <div style="background-color: #ffffff; border-radius: 8px; overflow: hidden; box-shadow: 0 0 10px rgba(0,0,0,0.1);">
-        <!-- Encabezado -->
-        <div style="background: linear-gradient(to right, #3b82f6, #1e40af); padding: 20px;">
-            <h2 style="color: #ffffff; font-size: clamp(20px, 4vw, 24px); margin: 0;">Editar Tratamiento</h2>
-        </div>
+<div class="max-w-lg mx-auto p-6 bg-white shadow-lg rounded-lg border-2 border-black">
+    <div class="px-6 py-4 bg-purple-700 rounded-t-lg">
+        <h2 class="text-3xl font-semibold text-white text-center">Editar Tratamiento</h2>
+    </div>
 
-        <!-- Contenido del Formulario -->
-        <div style="padding: 20px;">
-            <form action="{{ route('tratamientos.update', [$tratamiento->id_historial, $tratamiento->id_tratamiento]) }}" method="POST">
-                @csrf
-                @method('PUT')
+    <!-- Contenido del Formulario -->
+    <div class="p-5">
+        <form action="{{ route('tratamientos.update', [$tratamiento->id_historial, $tratamiento->id_tratamiento]) }}" method="POST">
+            @csrf
+            @method('PUT')
 
-                <!-- Descripción -->
-                <div style="margin-bottom: 20px;">
-                    <label for="descripcion" style="display: block; font-weight: bold; margin-bottom: 8px; color: #374151;">
-                        Descripción
-                    </label>
-                    <textarea
-                        name="descripcion"
-                        id="descripcion"
-                        rows="8"
-                        style="width: 100%; padding: 10px; font-size: 16px; border: 1px solid #d1d5db; border-radius: 6px; resize: vertical;"
-                    >{{ old('descripcion', $tratamiento->descripcion) }}</textarea>
-                </div>
+            <!-- Descripción -->
+            <div class="mb-5">
+                <label for="descripcion" class="block font-semibold mb-2 text-gray-700">Descripción</label>
+                <textarea
+                    name="descripcion"
+                    id="descripcion"
+                    rows="6"
+                    class="w-full p-3 bg-purple-100 text-base border border-gray-700 rounded-lg resize-y">{{ old('descripcion', $tratamiento->descripcion) }}</textarea>
+            </div>
 
-                <!-- Fecha de Creación -->
-                <div style="margin-bottom: 20px;">
-                    <label for="fecha_creacion" style="display: block; font-weight: bold; margin-bottom: 8px; color: #374151;">
-                        Fecha de Creación
-                    </label>
-                    <input
-                        type="date"
-                        name="fecha_creacion"
-                        id="fecha_creacion"
-                        value="{{ old('fecha_creacion', $tratamiento->fecha_creacion) }}"
-                        style="width: 100%; padding: 10px; font-size: 16px; border: 1px solid #d1d5db; border-radius: 6px;"
-                    >
-                </div>
+            <!-- Fecha de Creación -->
+            <div class="mb-5">
+                <label for="fecha_creacion" class="block font-semibold mb-2 text-gray-700">Fecha de Creación</label>
+                <input
+                    type="date"
+                    name="fecha_creacion"
+                    id="fecha_creacion"
+                    value="{{ old('fecha_creacion', $tratamiento->fecha_creacion) }}"
+                    class="w-full p-3 bg-purple-100 text-base border border-gray-700 rounded-lg">
+            </div>
 
-                <!-- Botones de Acción -->
-                <div style="display: flex; justify-content: flex-end; gap: 10px;">
-                    <a href="{{ route('tratamientos.index', ['dni' => $tratamiento->historialClinico->paciente->dni]) }}"
-                        style="padding: 10px 20px; background-color: #6b7280; color: #ffffff; text-decoration: none; border-radius: 4px;">
-                        Cancelar
-                    </a>
-                    <button type="submit"
-                        style="padding: 10px 20px; background-color: #1e40af; color: #ffffff; border: none; border-radius: 4px; cursor: pointer;">
-                        Guardar Cambios
-                    </button>
-                </div>
-            </form>
-        </div>
+            <!-- Botones de Acción -->
+            <div class="flex justify-between items-center mt-4">
+                <a href="{{ route('tratamientos.index', ['dni' => $tratamiento->historialClinico->paciente->dni]) }}"
+                    class="px-10 py-3 bg-purple-500 text-white rounded-lg border-2 border-black hover:bg-purple-400">
+                    Cancelar
+                </a>
+                <button type="submit"
+                    class="px-10 py-3 bg-purple-500 text-white rounded-lg border-2 border-black hover:bg-purple-400">
+                    Guardar Cambios
+                </button>
+            </div>
+        </form>
     </div>
 </div>
 @endsection

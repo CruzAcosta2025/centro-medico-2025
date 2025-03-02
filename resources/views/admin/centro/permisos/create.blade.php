@@ -24,7 +24,7 @@
 
             <div>
                 <label for="nombre_modulo" class="block text-lg font-semibold text-gray-700">Nombre del Módulo:</label>
-                <select name="nombre_modulo" id="nombre_modulo" class="w-full p-3 border-2 border-black rounded-lg bg-blue-100 focus:outline-none focus:ring-2 focus:ring-blue-500" required>
+                <select name="nombre_modulo" id="nombre_modulo" class="w-full p-3 border-2 border-black rounded-lg bg-red-100 focus:outline-none focus:ring-2 focus:ring-red-500" required>
                     <option value="">Selecciona un módulo</option>
                     @foreach($modulosPermitidos as $modulo)
                     <option value="{{ $modulo }}">{{ $modulo }}</option>
@@ -34,16 +34,16 @@
 
             <div>
                 <label for="tipo_permiso" class="block text-lg font-semibold text-gray-700">Tipo de Permiso:</label>
-                <select name="tipo_permiso" id="tipo_permiso" class="w-full p-3 border-2 border-black rounded-lg bg-blue-100 focus:outline-none focus:ring-2 focus:ring-blue-500" required>
+                <select name="tipo_permiso" id="tipo_permiso" class="w-full p-3 border-2 border-black rounded-lg bg-red-100 focus:outline-none focus:ring-2 focus:ring-red-500" required>
                     <option value="">Selecciona un tipo</option>
                 </select>
             </div>
 
             <div class="flex justify-between items-center mt-4">
-                <button type="submit" class="px-20 py-3 bg-red-500 hover:bg-blue-900 text-white font-bold rounded-lg shadow-md">
+                <button type="submit" class="px-20 py-3 bg-red-500 hover:bg-red-900 text-white font-bold rounded-lg shadow-md">
                     Guardar
                 </button>
-                <a href="{{ route('permisos.index') }}" class="px-20 py-3 bg-red-500 hover:bg-blue-900 text-white font-bold rounded-lg shadow-md">
+                <a href="{{ route('permisos.index') }}" class="px-20 py-3 bg-red-500 hover:bg-red-900 text-white font-bold rounded-lg shadow-md">
                     Cancelar
                 </a>
             </div>

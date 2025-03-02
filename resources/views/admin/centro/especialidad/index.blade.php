@@ -7,7 +7,7 @@
     <!-- Encabezado -->
     <div class="flex flex-col sm:flex-row justify-between items-center mb-6 border-b pb-4">
         <h2 class="text-2xl font-semibold text-gray-800">Gestión de Especialidades</h2>
-        <a href="{{ route('especialidad.create') }}" class="bg-blue-600 text-white px-4 py-2 rounded-lg shadow-md hover:bg-blue-700 transition">
+        <a href="{{ route('especialidad.create') }}" class="bg-teal-900 text-white px-4 py-2 rounded-lg shadow-md hover:bg-teal-700 transition">
             + Agregar Nueva Especialidad
         </a>
     </div>
@@ -20,17 +20,17 @@
 
     <!-- Tabla de Especialidades -->
     <div class="overflow-x-auto">
-        <table class="min-w-full bg-blue-100 border border-blue-600 rounded-lg shadow-md">
-            <thead class="bg-blue-600 text-white">
+        <table class="min-w-full bg-teal-100 border border-teal-600 rounded-lg shadow-md">
+            <thead class="bg-teal-600 text-white">
                 <tr>
-                    <th class="px-6 py-3 text-left border border-blue-700">Nombre de la Especialidad</th>
-                    <th class="px-6 py-3 text-center border border-blue-700">Acciones</th>
+                    <th class="px-6 py-3 text-left border border-teal-700">Nombre de la Especialidad</th>
+                    <th class="px-6 py-3 text-center border border-teal-700">Acciones</th>
                 </tr>
             </thead>
             <tbody>
                 @forelse($especialidades as $especialidad)
-                    <tr class="border border-blue-500 hover:bg-blue-200 transition">
-                        <td class="px-6 py-4 border border-blue-500">{{ $especialidad->nombre_especialidad }}</td>
+                    <tr class="border border-teal-500 hover:bg-teal-200 transition">
+                        <td class="px-6 py-4 border border-teal-500">{{ $especialidad->nombre_especialidad }}</td>
                         <td class="px-6 py-4 flex flex-wrap justify-center gap-2">
                             <a href="{{ route('especialidad.edit', $especialidad->id_especialidad) }}" class="bg-blue-700 text-white px-3 py-2 rounded-md hover:bg-blue-800 transition">
                                 Editar

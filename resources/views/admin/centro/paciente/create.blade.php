@@ -4,26 +4,29 @@
 
 @section('content')
 <div class="max-w-lg mx-auto p-6 bg-white shadow-lg rounded-lg border-2 border-black">
-    <h2 class="text-2xl font-bold text-center text-blue-700 mb-6">Agregar Paciente</h2>
+    <div class="px-6 py-4 bg-sky-700 rounded-t-lg">
+        <h2 class="text-3xl font-semibold text-white text-center">Agregar Paciente</h2>
+    </div>
+
 
     @if ($errors->any())
-        <div class="bg-red-100 text-red-700 p-4 rounded mb-4 border border-red-500">
-            <ul>
-                @foreach ($errors->all() as $error)
-                    <li>{{ $error }}</li>
-                @endforeach
-            </ul>
-        </div>
+    <div class="bg-red-100 text-red-700 p-4 rounded mb-4 border border-red-500">
+        <ul>
+            @foreach ($errors->all() as $error)
+            <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
     @endif
 
     <!-- Campo para buscar DNI -->
     <div class="mb-4">
-        <label for="buscar_dni" class="font-bold">DNI</label>
+        <label for="buscar_dni" class="font-bold ">DNI</label>
         <div class="flex gap-2">
             <input type="text" name="buscar_dni" id="buscar_dni" maxlength="8" placeholder="Ingrese DNI a buscar"
-                class="flex-1 p-2 border border-black rounded" required>
+                class="bg-sky-100 flex-1 p-2 border border-black rounded" required>
             <button type="button" id="buscar-dni"
-                class="bg-blue-700 text-white px-4 py-2 rounded hover:bg-blue-800">Buscar DNI</button>
+                class="bg-sky-700 text-white px-4 py-2 rounded hover:bg-sky-800">Buscar DNI</button>
         </div>
     </div>
 
@@ -32,27 +35,27 @@
         @csrf
         <div>
             <label for="dni" class="font-bold">DNI</label>
-            <input type="text" name="dni" id="dni" class="w-full p-2 border border-black rounded" readonly required>
+            <input type="text" name="dni" id="dni" class="w-full bg-sky-100 p-2 border border-black rounded" readonly required>
         </div>
         <div>
             <label for="primer_nombre" class="font-bold">Primer Nombre</label>
-            <input type="text" name="primer_nombre" id="primer_nombre" class="w-full p-2 border border-black rounded" readonly required>
+            <input type="text" name="primer_nombre" id="primer_nombre" class="w-full bg-sky-100 p-2 border border-black rounded" readonly required>
         </div>
         <div>
             <label for="primer_apellido" class="font-bold">Primer Apellido</label>
-            <input type="text" name="primer_apellido" id="primer_apellido" class="w-full p-2 border border-black rounded" readonly required>
+            <input type="text" name="primer_apellido" id="primer_apellido" class="w-full bg-sky-100 p-2 border border-black rounded" readonly required>
         </div>
         <div>
             <label for="fecha_nacimiento" class="font-bold">Fecha de Nacimiento</label>
-            <input type="date" name="fecha_nacimiento" id="fecha_nacimiento" class="w-full p-2 border border-black rounded" required>
+            <input type="date" name="fecha_nacimiento" id="fecha_nacimiento" class="w-full bg-sky-100 p-2 border border-black rounded" required>
         </div>
         <div>
             <label for="telefono" class="font-bold">Teléfono</label>
-            <input type="text" name="telefono" id="telefono" class="w-full p-2 border border-black rounded" required>
+            <input type="text" name="telefono" id="telefono" class="w-full bg-sky-100 p-2 border border-black rounded" required>
         </div>
         <div>
             <label for="grupo_sanguineo" class="font-bold">Grupo Sanguíneo</label>
-            <select name="grupo_sanguineo" id="grupo_sanguineo" class="w-full p-2 border border-black rounded" required>
+            <select name="grupo_sanguineo" id="grupo_sanguineo" class="w-full bg-sky-100 p-2 border border-black rounded" required>
                 <option value="" disabled selected>Selecciona un grupo sanguíneo</option>
                 <option value="O-">O-</option>
                 <option value="O+">O+</option>
@@ -64,9 +67,13 @@
                 <option value="AB+">AB+</option>
             </select>
         </div>
-        <div class="flex justify-center gap-4">
-            <button type="submit" class="bg-blue-700 text-white px-6 py-2 rounded hover:bg-blue-800">Guardar</button>
-            <a href="{{ route('pacientes.index') }}" class="bg-red-600 text-white px-6 py-2 rounded hover:bg-red-700">Cancelar</a>
+        <div class="flex justify-between items-center mt-4">
+            <button type="submit"
+                class="px-10 py-3 bg-sky-500 text-white rounded-lg border-2 border-black hover:bg-sky-400">
+                Guardar</button>
+            <a href="{{ route('pacientes.index') }}"
+                class="px-10 py-3 bg-sky-500 text-white rounded-lg border-2 border-black hover:bg-sky-400">
+                Cancelar</a>
         </div>
     </form>
 </div>
@@ -84,7 +91,9 @@
                 'Content-Type': 'application/json',
                 'X-CSRF-TOKEN': '{{ csrf_token() }}',
             },
-            body: JSON.stringify({ dni }),
+            body: JSON.stringify({
+                dni
+            }),
         });
 
         if (response.ok) {

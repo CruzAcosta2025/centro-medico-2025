@@ -7,7 +7,7 @@
     <!-- Encabezado -->
     <div class="flex flex-col sm:flex-row justify-between items-center mb-6">
         <h2 class="text-2xl font-semibold text-gray-800">Gestión de Roles</h2>
-        <a href="{{ route('roles.create') }}" class="bg-blue-800 text-white px-4 py-2 rounded-lg shadow-md hover:bg-green-700 transition">
+        <a href="{{ route('roles.create') }}" class="bg-blue-800 text-white px-4 py-2 rounded-lg shadow-md hover:bg-blue-700 transition">
             + Crear Nuevo Rol
         </a>
     </div>

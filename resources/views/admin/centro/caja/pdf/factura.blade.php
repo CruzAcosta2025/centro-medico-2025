@@ -78,8 +78,8 @@
         <!-- Encabezado con logo e información del centro -->
         <div class="header">
             @if (Auth::user()->centroMedico->logo)
-                <img src="{{ public_path('storage/' . Auth::user()->centroMedico->logo) }}" alt="Logo Centro Médico"
-                    style="max-height: 150px; max-width: 150px; margin-bottom: 10px;">
+            <img src="{{ public_path('storage/' . Auth::user()->centroMedico->logo) }}" alt="Logo Centro Médico"
+                style="max-height: 150px; max-width: 150px; margin-bottom: 10px;">
             @endif
             <h2>{{ Auth::user()->centroMedico->nombre ?? 'Centro Médico' }}</h2>
             <p><strong>RUC:</strong> {{ Auth::user()->centroMedico->ruc ?? 'N/A' }}</p>
@@ -90,7 +90,8 @@
         <div class="details">
             <p><strong>Factura #:</strong> {{ $factura->id_factura }}</p>
             <p><strong>Paciente:</strong> {{ $factura->paciente->primer_nombre }}
-                {{ $factura->paciente->primer_apellido }}</p>
+                {{ $factura->paciente->primer_apellido }}
+            </p>
             <p><strong>DNI:</strong> {{ $factura->paciente->dni }}</p>
             <p><strong>Fecha:</strong> {{ $factura->fecha_factura }}</p>
             <p><strong>Atendido por:</strong> {{ $factura->personalMedico->usuario->nombre ?? 'Sin asignar' }}</p>
@@ -106,10 +107,10 @@
             </thead>
             <tbody>
                 @foreach ($factura->servicios as $servicio)
-                    <tr>
-                        <td>{{ $servicio->servicio->nombre_servicio }}</td>
-                        <td>S/ {{ number_format($servicio->subtotal, 2) }}</td>
-                    </tr>
+                <tr>
+                    <td>{{ $servicio->servicio->nombre_servicio }}</td>
+                    <td>S/ {{ number_format($servicio->subtotal, 2) }}</td>
+                </tr>
                 @endforeach
             </tbody>
             <tfoot>

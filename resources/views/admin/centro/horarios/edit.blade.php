@@ -5,7 +5,7 @@
 @section('content')
 <div class="container mx-auto px-4 py-8">
     <div class="max-w-lg mx-auto bg-white p-6 rounded-xl shadow-lg border-2 border-black">
-        <div class="px-6 py-4 bg-blue-900">
+        <div class="px-6 py-4 bg-indigo-700">
             <h2 class="text-3xl font-semibold text-white text-center">Editar Horario Médico</h2>
         </div>
 
@@ -16,7 +16,7 @@
             <div>
                 <label for="id_personal_medico" class="block text-lg font-semibold text-gray-700">Personal Médico:</label>
                 <select name="id_personal_medico" id="id_personal_medico" disabled
-                    class="w-full p-3 border-2 border-black rounded-lg bg-gray-200">
+                    class="w-full p-3 border-2 border-black rounded-lg bg-indigo-200">
                     <option value="">Seleccione</option>
                     @foreach ($personalMedico as $medico)
                         <option value="{{ $medico->id_personal_medico }}"
@@ -31,7 +31,7 @@
             <div>
                 <label for="dia_semana" class="block text-lg font-semibold text-gray-700">Día de la Semana:</label>
                 <select name="dia_semana" id="dia_semana"
-                    class="w-full p-3 border-2 border-black rounded-lg bg-blue-100 focus:ring-2 focus:ring-blue-500">
+                    class="w-full p-3 border-2 border-black rounded-lg bg-indigo-100 focus:ring-2 focus:ring-indigo-500">
                     <option value="">Seleccione</option>
                     @foreach (['Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado', 'Domingo'] as $dia)
                         <option value="{{ $dia }}" {{ $horario->dia_semana == $dia ? 'selected' : '' }}>{{ $dia }}</option>
@@ -44,7 +44,7 @@
                 <label class="block text-lg font-semibold text-gray-700">Hora Inicio:</label>
                 <div class="flex gap-2">
                     <select name="hora_inicio_hora"
-                        class="w-1/3 p-3 border-2 border-black rounded-lg bg-blue-100 focus:ring-2 focus:ring-blue-500">
+                        class="w-1/3 p-3 border-2 border-black rounded-lg bg-indigo-100 focus:ring-2 focus:ring-indigo-500">
                         <option value="">Hora</option>
                         @for ($i = 1; $i <= 12; $i++)
                             <option value="{{ $i }}" {{ intval(date('h', strtotime($horario->hora_inicio))) == $i ? 'selected' : '' }}>
@@ -53,7 +53,7 @@
                         @endfor
                     </select>
                     <select name="hora_inicio_minuto"
-                        class="w-1/3 p-3 border-2 border-black rounded-lg bg-blue-100 focus:ring-2 focus:ring-blue-500">
+                        class="w-1/3 p-3 border-2 border-black rounded-lg bg-indigo-100 focus:ring-2 focus:ring-indigo-500">
                         <option value="">Minutos</option>
                         @for ($i = 0; $i < 60; $i++)
                             <option value="{{ $i }}" {{ intval(date('i', strtotime($horario->hora_inicio))) == $i ? 'selected' : '' }}>
@@ -62,7 +62,7 @@
                         @endfor
                     </select>
                     <select name="hora_inicio_periodo"
-                        class="w-1/3 p-3 border-2 border-black rounded-lg bg-blue-100 focus:ring-2 focus:ring-blue-500">
+                        class="w-1/3 p-3 border-2 border-black rounded-lg bg-indigo-100 focus:ring-2 focus:ring-indigo-500">
                         <option value="AM" {{ date('A', strtotime($horario->hora_inicio)) == 'AM' ? 'selected' : '' }}>AM</option>
                         <option value="PM" {{ date('A', strtotime($horario->hora_inicio)) == 'PM' ? 'selected' : '' }}>PM</option>
                     </select>
@@ -76,7 +76,7 @@
                 <label class="block text-lg font-semibold text-gray-700">Hora Fin:</label>
                 <div class="flex gap-2">
                     <select name="hora_fin_hora"
-                        class="w-1/3 p-3 border-2 border-black rounded-lg bg-blue-100 focus:ring-2 focus:ring-blue-500">
+                        class="w-1/3 p-3 border-2 border-black rounded-lg bg-indigo-100 focus:ring-2 focus:ring-indigo-500">
                         <option value="">Hora</option>
                         @for ($i = 1; $i <= 12; $i++)
                             <option value="{{ $i }}" {{ intval(date('h', strtotime($horario->hora_fin))) == $i ? 'selected' : '' }}>
@@ -85,7 +85,7 @@
                         @endfor
                     </select>
                     <select name="hora_fin_minuto"
-                        class="w-1/3 p-3 border-2 border-black rounded-lg bg-blue-100 focus:ring-2 focus:ring-blue-500">
+                        class="w-1/3 p-3 border-2 border-black rounded-lg bg-indigo-100 focus:ring-2 focus:ring-indigo-500">
                         <option value="">Minutos</option>
                         @for ($i = 0; $i < 60; $i++)
                             <option value="{{ $i }}" {{ intval(date('i', strtotime($horario->hora_fin))) == $i ? 'selected' : '' }}>
@@ -94,7 +94,7 @@
                         @endfor
                     </select>
                     <select name="hora_fin_periodo"
-                        class="w-1/3 p-3 border-2 border-black rounded-lg bg-blue-100 focus:ring-2 focus:ring-blue-500">
+                        class="w-1/3 p-3 border-2 border-black rounded-lg bg-indigo-100 focus:ring-2 focus:ring-indigo-500">
                         <option value="AM" {{ date('A', strtotime($horario->hora_fin)) == 'AM' ? 'selected' : '' }}>AM</option>
                         <option value="PM" {{ date('A', strtotime($horario->hora_fin)) == 'PM' ? 'selected' : '' }}>PM</option>
                     </select>
@@ -105,10 +105,10 @@
             </div>
 
             <div class="flex justify-between items-center mt-4">
-                <button type="submit" class="px-12 py-3 bg-gray-300 text-gray-700 rounded-lg border-2 border-gray-500 hover:bg-gray-400">
+                <button type="submit" class="px-12 py-3 bg-indigo-500 text-white rounded-lg border-2 border-indigo-500 hover:bg-indigo-400">
                     Guardar Cambios
                 </button>
-                <a href="{{ route('horarios.index') }}" class="px-12 py-3 bg-gray-300 text-gray-700 rounded-lg border-2 border-gray-500 hover:bg-gray-400">
+                <a href="{{ route('horarios.index') }}" class="px-12 py-3 bg-indigo-500 text-white rounded-lg border-2 border-indigo-500 hover:bg-indigo-400">
                     Cancelar
                 </a>
             </div>

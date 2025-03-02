@@ -3,103 +3,83 @@
 @section('title', 'Listado de Diagnósticos')
 
 @section('content')
-<div style="max-width: 1000px; margin: 0 auto; padding: 20px; width: 95%;">
-    <div style="background-color: #ffffff; border-radius: 8px; overflow: hidden; box-shadow: 0 0 10px rgba(0,0,0,0.1);">
+<div class="max-w-5xl mx-auto p-6 w-11/12">
+    <div class="bg-white border-2 border-black rounded-lg shadow-lg overflow-hidden">
         <!-- Encabezado -->
-        <div style="background: linear-gradient(to right, #2563eb, #1e40af); padding: 20px;">
-            <h2 style="color: #ffffff; font-size: clamp(20px, 4vw, 24px); margin: 0;">Listado de Diagnósticos</h2>
+        <div class="bg-gradient-to-r from-orange-500 to-orange-700 p-4">
+            <h2 class="text-white text-2xl font-bold">Listado de Diagnósticos</h2>
         </div>
 
-        <div style="padding: 20px;">
+        <div class="p-6">
             <!-- Buscador DNI -->
-            <form method="GET" action="{{ route('diagnosticos.index') }}" style="margin-bottom: 20px;">
-                <div style="display: flex; flex-wrap: wrap; gap: 5px;">
-                    <input
-                        type="text"
-                        name="dni"
-                        value="{{ $dni }}"
-                        placeholder="Buscar por DNI"
-                        style="flex: 1; min-width: 200px; padding: 8px; border: 1px solid #d1d5db; border-radius: 4px;"
-                    >
-                    <button
-                        type="submit"
-                        style="padding: 8px 16px; background-color: #2563eb; color: #ffffff; border: none; border-radius: 4px; cursor: pointer; white-space: nowrap;"
-                    >
+            <form method="GET" action="{{ route('diagnosticos.index') }}" class="mb-4">
+                <div class="flex flex-wrap gap-2">
+                    <input type="text" name="dni" value="{{ $dni }}" placeholder="Buscar por DNI"
+                        class="flex-1 min-w-[200px] p-3 border border-black rounded-md focus:outline-none focus:ring-2 focus:ring-orange-500 bg-gray-100">
+                    <button type="submit" class="px-4 py-2 bg-orange-600 hover:bg-orange-700 text-white font-bold rounded-lg border border-black">
                         Buscar
                     </button>
                 </div>
             </form>
 
             @if ($paciente)
-                <h3 style="margin-bottom: 20px; font-size: clamp(16px, 3vw, 18px);">
-                    Paciente: {{ $paciente->primer_nombre }} {{ $paciente->primer_apellido }}
-                </h3>
+            <h3 class="mb-4 text-lg font-semibold">Paciente: {{ $paciente->primer_nombre }} {{ $paciente->primer_apellido }}</h3>
 
-                @if ($paciente->historialClinico->isNotEmpty())
-                    <a
-                        href="{{ route('diagnosticos.create', $paciente->historialClinico->first()->id_historial) }}"
-                        style="display: inline-block; padding: 10px 20px; background-color: #1e40af; color: #ffffff; text-decoration: none; border-radius: 4px; margin-bottom: 20px;"
-                    >
-                        Nuevo Diagnóstico
-                    </a>
-                @else
-                    <p style="color: #ef4444; margin-bottom: 20px;">El paciente no tiene un historial clínico.</p>
-                @endif
-
-                @if ($diagnosticos->isEmpty())
-                    <p style="color: #6b7280; margin-bottom: 20px;">No hay diagnósticos registrados para este paciente.</p>
-                @else
-                    <div style="overflow-x: auto; margin-bottom: 20px;">
-                        <table style="width: 100%; border-collapse: collapse; min-width: 600px;">
-                            <thead>
-                                <tr style="background-color: #f3f4f6;">
-                                    <th style="padding: 12px; text-align: left; border-bottom: 2px solid #e5e7eb;">Fecha</th>
-                                    <th style="padding: 12px; text-align: left; border-bottom: 2px solid #e5e7eb;">Descripción</th>
-                                    <th style="padding: 12px; text-align: left; border-bottom: 2px solid #e5e7eb; width: 200px;">Acciones</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @foreach ($diagnosticos as $diagnostico)
-                                    <tr>
-                                        <td style="padding: 12px; border-bottom: 1px solid #e5e7eb;">{{ $diagnostico->fecha_creacion }}</td>
-                                        <td style="padding: 12px; border-bottom: 1px solid #e5e7eb;">{{ $diagnostico->descripcion }}</td>
-                                        <td style="padding: 12px; border-bottom: 1px solid #e5e7eb;">
-                                            <div style="display: flex; gap: 5px; flex-wrap: wrap;">
-                                                <a
-                                                    href="{{ route('diagnosticos.edit', [$diagnostico->id_historial, $diagnostico->id_diagnostico]) }}"
-                                                    style="padding: 6px 12px; background-color: #f59e0b; color: #ffffff; text-decoration: none; border-radius: 4px; text-align: center; min-width: 80px;"
-                                                >
-                                                    Editar
-                                                </a>
-                                                <button
-                                                    class="btn-delete"
-                                                    data-url="{{ route('diagnosticos.destroy', [$diagnostico->id_historial, $diagnostico->id_diagnostico]) }}"
-                                                    style="padding: 6px 12px; background-color: #ef4444; color: #ffffff; border: none; border-radius: 4px; cursor: pointer; min-width: 80px;"
-                                                >
-                                                    Eliminar
-                                                </button>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                @endforeach
-                            </tbody>
-                        </table>
-                    </div>
-                @endif
-            @elseif ($dni)
-                <p style="color: #ef4444; margin-bottom: 20px;">No se encontró ningún paciente con el DNI ingresado.</p>
+            @if ($paciente->historialClinico->isNotEmpty())
+            <a href="{{ route('diagnosticos.create', $paciente->historialClinico->first()->id_historial) }}"
+                class="inline-block px-5 py-2 mb-4 bg-orange-600 hover:bg-orange-700 text-white font-bold rounded-lg border border-black">
+                Nuevo Diagnóstico
+            </a>
             @else
-                <p style="color: #6b7280; margin-bottom: 20px;">Ingrese un DNI para buscar un paciente.</p>
+            <p class="text-red-600 mb-4">El paciente no tiene un historial clínico.</p>
             @endif
 
-            <!-- Enlace para regresar -->
+            @if ($diagnosticos->isEmpty())
+            <p class="text-gray-600 mb-4">No hay diagnósticos registrados para este paciente.</p>
+            @else
+            <div class="overflow-x-auto mb-4">
+                <table class="w-full border-collapse min-w-[600px]">
+                    <thead>
+                        <tr class="bg-gray-200">
+                            <th class="p-3 text-left border-b-2 border-gray-300">Fecha</th>
+                            <th class="p-3 text-left border-b-2 border-gray-300">Descripción</th>
+                            <th class="p-3 text-left border-b-2 border-gray-300 w-48">Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach ($diagnosticos as $diagnostico)
+                        <tr>
+                            <td class="p-3 border-b border-gray-300">{{ $diagnostico->fecha_creacion }}</td>
+                            <td class="p-3 border-b border-gray-300">{{ $diagnostico->descripcion }}</td>
+                            <td class="p-3 border-b border-gray-300">
+                                <div class="flex gap-2">
+                                    <a href="{{ route('diagnosticos.edit', [$diagnostico->id_historial, $diagnostico->id_diagnostico]) }}"
+                                        class="px-3 py-2 bg-orange-500 hover:bg-orange-600 text-white font-bold rounded-md border border-black">
+                                        Editar
+                                    </a>
+                                    <button class="btn-delete px-3 py-2 bg-red-600 hover:bg-red-700 text-white font-bold rounded-md border border-black"
+                                        data-url="{{ route('diagnosticos.destroy', [$diagnostico->id_historial, $diagnostico->id_diagnostico]) }}">
+                                        Eliminar
+                                    </button>
+                                </div>
+                            </td>
+                        </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+            </div>
+            @endif
+            @elseif ($dni)
+            <p class="text-red-600 mb-4">No se encontró ningún paciente con el DNI ingresado.</p>
+            @else
+            <p class="text-gray-600 mb-4">Ingrese un DNI para buscar un paciente.</p>
+            @endif
+
             @if ($paciente && $paciente->historialClinico->isNotEmpty())
-                <a
-                    href="{{ route('historial.show', $paciente->historialClinico->first()->id_historial) }}"
-                    style="display: inline-block; padding: 10px 20px; background-color: #3b82f6; color: #ffffff; text-decoration: none; border-radius: 4px;"
-                >
-                    Regresar al Historial
-                </a>
+            <a href="{{ route('historial.show', $paciente->historialClinico->first()->id_historial) }}"
+                class="inline-block px-5 py-2 bg-orange-600 hover:bg-orange-700 text-white font-bold rounded-lg border border-black">
+                Regresar al Historial
+            </a>
             @endif
         </div>
     </div>
@@ -109,29 +89,28 @@
     document.querySelectorAll('.btn-delete').forEach(button => {
         button.addEventListener('click', function() {
             if (!confirm('¿Confirma eliminar este diagnóstico?')) return;
-
             const url = this.getAttribute('data-url');
             const token = '{{ csrf_token() }}';
 
             fetch(url, {
-                method: 'DELETE',
-                headers: {
-                    'X-CSRF-TOKEN': token,
-                    'Accept': 'application/json'
-                }
-            })
-            .then(response => response.json())
-            .then(data => {
-                if (data.success) {
-                    alert('Diagnóstico eliminado exitosamente.');
-                    location.reload();
-                } else {
+                    method: 'DELETE',
+                    headers: {
+                        'X-CSRF-TOKEN': token,
+                        'Accept': 'application/json'
+                    }
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        alert('Diagnóstico eliminado exitosamente.');
+                        location.reload();
+                    } else {
+                        alert('Error al eliminar el diagnóstico.');
+                    }
+                })
+                .catch(() => {
                     alert('Error al eliminar el diagnóstico.');
-                }
-            })
-            .catch(() => {
-                alert('Error al eliminar el diagnóstico.');
-            });
+                });
         });
     });
 </script>

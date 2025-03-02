@@ -9,9 +9,9 @@
     <!-- Buscador -->
     <form action="{{ route('caja.index') }}" method="GET" class="mb-6 flex flex-wrap gap-4">
         <input type="text" name="dni" value="{{ request('dni') }}" placeholder="Buscar por DNI"
-            class="flex-1 p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none">
+            class="flex-1 p-3 border border-gray-950 rounded-lg focus:ring-2 focus:ring-rose-500 focus:outline-none">
         <button type="submit"
-            class="bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 transition">Buscar</button>
+            class="bg-rose-600 text-white px-6 py-3 rounded-lg hover:bg-rose-700 transition">Buscar</button>
     </form>
 
     @if ($dni && !$paciente)
@@ -26,7 +26,7 @@
         <p><strong>DNI:</strong> {{ $paciente->dni }}</p>
         <div class="mt-4">
             <a href="{{ route('caja.crearFactura', ['id_paciente' => $paciente->id_paciente]) }}"
-                class="bg-green-600 text-white px-6 py-3 rounded-lg hover:bg-green-700 transition">
+                class="bg-rose-600 text-white px-6 py-3 rounded-lg hover:bg-rose-700 transition">
                 Crear Nueva Factura
             </a>
         </div>
@@ -45,8 +45,8 @@
 
     @if ($facturas->isNotEmpty())
     <div class="overflow-x-auto shadow-md rounded-lg">
-        <table class="w-full text-left text-sm bg-white border border-gray-200">
-            <thead class="bg-blue-600 text-white">
+        <table class="w-full text-left text-sm bg-white border border-rose-200">
+            <thead class="bg-rose-600 text-white">
                 <tr>
                     <th class="p-4">#</th>
                     <th class="p-4">Fecha</th>
@@ -59,12 +59,12 @@
                     <th class="p-4 text-right">Subtotal</th>
                     <th class="p-4 text-right">Impuesto</th>
                     <th class="p-4 text-right">Total</th>
-                    <th class="p-4 text-center sticky right-0 bg-blue-600 z-10">Acciones</th>
+                    <th class="p-4 text-center sticky right-0 bg-rose-600 z-10">Acciones</th>
                 </tr>
             </thead>
             <tbody>
                 @foreach ($facturas as $factura)
-                <tr class="border-b border-gray-200">
+                <tr class="border-b border-rose-200">
                     <td class="p-4 text-center">
                         <input type="checkbox" class="factura-checkbox w-5 h-5" name="facturas[]"
                             value="{{ $factura->id_factura }}" data-paciente="{{ $factura->id_paciente }}">
@@ -97,8 +97,7 @@
             </tbody>
         </table>
     </div>
-    @else
-    <p class="text-center text-red-500">No se encontraron facturas para mostrar.</p>
+
     @endif
 
     <div class="mt-6 flex justify-center">{{ $facturas->links() }}</div>

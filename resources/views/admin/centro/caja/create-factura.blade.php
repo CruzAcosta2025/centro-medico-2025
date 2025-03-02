@@ -5,7 +5,7 @@
 @section('content')
 <div class="max-w-2xl mx-auto px-6 py-8">
     <div class="bg-white rounded-xl shadow-lg border-2 border-black p-6">
-        <div class="bg-blue-900 text-white py-4 px-6 rounded-t-lg">
+        <div class="bg-rose-700 text-white py-4 px-6 rounded-t-lg">
             <h2 class="text-3xl font-semibold text-center">Crear Factura</h2>
         </div>
 
@@ -34,7 +34,7 @@
             <div>
                 <label for="id_personal_medico" class="block font-semibold text-gray-900">Médico:</label>
                 <select name="id_personal_medico" id="id_personal_medico" required
-                    class="w-full p-3 border-2 border-black rounded-lg bg-blue-100 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                    class="w-full p-3 border-2 border-black rounded-lg bg-rose-100 focus:outline-none focus:ring-2 focus:ring-rose-500">
                     <option value="" selected disabled>Seleccione un médico</option>
                     @foreach ($medicos->groupBy('especialidad.nombre_especialidad') as $especialidad => $medicosGrupo)
                     <optgroup label="{{ $especialidad ?? 'Sin especialidad' }}">
@@ -52,7 +52,7 @@
             <div>
                 <label for="id_servicio" class="block font-semibold text-gray-900">Servicio:</label>
                 <select name="id_servicio" id="id_servicio" required
-                    class="w-full p-3 border-2 border-black rounded-lg bg-blue-100 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                    class="w-full p-3 border-2 border-black rounded-lg bg-rose-100 focus:outline-none focus:ring-2 focus:ring-rose-500">
                     <option value="" selected disabled>Seleccione un servicio</option>
                     @foreach ($servicios as $servicio)
                     <option value="{{ $servicio->id_servicio }}">
@@ -66,7 +66,7 @@
             <div>
                 <label for="metodo_pago" class="block font-semibold text-gray-900">Método de Pago:</label>
                 <select name="metodo_pago" id="metodo_pago" required
-                    class="w-full p-3 border-2 border-black rounded-lg bg-blue-100 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                    class="w-full p-3 border-2 border-black rounded-lg bg-rose-100 focus:outline-none focus:ring-2 focus:ring-rose-500">
                     <option value="" selected disabled>Seleccione el método de pago</option>
                     <option value="efectivo">Efectivo</option>
                     <option value="tarjeta">Tarjeta</option>
@@ -83,11 +83,11 @@
             <!-- Botones -->
             <div class="flex justify-between mt-6">
                 <button type="submit"
-                    class="px-6 py-3 bg-gray-300 text-gray-700 rounded-lg border-2 border-gray-500 hover:bg-gray-400">
+                    class="px-6 py-3 bg-rose-500 text-white rounded-lg border-2 border-black hover:bg-rose-400">
                     Guardar Factura
                 </button>
                 <a href="{{ route('caja.index') }}"
-                    class="px-6 py-3 bg-gray-300 text-gray-700 rounded-lg border-2 border-gray-500 hover:bg-gray-400">
+                    class="px-6 py-3 bg-rose-500 text-white rounded-lg border-2 border-black hover:bg-rose-400">
                     Cancelar
                 </a>
             </div>

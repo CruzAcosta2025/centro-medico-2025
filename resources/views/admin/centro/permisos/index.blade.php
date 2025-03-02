@@ -7,7 +7,7 @@
     <!-- Encabezado -->
     <div class="flex flex-col sm:flex-row justify-between items-center mb-6 border-b pb-4">
         <h2 class="text-2xl font-semibold text-gray-800">Gestión de Permisos</h2>
-        <a href="{{ route('permisos.create') }}" class="bg-red-500 text-white px-4 py-2 rounded-lg shadow-md hover:bg-green-700 transition">
+        <a href="{{ route('permisos.create') }}" class="bg-red-500 text-white px-4 py-2 rounded-lg shadow-md hover:bg-red-700 transition">
             + Crear Nuevo Permiso
         </a>
     </div>
@@ -25,7 +25,7 @@
             </thead>
             <tbody>
                 @foreach ($permisos as $permiso)
-                <tr class="border border-red-500 hover:bg-blue-200 transition">
+                <tr class="border border-red-500 hover:bg-red-200 transition">
                     <td class="px-6 py-4 border border-red-400">{{ $permiso->nombre_modulo }}</td>
                     <td class="px-6 py-4 border border-red-400">{{ $permiso->tipo_permiso }}</td>
                     <td class="px-6 py-4 border border-red-400">{{ $permiso->centroMedico->nombre }}</td>

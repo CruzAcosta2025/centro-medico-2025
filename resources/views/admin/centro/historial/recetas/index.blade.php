@@ -3,7 +3,7 @@
 @section('title', 'Listado de Recetas')
 
 @section('content')
-<div class="max-w-4xl mx-auto p-5 w-11/12">
+<div class="max-w-6xl mx-auto p-6 bg-white shadow-lg rounded-xl">
     <div class="bg-white rounded-lg shadow-md overflow-hidden">
         <div class="bg-gradient-to-r from-rose-500 to-red-600 p-5">
             <h2 class="text-white text-lg sm:text-xl font-semibold m-0">Listado de Recetas</h2>
@@ -32,24 +32,33 @@
             @if ($recetas->isEmpty())
             <p class="text-gray-500">No hay recetas registradas para este paciente.</p>
             @else
+
+            @if ($paciente && $paciente->historialClinico->isNotEmpty())
+            <a href="{{ route('historial.show', $paciente->historialClinico->first()->id_historial) }}"
+                class="inline-block px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 transition">
+                Regresar al Historial
+            </a>
+            @endif
+
+            <!-- Tabla de Pacientes -->
             <div class="overflow-x-auto">
-                <table class="w-full border-collapse">
-                    <thead>
-                        <tr class="bg-gray-100">
-                            <th class="p-3 text-left border-b-2 border-gray-200">Fecha</th>
-                            <th class="p-3 text-left border-b-2 border-gray-200">Médico</th>
-                            <th class="p-3 text-left border-b-2 border-gray-200 w-72">Acciones</th>
+                <table class="min-w-full bg-rose-100 border border-rose-600 rounded-lg shadow-md">
+                    <thead class="bg-rose-600 text-white">
+                        <tr class="bg-rose-600">
+                            <th class="px-6 py-3 text-left border border-rose-700 text-center">Fecha</th>
+                            <th class="px-6 py-3 text-left border border-rose-700 text-center">Médico</th>
+                            <th class="px-6 py-3 text-left border border-rose-700 text-center">Acciones</th>
                         </tr>
                     </thead>
                     <tbody>
                         @foreach ($recetas as $receta)
-                        <tr class="border-b border-gray-200">
-                            <td class="p-3">{{ $receta->fecha_receta }}</td>
-                            <td class="p-3">{{ $receta->personalMedico->usuario->nombre ?? 'No registrado' }}</td>
-                            <td class="p-3">
+                        <tr class="border border-sky-500 hover:bg-rose-200 transition">
+                            <td class="px-6 py-4 border border-rose-500 text-center">{{ $receta->fecha_receta }}</td>
+                            <td class="px-6 py-4 border border-rose-500 text-center">{{ $receta->personalMedico->usuario->nombre ?? 'No registrado' }}</td>
+                            <td class="px-6 py-4 border border-rose-500 text-center">
                                 <div class="flex flex-wrap gap-2">
                                     <a href="{{ route('recetas.edit', [$receta->id_historial, $receta->id_receta]) }}"
-                                        class="px-3 py-1 bg-yellow-500 text-white rounded-md hover:bg-yellow-600 transition">
+                                        class="px-3 py-1 bg-blue-500 text-white rounded-md hover:bg-blue-600 transition">
                                         Editar
                                     </a>
                                     <button class="btn-delete px-3 py-1 bg-red-500 text-white rounded-md hover:bg-red-600 transition"
@@ -78,12 +87,7 @@
             <p class="text-gray-500">Ingrese un DNI para buscar un paciente.</p>
             @endif
 
-            @if ($paciente && $paciente->historialClinico->isNotEmpty())
-            <a href="{{ route('historial.show', $paciente->historialClinico->first()->id_historial) }}"
-                class="inline-block px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 transition">
-                Regresar al Historial
-            </a>
-            @endif
+
         </div>
     </div>
 </div>

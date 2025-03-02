@@ -2,56 +2,27 @@
 @section('title', 'Crear Historial Clínico')
 
 @section('content')
-<div class="card">
-    <h2 class="text-2xl font-bold mb-4">Crear Historial Clínico</h2>
+<div class="max-w-3xl mx-auto p-6 bg-white rounded-2xl shadow-xl mt-10 border border-gray-200">
+    <h2 class="text-3xl font-bold text-gray-950 mb-6">Crear Historial Clínico</h2>
 
     <form action="{{ route('historial.store', ['idPaciente' => $paciente->id_paciente]) }}" method="POST">
         @csrf
-        <div class="form-group">
-            <label for="fecha_creacion">Fecha de Creación</label>
-            <input type="date" name="fecha_creacion" id="fecha_creacion" required>
+        <div class="mb-6">
+            <label for="fecha_creacion" class="block text-lg font-medium text-gray-700">Fecha de Creación</label>
+            <input type="date" name="fecha_creacion" id="fecha_creacion" required
+                class="mt-2 w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-4 focus:ring-lime-500 transition duration-300">
         </div>
 
-        <button type="submit" class="btn btn-create">Guardar Historial</button>
-        <a href="{{ route('historial.index') }}" class="btn btn-cancel">Cancelar</a>
+        <div class="flex space-x-4">
+            <button type="submit"
+                class="px-6 py-3 bg-blue-600 text-white rounded-lg shadow-md hover:bg-blue-700 focus:outline-none focus:ring-4 focus:ring-blue-300 transition duration-300">
+                Guardar Historial
+            </button>
+            <a href="{{ route('historial.index') }}"
+                class="px-6 py-3 bg-gray-600 text-white rounded-lg shadow-md hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-gray-400 transition duration-300">
+                Cancelar
+            </a>
+        </div>
     </form>
 </div>
 @endsection
-
-<style>
-.form-group {
-    margin-bottom: 1rem;
-}
-
-.form-group label {
-    font-weight: bold;
-}
-
-.form-group input {
-    width: 100%;
-    padding: 8px;
-    border: 1px solid #ddd;
-    border-radius: 4px;
-}
-
-.btn {
-    padding: 6px 12px;
-    border-radius: 4px;
-    text-decoration: none;
-    color: #fff;
-    display: inline-block;
-    margin-right: 5px;
-}
-
-.btn-create {
-    background-color: #3b82f6;
-}
-
-.btn-cancel {
-    background-color: #6b7280;
-}
-
-.btn:hover {
-    opacity: 0.9;
-}
-</style>

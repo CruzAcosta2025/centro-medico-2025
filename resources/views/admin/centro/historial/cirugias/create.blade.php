@@ -3,9 +3,10 @@
 @section('title', 'Registrar Cirugía')
 
 @section('content')
-<div class="max-w-2xl mx-auto p-6 w-11/12">
-    <div class="bg-white border-2 border-black rounded-lg shadow-lg p-6">
-        <h2 class="text-2xl font-bold text-gray-800 mb-4">Registrar Cirugía</h2>
+<div class="max-w-lg mx-auto p-6 bg-white shadow-lg rounded-lg border-2 border-black">
+    <div class="px-6 py-4 bg-indigo-700 rounded-t-lg">
+        <h2 class="text-3xl font-semibold text-white text-center">Registrar Cirugía</h2>
+    </div>
 
         <form action="{{ route('cirugias.store', $historial->id_historial) }}" method="POST">
             @csrf
@@ -14,20 +15,20 @@
             <div class="mb-4">
                 <label for="tipo_cirugia" class="block font-bold text-gray-800 mb-1">Tipo de Cirugía</label>
                 <input type="text" name="tipo_cirugia" id="tipo_cirugia" value="{{ old('tipo_cirugia') }}" required
-                    class="w-full p-3 border border-black rounded-md bg-gray-100 focus:ring-2 focus:ring-blue-500">
+                    class="w-full bg-indigo-100 p-2 border border-black rounded">
             </div>
 
             <!-- Fecha de la Cirugía -->
             <div class="mb-4">
                 <label for="fecha_cirugia" class="block font-bold text-gray-800 mb-1">Fecha de la Cirugía</label>
                 <input type="date" name="fecha_cirugia" id="fecha_cirugia" value="{{ old('fecha_cirugia') }}" required
-                    class="w-full p-3 border border-black rounded-md bg-gray-100 focus:ring-2 focus:ring-blue-500">
+                    class="w-full bg-indigo-100 p-2 border border-black rounded">
             </div>
 
             <!-- Especialidad -->
             <div class="mb-4">
                 <label for="especialidad" class="block font-bold text-gray-800 mb-1">Especialidad</label>
-                <select id="especialidad" class="w-full p-3 border border-black rounded-md bg-gray-100 focus:ring-2 focus:ring-blue-500">
+                <select id="especialidad" class="w-full bg-indigo-100 p-2 border border-black rounded">
                     <option value="">Seleccione una especialidad</option>
                     @foreach ($especialidades as $especialidad)
                         <option value="{{ $especialidad->id_especialidad }}">{{ $especialidad->nombre_especialidad }}</option>
@@ -39,7 +40,7 @@
             <div class="mb-4">
                 <label for="cirujano" class="block font-bold text-gray-800 mb-1">Cirujano</label>
                 <select id="cirujano" name="cirujano"
-                    class="w-full p-3 border border-black rounded-md bg-gray-100 focus:ring-2 focus:ring-blue-500">
+                    class="w-full bg-indigo-100 p-2 border border-black rounded">
                     <option value="">Seleccione un cirujano</option>
                 </select>
             </div>
@@ -48,31 +49,31 @@
             <div class="mb-4">
                 <label for="descripcion" class="block font-bold text-gray-800 mb-1">Descripción</label>
                 <textarea name="descripcion" id="descripcion" rows="3"
-                    class="w-full p-3 border border-black rounded-md bg-gray-100 focus:ring-2 focus:ring-blue-500 resize-y">{{ old('descripcion') }}</textarea>
+                    class="w-full bg-indigo-100 p-2 border border-black rounded">{{ old('descripcion') }}</textarea>
             </div>
 
             <!-- Complicaciones -->
             <div class="mb-4">
                 <label for="complicaciones" class="block font-bold text-gray-800 mb-1">Complicaciones</label>
                 <textarea name="complicaciones" id="complicaciones" rows="3"
-                    class="w-full p-3 border border-black rounded-md bg-gray-100 focus:ring-2 focus:ring-blue-500 resize-y">{{ old('complicaciones') }}</textarea>
+                    class="w-full bg-indigo-100 p-2 border border-black rounded">{{ old('complicaciones') }}</textarea>
             </div>
 
             <!-- Notas Postoperatorias -->
             <div class="mb-4">
                 <label for="notas_postoperatorias" class="block font-bold text-gray-800 mb-1">Notas Postoperatorias</label>
                 <textarea name="notas_postoperatorias" id="notas_postoperatorias" rows="3"
-                    class="w-full p-3 border border-black rounded-md bg-gray-100 focus:ring-2 focus:ring-blue-500 resize-y">{{ old('notas_postoperatorias') }}</textarea>
+                    class="w-full bg-indigo-100 p-2 border border-black rounded">{{ old('notas_postoperatorias') }}</textarea>
             </div>
 
             <!-- Botones -->
             <div class="flex justify-end space-x-4 mt-6">
                 <a href="{{ route('cirugias.index', ['dni' => $paciente->dni]) }}"
-                    class="px-5 py-2 bg-gray-600 hover:bg-gray-700 text-white font-bold rounded-lg border border-black">
+                    class="px-10 py-3 bg-indigo-600 text-white rounded-lg border-2 border-black hover:bg-indigo-400">
                     Cancelar
                 </a>
                 <button type="submit"
-                    class="px-5 py-2 bg-blue-500 hover:bg-blue-600 text-white font-bold rounded-lg border border-black">
+                    class="px-10 py-3 bg-indigo-600 text-white rounded-lg border-2 border-black hover:bg-indigo-400">
                     Guardar
                 </button>
             </div>

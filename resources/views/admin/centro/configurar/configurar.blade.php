@@ -3,58 +3,55 @@
 @section('title', 'Configurar Centro Médico')
 
 @section('content')
-<div style="max-width: 600px; margin: 0 auto; padding: 20px;">
-    <h2 style="text-align: center; color: {{ $centroMedico->color_tema ?? '#004643' }};">Configurar Centro Médico</h2>
+<div class="max-w-xl mx-auto p-6 bg-white rounded-2xl shadow-lg border border-gray-200">
+    <h2 class="text-center text-xl font-semibold" style="color: {{ $centroMedico->color_tema ?? '#004643' }};">
+        Configurar Centro Médico
+    </h2>
 
     @if (session('success'))
-        <p style="color: green; text-align: center;">{{ session('success') }}</p>
+    <p class="text-green-600 text-center font-medium">{{ session('success') }}</p>
     @endif
 
-    <form action="{{ route('configurar.centro.update') }}" method="POST" enctype="multipart/form-data"
-        style="background: #ffffff; padding: 20px; border-radius: 8px; box-shadow: 0 0 10px rgba(0,0,0,0.1);">
+    <form action="{{ route('configurar.centro.update') }}" method="POST" enctype="multipart/form-data" class="mt-4 space-y-4">
         @csrf
         @method('PUT')
 
-        <div style="margin-bottom: 20px;">
-            <label for="nombre">Nombre del Centro Médico</label>
-            <input type="text" name="nombre" id="nombre" value="{{ old('nombre', $centroMedico->nombre) }}"
-                style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 4px;">
-            @error('nombre') <p style="color: red;">{{ $message }}</p> @enderror
+        <div>
+            <label for="nombre" class="block text-gray-700 font-medium">Nombre del Centro Médico</label>
+            <input type="text" name="nombre" id="nombre" value="{{ old('nombre', $centroMedico->nombre) }}" class="w-full p-2 border rounded-lg focus:ring-2 focus:ring-lime-500">
+            @error('nombre') <p class="text-red-500 text-sm">{{ $message }}</p> @enderror
         </div>
 
-        <div style="margin-bottom: 20px;">
-            <label for="direccion">Dirección</label>
-            <input type="text" name="direccion" id="direccion" value="{{ old('direccion', $centroMedico->direccion) }}"
-                style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 4px;">
-            @error('direccion') <p style="color: red;">{{ $message }}</p> @enderror
+        <div>
+            <label for="direccion" class="block text-gray-700 font-medium">Dirección</label>
+            <input type="text" name="direccion" id="direccion" value="{{ old('direccion', $centroMedico->direccion) }}" class="w-full p-2 border rounded-lg focus:ring-2 focus:ring-lime-500">
+            @error('direccion') <p class="text-red-500 text-sm">{{ $message }}</p> @enderror
         </div>
 
-        <div style="margin-bottom: 20px;">
-            <label for="ruc">RUC</label>
-            <input type="text" name="ruc" id="ruc" value="{{ old('ruc', $centroMedico->ruc) }}"
-                style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 4px;">
-            @error('ruc') <p style="color: red;">{{ $message }}</p> @enderror
+        <div>
+            <label for="ruc" class="block text-gray-700 font-medium">RUC</label>
+            <input type="text" name="ruc" id="ruc" value="{{ old('ruc', $centroMedico->ruc) }}" class="w-full p-2 border rounded-lg focus:ring-2 focus:ring-lime-500">
+            @error('ruc') <p class="text-red-500 text-sm">{{ $message }}</p> @enderror
         </div>
 
-        <div style="margin-bottom: 20px;">
-            <label for="color_tema">Color del Tema</label>
-            <input type="color" name="color_tema" id="color_tema" value="{{ old('color_tema', $centroMedico->color_tema) }}"
-                style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 4px;">
-            @error('color_tema') <p style="color: red;">{{ $message }}</p> @enderror
+        <div>
+            <label for="color_tema" class="block text-gray-700 font-medium">Color del Tema</label>
+            <input type="color" name="color_tema" id="color_tema" value="{{ old('color_tema', $centroMedico->color_tema) }}" class="w-full p-2 border rounded-lg">
+            @error('color_tema') <p class="text-red-500 text-sm">{{ $message }}</p> @enderror
         </div>
 
-        <div style="margin-bottom: 20px;">
-            <label for="logo">Logo</label>
-            <input type="file" name="logo" id="logo" style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 4px;">
+        <div>
+            <label for="logo" class="block text-gray-700 font-medium">Logo</label>
+            <input type="file" name="logo" id="logo" class="w-full p-2 border rounded-lg">
             @if ($centroMedico->logo)
-                <p>Logo Actual:</p>
-                <img src="{{ asset('storage/' . $centroMedico->logo) }}" alt="Logo Centro Médico" style="max-width: 100px; height: auto;">
+            <p class="text-sm mt-2">Logo Actual:</p>
+            <img src="{{ asset('storage/' . $centroMedico->logo) }}" alt="Logo Centro Médico" class="max-w-24 h-auto mt-2 border rounded-lg">
             @endif
-            @error('logo') <p style="color: red;">{{ $message }}</p> @enderror
+            @error('logo') <p class="text-red-500 text-sm">{{ $message }}</p> @enderror
         </div>
 
-        <div style="text-align: center;">
-            <button type="submit" style="background: #006d62; color: #fff; padding: 10px 20px; border: none; border-radius: 4px;">
+        <div class="text-center">
+            <button type="submit" class="bg-lime-600 text-white px-4 py-2 rounded-lg shadow-md hover:bg-lime-700 transition duration-300">
                 Guardar Cambios
             </button>
         </div>

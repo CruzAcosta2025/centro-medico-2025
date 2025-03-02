@@ -13,35 +13,44 @@
     <div class="p-6">
         <h3 class="mb-4 text-lg font-semibold">Paciente: {{ $receta->historialClinico->paciente->primer_nombre }} {{ $receta->historialClinico->paciente->primer_apellido }}</h3>
 
-        <a href="{{ route('medicamentos.create', $receta->id_receta) }}" class="bg-green-600 text-white px-4 py-2 rounded-lg shadow-md hover:bg-green-700 transition">
+        <a href="{{ route('medicamentos.create', $receta->id_receta) }}"
+            class="inline-block px-4 py-2 bg-green-500 text-white rounded-md hover:bg-green-600 transition">
             Añadir Medicamento
+        </a>
+
+        <a href="{{ route('recetas.index', ['dni' => $receta->historialClinico->paciente->dni]) }}"
+            class="inline-block mt-6 bg-blue-600 text-white px-4 py-2 rounded-lg shadow-md hover:bg-blue-700 transition">
+            Regresar a Recetas
         </a>
 
         @if ($medicamentos->isEmpty())
         <p class="text-gray-500 mt-4">No hay medicamentos registrados para esta receta.</p>
         @else
+
+        <!-- Tabla de Pacientes -->
         <div class="overflow-x-auto mt-6">
-            <table class="w-full border border-gray-300 rounded-lg shadow-md">
-                <thead class="bg-gray-100">
-                    <tr>
-                        <th class="px-6 py-3 text-left border-b">Medicamento</th>
-                        <th class="px-6 py-3 text-left border-b">Dosis</th>
-                        <th class="px-6 py-3 text-left border-b">Frecuencia</th>
-                        <th class="px-6 py-3 text-left border-b">Duración</th>
-                        <th class="px-6 py-3 text-left border-b">Instrucciones</th>
-                        <th class="px-6 py-3 text-center border-b">Acciones</th>
+            <table class="min-w-full bg-green-100 border border-rose-600 rounded-lg shadow-md">
+                <thead class="bg-green-600 text-white">
+                    <tr class="bg-green-600">
+                        <th class="px-6 py-3 text-left border border-green-700 text-center">Medicamento</th>
+                        <th class="px-6 py-3 text-left border border-green-700 text-center">Dosis</th>
+                        <th class="px-6 py-3 text-left border border-green-700 text-center">Frecuencia</th>
+                        <th class="px-6 py-3 text-left border border-green-700 text-center">Duración</th>
+                        <th class="px-6 py-3 text-left border border-green-700 text-center">Instrucciones</th>
+                        <th class="px-6 py-3 text-left border border-green-700 text-center">Acciones</th>
                     </tr>
                 </thead>
                 <tbody>
                     @foreach ($medicamentos as $medicamento)
-                    <tr class="border-b hover:bg-gray-100 transition">
-                        <td class="px-6 py-4">{{ $medicamento->medicamento }}</td>
-                        <td class="px-6 py-4">{{ $medicamento->dosis }}</td>
-                        <td class="px-6 py-4">{{ $medicamento->frecuencia }}</td>
-                        <td class="px-6 py-4">{{ $medicamento->duracion }}</td>
-                        <td class="px-6 py-4 max-w-xs break-words">{!! nl2br(e($medicamento->instrucciones ?? 'Sin instrucciones')) !!}</td>
+                    <tr class="border border-green-500 hover:bg-green-200 transition">
+                        <td class="px-6 py-4 border border-green-500 text-center">{{ $medicamento->medicamento }}</td>
+                        <td class="px-6 py-4 border border-green-500 text-center">{{ $medicamento->dosis }}</td>
+                        <td class="px-6 py-4 border border-green-500 text-center">{{ $medicamento->frecuencia }}</td>
+                        <td class="px-6 py-4 border border-green-500 text-center">{{ $medicamento->duracion }}</td>
+                        <td class="px-6 py-4 border border-green-500 text-center">{!! nl2br(e($medicamento->instrucciones ?? 'Sin instrucciones')) !!}</td>
                         <td class="px-6 py-4 flex flex-wrap justify-center gap-2">
-                            <a href="{{ route('medicamentos.edit', [$receta->id_receta, $medicamento->id_medicamento_receta]) }}" class="bg-yellow-600 text-white px-3 py-2 rounded-md hover:bg-yellow-700 transition">
+                            <a href="{{ route('medicamentos.edit', [$receta->id_receta, $medicamento->id_medicamento_receta]) }}"
+                                class="bg-blue-600 text-white px-3 py-2 rounded-md hover:bg-blue-700 transition">
                                 Editar
                             </a>
                             <button class="bg-red-600 text-white px-3 py-2 rounded-md hover:bg-red-700 transition btn-delete" data-url="{{ route('medicamentos.destroy', [$receta->id_receta, $medicamento->id_medicamento_receta]) }}">
@@ -55,9 +64,7 @@
         </div>
         @endif
 
-        <a href="{{ route('recetas.index', ['dni' => $receta->historialClinico->paciente->dni]) }}" class="inline-block mt-6 bg-gray-600 text-white px-4 py-2 rounded-lg shadow-md hover:bg-gray-700 transition">
-            Regresar a Recetas
-        </a>
+
     </div>
 </div>
 
