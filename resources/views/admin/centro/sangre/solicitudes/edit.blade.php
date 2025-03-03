@@ -1,4 +1,5 @@
-@extends($layout)
+@extends('layouts.admin-centro')
+
 @section('title', 'Editar Solicitud de Sangre')
 
 @section('content')

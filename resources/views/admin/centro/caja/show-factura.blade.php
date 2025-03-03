@@ -1,5 +1,4 @@
-@extends($layout)
-
+@extends('layouts.admin-centro')
 @section('title', 'Detalle de Factura')
 
 @section('content')

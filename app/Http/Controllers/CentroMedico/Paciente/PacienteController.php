@@ -71,7 +71,6 @@ class PacienteController extends Controller
             'primer_apellido' => $request->primer_apellido,
             'segundo_apellido' => $request->segundo_apellido,
             'fecha_nacimiento' => $request->fecha_nacimiento,
-            'genero' => $request->genero,
             'dni' => $request->dni,
             'direccion' => $request->direccion,
             'telefono' => $request->telefono,
@@ -80,7 +79,7 @@ class PacienteController extends Controller
             'nombre_contacto_emergencia' => $request->nombre_contacto_emergencia,
             'telefono_contacto_emergencia' => $request->telefono_contacto_emergencia,
             'relacion_contacto_emergencia' => $request->relacion_contacto_emergencia,
-            'es_donador' => $request->es_donador,
+            
         ]);
 
         return redirect()->route('pacientes.index')->with('success', 'Paciente creado exitosamente.');
@@ -143,7 +142,7 @@ class PacienteController extends Controller
             'primer_apellido' => 'required|string|max:50',
             'segundo_apellido' => 'nullable|string|max:50',
             'fecha_nacimiento' => 'required|date',
-            'genero' => 'required|string|max:10',
+            
             'dni' => ['required', 'string', 'max:20', $uniqueDni],
             'direccion' => 'nullable|string',
             'telefono' => 'nullable|string|max:20',
@@ -152,7 +151,7 @@ class PacienteController extends Controller
             'nombre_contacto_emergencia' => 'nullable|string|max:191',
             'telefono_contacto_emergencia' => 'nullable|string|max:20',
             'relacion_contacto_emergencia' => 'nullable|string|max:50',
-            'es_donador' => 'required|string|in:SI,NO,POR_EXAMINAR',
+            
         ]);
     }
 }

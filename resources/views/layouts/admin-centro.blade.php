@@ -24,8 +24,8 @@
                 <li>
                     <button class="w-full bg-blue-800 text-left px-4 py-2 rounded-md hover:bg-blue-900 transition" onclick="toggleDropdown('gestion')">Gestión</button>
                     <ul id="gestion" class="hidden space-y-2 mt-2 pl-4">
-                        <li><a href="{{ route('roles.index') }}" class="block px-4 py-2 bg-blue-700 rounded-md hover:bg-blue-800 transition">Gestión de Roles</a></li>
-                        <li><a href="{{ route('permisos.index') }}" class="block px-4 py-2 bg-blue-700 rounded-md hover:bg-blue-800 transition">Gestión de Permisos</a></li>
+                        <li><a href="{{ route('roles.index') }}" class="block px-4 py-2 bg-blue-700 rounded-md hover:bg-blue-800 transition">Gestión de Roles</a></li> 
+                        <!-- <li><a href="{{ route('permisos.index') }}" class="block px-4 py-2 bg-blue-700 rounded-md hover:bg-blue-800 transition">Gestión de Permisos</a></li> -->
                         <li><a href="{{ route('usuarios-centro.index') }}" class="block px-4 py-2 bg-blue-700 rounded-md hover:bg-blue-800 transition">Gestión de Usuarios</a></li>
                         <li><a href="{{ route('configurar.centro') }}" class="block px-4 py-2 bg-blue-800 rounded-md hover:bg-blue-900 transition">Configurar</a></li>
                         <li><a href="{{ route('caja.index') }}" class="block px-4 py-2 bg-blue-800 rounded-md hover:bg-blue-900 transition">Facturación</a></li>
@@ -95,6 +95,34 @@
             document.getElementById(id).classList.toggle('hidden');
         }
     </script>
+
+    <!-- Scripts -->
+    <script>
+        function toggleMenu() {
+            const sidebar = document.querySelector('aside');
+            sidebar.classList.toggle('hidden');
+        }
+
+        function toggleDropdown(id) {
+            document.getElementById(id).classList.toggle('hidden');
+        }
+    </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    @if(session('success'))
+    <script>
+        Swal.fire({
+            icon: 'success',
+            title: '¡Éxito!',
+            text: '{{ session("success") }}',
+            confirmButtonColor: '#3085d6',
+            confirmButtonText: 'Aceptar'
+        });
+    </script>
+    @endif
+    @yield('scripts') <!-- Esto permite inyectar scripts en otras vistas -->
+
+
 </body>
 
 </html>

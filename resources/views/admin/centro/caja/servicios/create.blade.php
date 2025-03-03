@@ -57,14 +57,16 @@
 
             <!-- Botones -->
             <div class="flex justify-between mt-6">
-                <a href="{{ route('servicios.index') }}"
-                    class="px-6 py-3 bg-orange-400 text-white rounded-lg border-2 border-black hover:bg-orange-300">
-                    Cancelar
-                </a>
+
                 <button type="submit"
                     class="px-6 py-3 bg-orange-400 text-white rounded-lg border-2 border-black hover:bg-orange-300">
                     Guardar
                 </button>
+
+                <a href="{{ route('servicios.index') }}"
+                    class="px-6 py-3 bg-orange-400 text-white rounded-lg border-2 border-black hover:bg-orange-300">
+                    Cancelar
+                </a>
             </div>
         </form>
     </div>

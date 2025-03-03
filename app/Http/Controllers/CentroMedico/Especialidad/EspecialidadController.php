@@ -52,8 +52,8 @@ class EspecialidadController extends Controller
     public function edit($id)
     {
         $especialidad = Especialidad::where('id_especialidad', $id)
-                                    ->where('id_centro', Auth::user()->id_centro)
-                                    ->firstOrFail();
+            ->where('id_centro', Auth::user()->id_centro)
+            ->firstOrFail();
 
         return view('admin.centro.especialidad.edit', compact('especialidad'));
     }
@@ -61,8 +61,8 @@ class EspecialidadController extends Controller
     public function update(Request $request, $id)
     {
         $especialidad = Especialidad::where('id_especialidad', $id)
-                                    ->where('id_centro', Auth::user()->id_centro)
-                                    ->firstOrFail();
+            ->where('id_centro', Auth::user()->id_centro)
+            ->firstOrFail();
 
         $request->validate([
             'nombre_especialidad' => [
@@ -94,8 +94,8 @@ class EspecialidadController extends Controller
     public function destroy($id)
     {
         $especialidad = Especialidad::where('id_especialidad', $id)
-                                    ->where('id_centro', Auth::user()->id_centro)
-                                    ->firstOrFail();
+            ->where('id_centro', Auth::user()->id_centro)
+            ->firstOrFail();
 
         $especialidad->delete();
 

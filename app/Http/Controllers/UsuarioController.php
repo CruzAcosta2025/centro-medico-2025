@@ -26,17 +26,22 @@ class UsuarioController extends Controller
         }
 
         if ($usuarioActual->rol->nombre_rol === 'Administrador Global') {
+            // ✅ Mostrar los tres roles
             $roles = Rol::whereIn('nombre_rol', ['Administrador Global', 'Administrador Centro Médico'])->get();
+            // ✅ Mostrar todos los centros médicos
             $centros = CentroMedico::all();
         } elseif ($usuarioActual->rol->nombre_rol === 'Administrador Centro Médico') {
-            $roles = Rol::whereNotIn('nombre_rol', ['Administrador Global', 'Administrador Centro Médico'])->get();
-            $centros = CentroMedico::where('id_centro', $usuarioActual->id_centro)->get();
+            // ✅ Filtrar roles correctamente
+            $roles = Rol::all();
+            // ✅ Mantener solo su centro médico
+            $centros = CentroMedico::all();
         } else {
             abort(403, 'No tienes permiso para crear usuarios.');
         }
 
         return view('admin.global.usuarios.create', compact('roles', 'centros'));
     }
+
 
     public function store(Request $request)
     {
@@ -82,8 +87,8 @@ class UsuarioController extends Controller
             if ($usuario->id_centro !== $usuarioActual->id_centro) {
                 abort(403, 'No tienes permiso para editar este usuario.');
             }
-            $roles = Rol::whereNotIn('nombre_rol', ['Administrador Global', 'Administrador Centro Médico'])->get();
-            $centros = CentroMedico::where('id_centro', $usuarioActual->id_centro)->get();
+            $roles = Rol::all();
+            $centros = CentroMedico::all();
         } else {
             abort(403, 'No tienes permiso para editar usuarios.');
         }
@@ -138,7 +143,7 @@ class UsuarioController extends Controller
 
         // Eliminar primero los horarios de cada personal médico asociado a este usuario
         foreach ($usuario->personalMedico as $personal) {
-            $personal->horarios()->delete(); // ⬅️ Primero eliminamos los horarios
+            $personal->horariosMedicos()->delete(); // ⬅️ Primero eliminamos los horarios
             $personal->consultas()->delete(); // ⬅️ Luego eliminamos las consultas
         }
 

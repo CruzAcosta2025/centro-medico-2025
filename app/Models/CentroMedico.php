@@ -42,4 +42,5 @@ class CentroMedico extends Model
     {
         return $this->hasMany(Permiso::class, 'id_centro');
     }
+
 }

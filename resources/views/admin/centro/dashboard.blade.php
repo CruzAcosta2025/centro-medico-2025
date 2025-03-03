@@ -1,5 +1,5 @@
 {{-- resources/views/admin/centro/dashboard.blade.php --}}
-@extends($layout)
+@extends('layouts.admin-centro')
 
 @section('title', 'Panel de Control del Centro Médico')
 

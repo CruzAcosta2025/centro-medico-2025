@@ -83,13 +83,13 @@ class RolController extends Controller
     }
         */
 
-        public function edit($id)
-        {
-            $rol = Rol::findOrFail($id); // Encuentra el rol o lanza un error 404
-            $rolesPermitidos = ['Administrador Centro Médico', 'Médico/a', 'Técnico', 'Enfermero/a', 'Personal Administrativo']; // Lista de roles válidos
+    public function edit($id)
+    {
+        $rol = Rol::findOrFail($id); // Encuentra el rol o lanza un error 404
+        $rolesPermitidos = ['Administrador Centro Médico', 'Médico/a', 'Técnico', 'Enfermero/a', 'Personal Administrativo']; // Lista de roles válidos
 
-            return view('admin.centro.roles.edit', compact('rol', 'rolesPermitidos'));
-        }
+        return view('admin.centro.roles.edit', compact('rol', 'rolesPermitidos'));
+    }
 
 
     public function update(Request $request, $id)

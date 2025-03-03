@@ -1,4 +1,4 @@
-@extends($layout)
+@extends('layouts.admin-centro')
 
 @section('title', 'Agregar Personal Médico')
 
@@ -6,7 +6,7 @@
 <div class="container mx-auto px-4 py-8">
     <div class="max-w-2xl mx-auto bg-white p-6 rounded-xl shadow-lg border-2 border-black">
         <div class="px-6 py-4 bg-amber-500">
-            <h2 class="text-3xl font-semibold text-white text-center">Agregar Personal Médico</h2>
+           <h2 class="text-3xl font-semibold text-white text-center">Agregar Personal Médico</h2>
         </div>
 
         @if ($errors->any())

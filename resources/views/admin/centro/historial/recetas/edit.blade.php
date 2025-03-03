@@ -1,4 +1,4 @@
-@extends($layout)
+@extends('layouts.admin-centro')
 
 @section('title', 'Editar Receta')
 

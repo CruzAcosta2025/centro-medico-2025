@@ -1,6 +1,7 @@
 <!-- resources/views/layouts/app.blade.php -->
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="csrf-token" content="{{ csrf_token() }}">
@@ -8,6 +9,7 @@
     <title>@yield('title', 'Panel de Administración')</title>
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
+
 <body class="bg-gray-100 min-h-screen">
     <nav class="bg-blue-900 p-4 text-white shadow-md">
         <div class="container mx-auto flex justify-between items-center">
@@ -31,5 +33,22 @@
     <main class="container mx-auto p-6">
         @yield('content')
     </main>
+
+    <!-- SweetAlert -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    @if(session('success'))
+    <script>
+        Swal.fire({
+            icon: 'success',
+            title: '¡Éxito!',
+            text: '{{ session("success") }}',
+            confirmButtonColor: '#3085d6',
+            confirmButtonText: 'Aceptar'
+        });
+    </script>
+    @endif
+    @yield('scripts') <!-- Esto permite inyectar scripts en otras vistas -->
+
 </body>
+
 </html>
